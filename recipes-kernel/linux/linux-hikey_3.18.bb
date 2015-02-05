@@ -5,10 +5,10 @@ DEPENDS_append_aarch64 = " libgcc"
 
 DESCRIPTION = "Hisilicon 3.18 Kernel"
 
-PV = "3.18+git${SRCPV}"
-SRCREV_kernel="6638ab960e3ccfadbb480958dfd28e0c11ea77b2"
+PV = "3.18+3.19-rc7+git${SRCPV}"
+SRCREV_kernel="adbffafcac56f9f9b16e1bcb9d355e3614ed56b8"
 
-SRC_URI = "git://koen.kooi@hisilicon.git.linaro.org/srv/landing-teams.git.linaro.org/hisilicon/v8r2-kernel.git;protocol=ssh;branch=hikey-android;name=kernel \
+SRC_URI = "git://github.com/96boards/linux.git;branch=hikey-mainline-rebase;name=kernel \
            file://0001-CRDA-add-full-db-into-kernel.patch \
            file://defconfig \
           "
