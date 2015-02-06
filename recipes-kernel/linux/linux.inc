@@ -203,7 +203,7 @@ do_install_append() {
 	oe_runmake firmware_install INSTALL_MOD_PATH=${D} ARCH=$ARCH
 	install -d ${D}/boot
 	make -C ${S} O=${B} dtbs || true
-	install -m 0644 ${B}/arch/arm/boot/dts/*.dtb ${D}/boot || true
+	install -m 0644 ${B}/arch/$ARCH/boot/dts/*.dtb ${D}/boot || true
 
 	install -d ${D}/lib/firmware
 	install -m 0644 ${S}/firmware/capes/*.dts ${D}/lib/firmware || true
