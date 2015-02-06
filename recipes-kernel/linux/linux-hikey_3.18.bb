@@ -17,4 +17,4 @@ S = "${WORKDIR}/git"
 COMPATIBLE_MACHINE = "hikey"
 KERNEL_IMAGETYPE ?= "Image"
 
-KERNEL_DEVICETREE = "${S}/arch/arm64/boot/dts/hi6220-hikey.dts"
+KERNEL_DEVICETREE = "${S}/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts"
