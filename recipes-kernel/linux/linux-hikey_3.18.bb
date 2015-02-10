@@ -5,10 +5,10 @@ DEPENDS_append_aarch64 = " libgcc"
 
 DESCRIPTION = "Hisilicon 3.18 Kernel"
 
-PV = "3.18+3.19-rc7+git${SRCPV}"
-SRCREV_kernel="adbffafcac56f9f9b16e1bcb9d355e3614ed56b8"
+PV = "3.18+git${SRCPV}"
+SRCREV_kernel="fa1507a04de310ae2b32a98c9da14e63eec0fc11"
 
-SRC_URI = "git://github.com/96boards/linux.git;branch=hikey-mainline-rebase;name=kernel \
+SRC_URI = "git://github.com/96boards/linux.git;branch=hikey-android-public;name=kernel \
            file://0001-CRDA-add-full-db-into-kernel.patch \
            file://defconfig \
           "
@@ -17,4 +17,4 @@ S = "${WORKDIR}/git"
 COMPATIBLE_MACHINE = "hikey"
 KERNEL_IMAGETYPE ?= "Image"
 
-KERNEL_DEVICETREE = "${S}/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts"
+KERNEL_DEVICETREE = "hi6220-hikey.dtb"
