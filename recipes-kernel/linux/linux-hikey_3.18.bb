@@ -6,7 +6,7 @@ DEPENDS_append_aarch64 = " libgcc"
 DESCRIPTION = "Hisilicon 3.18 Kernel"
 
 PV = "3.18+git${SRCPV}"
-SRCREV_kernel="fa1507a04de310ae2b32a98c9da14e63eec0fc11"
+SRCREV_kernel="cb315f20fdf63bc8596268000083d77396f38e87"
 
 SRC_URI = "git://github.com/96boards/linux.git;branch=hikey-android-public;name=kernel \
            file://0001-CRDA-add-full-db-into-kernel.patch \
