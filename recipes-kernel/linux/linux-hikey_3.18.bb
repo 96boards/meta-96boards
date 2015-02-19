@@ -3,12 +3,11 @@ require linux.inc
 DESCRIPTION = "Hisilicon 3.18 Kernel"
 
 PV = "3.18+git${SRCPV}"
-SRCREV_kernel="a6e868e500218441c99f757f8f8cebdbfcec0f67"
+SRCREV_kernel="32f267d47695236c41c88bd90e9f78a9741f19a6"
 
 SRC_URI = "git://github.com/96boards/linux.git;branch=hikey;name=kernel \
            file://0001-CRDA-add-full-db-into-kernel.patch \
            file://defconfig \
-           file://0001-arm64-kill-off-the-libgcc-dependency.patch\
           "
 S = "${WORKDIR}/git"
 
