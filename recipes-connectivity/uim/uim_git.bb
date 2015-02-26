@@ -7,7 +7,7 @@ inherit systemd
 # Doesn't have a version, so we'll make one up
 PV = "0.0"
 
-SRCREV = "b36b39cbfb0d2c6a3b9231d530b2bd4ca234421e"
+SRCREV = "24535fcc2708e00d88c95ce0f285fa3d917d9472"
 SRC_URI = "git://github.com/96boards/uim.git"
 
 S= "${WORKDIR}/git"
@@ -21,7 +21,10 @@ do_install() {
 	install -m 0644 ${S}/systemd/system/ti-uim.service ${D}${systemd_unitdir}/system
 
 	install -d ${D}/lib/udev/rules.d
-	install -m 0644 ${S}/udev/rules.d/60-ti-uim.rules ${D}/lib/udev/rules.d
+	install -m 0644 ${S}/udev/rules.d/*.rules ${D}/lib/udev/rules.d
+
+	install -d ${D}${sysconfdir}/modprobe.d
+	install -m 0644 ${S}/modprobe.d/*.conf ${D}${sysconfdir}/modprobe.d/
 }
 
 SYSTEMD_SERVICE_${PN} = "ti-uim.service"
