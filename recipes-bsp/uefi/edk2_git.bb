@@ -25,6 +25,11 @@ SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
           "
 
+SRC_URI_append_hikey = " \
+           file://0001-HiKey.dsc-clean-up-bootargs.patch \
+           file://0002-HiKey.dsc-boot-linux-in-UEFI-mode.patch \
+          "
+
 S = "${WORKDIR}/git"
 
 export AARCH64_TOOLCHAIN = "GCC49"
