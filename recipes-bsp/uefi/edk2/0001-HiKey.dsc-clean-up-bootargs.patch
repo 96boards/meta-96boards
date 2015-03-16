@@ -1,0 +1,28 @@
+From 9babd4730d57a57d8e8e4353646e898e7d2cd0e9 Mon Sep 17 00:00:00 2001
+From: Koen Kooi <koen@dominion.thruhere.net>
+Date: Tue, 10 Mar 2015 15:37:21 +0100
+Subject: [PATCH 1/2] HiKey.dsc: clean up bootargs
+
+The default bootargs shouldn't have tons of debug. Also use 'rootwait' to avoid a bootrace and mount RO by default to allow for fscks.
+
+Signed-off-by: Koen Kooi <koen.kooi@linaro.org>
+---
+ HisiPkg/HiKeyPkg/HiKey.dsc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/HisiPkg/HiKeyPkg/HiKey.dsc b/HisiPkg/HiKeyPkg/HiKey.dsc
+index d82b958..e2fa13d 100644
+--- a/HisiPkg/HiKeyPkg/HiKey.dsc
++++ b/HisiPkg/HiKeyPkg/HiKey.dsc
+@@ -127,7 +127,7 @@
+   gArmPlatformTokenSpaceGuid.PcdDefaultBootDevicePath|L"VenHw(B549F005-4BD4-4020-A0CB-06F42BDA68C3)/HD(6,GPT,5C0F213C-17E1-4149-88C8-8B50FB4EC70E,0x7000,0x20000)/Image"
+   gArmPlatformTokenSpaceGuid.PcdDefaultBootInitrdPath|L"VenHw(B549F005-4BD4-4020-A0CB-06F42BDA68C3)/HD(6,GPT,5C0F213C-17E1-4149-88C8-8B50FB4EC70E,0x7000,0x20000)/initrd.img"
+   gArmPlatformTokenSpaceGuid.PcdFdtDevicePath|L"VenHw(B549F005-4BD4-4020-A0CB-06F42BDA68C3)/HD(6,GPT,5C0F213C-17E1-4149-88C8-8B50FB4EC70E,0x7000,0x20000)/hi6220-hikey.dtb"
+-  gArmPlatformTokenSpaceGuid.PcdDefaultBootArgument|"console=ttyAMA0,115200 earlycon=pl011,0xf8015000 root=/dev/mmcblk0p9 rw verbose debug user_debug=31 loglevel=8"
++  gArmPlatformTokenSpaceGuid.PcdDefaultBootArgument|"console=ttyAMA0,115200 earlycon=pl011,0xf8015000 root=/dev/mmcblk0p9 ro rootwait"
+   gArmPlatformTokenSpaceGuid.PcdDefaultBootType|2
+ 
+   # Use the serial console (ConIn & ConOut) and the Graphic driver (ConOut)
+-- 
+1.9.3
+
