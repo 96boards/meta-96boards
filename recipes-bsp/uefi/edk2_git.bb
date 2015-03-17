@@ -12,7 +12,7 @@ SRCREV_FORMAT = "edk2"
 
 EDKBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
-SRCREV_edk2_hikey = "4f3737dc9dc67237175b70194e45dca187fea04e"
+SRCREV_edk2_hikey = "eccdd98efb4a4ec8a13142313e8db08eb02e01ed"
 
 ATFBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
@@ -23,11 +23,6 @@ SRCREV_uefitools = "1a4887ae459b4c6242ac94fc5342c6c7200fb66c"
 SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
            git://github.com/96boards/arm-trusted-firmware.git;name=atf;branch=${ATFBRANCH};destsuffix=git/atf \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
-          "
-
-SRC_URI_append_hikey = " \
-           file://0001-HiKey.dsc-clean-up-bootargs.patch \
-           file://0002-HiKey.dsc-boot-linux-in-UEFI-mode.patch \
           "
 
 S = "${WORKDIR}/git"
