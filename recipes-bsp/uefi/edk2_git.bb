@@ -16,7 +16,7 @@ SRCREV_edk2_hikey = "4f3737dc9dc67237175b70194e45dca187fea04e"
 
 ATFBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-SRCREV_atf_hikey = "9a97502e8b3247dee95d4f0b48fc5d7154f40609"
+SRCREV_atf_hikey = "ad26bebfac3aa8f0fa1503b78c22cfbea962fbfc"
 
 SRCREV_uefitools = "1a4887ae459b4c6242ac94fc5342c6c7200fb66c"
 
