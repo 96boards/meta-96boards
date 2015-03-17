@@ -45,12 +45,12 @@ do_compile() {
 
 do_install() {
     install -d ${D}/boot
-    install -m 0644 ${S}/atf/build/${UEFIMACHINE}/release/fip.bin ${D}/boot/
+    install -m 0644 ${S}/atf/build/${UEFIMACHINE}/release/*.bin ${D}/boot/
 }
 
 do_deploy() {
     install -d ${DEPLOYDIR}
-    install -m 0644 ${S}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOYDIR}/
+    install -m 0644 ${S}/atf/build/${UEFIMACHINE}/release/*.bin ${DEPLOYDIR}/
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
