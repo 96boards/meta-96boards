@@ -25,6 +25,11 @@ SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
           "
 
+SRC_URI_append_hikey = " \
+          file://0001-hikey-enable-ddr-800mhz.patch;patchdir=atf \
+          file://0002-hikey-usb-fix-alignment-issue.patch;patchdir=atf \
+         "
+
 S = "${WORKDIR}/git"
 
 export AARCH64_TOOLCHAIN = "GCC49"
@@ -34,7 +39,7 @@ export CROSS_COMPILE_64 = "${TARGET_PREFIX}"
 export CROSS_COMPILE_32 = "${TARGET_PREFIX}"
 
 # Workaround a gcc 4.9 feature
-# 
+# https://lists.96boards.org/pipermail/dev/2015-March/000146.html 
 CFLAGS = " -fno-delete-null-pointer-checks"
 
 # This is a bootloader, so unset OE LDFLAGS.
