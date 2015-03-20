@@ -33,6 +33,10 @@ export UEFI_TOOLS_DIR = "${S}/uefi-tools"
 export CROSS_COMPILE_64 = "${TARGET_PREFIX}"
 export CROSS_COMPILE_32 = "${TARGET_PREFIX}"
 
+# Workaround a gcc 4.9 feature
+# 
+CFLAGS = " -fno-delete-null-pointer-checks"
+
 # This is a bootloader, so unset OE LDFLAGS.
 # OE assumes ld==gcc and passes -Wl,foo
 LDFLAGS = ""
