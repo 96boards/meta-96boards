@@ -12,11 +12,11 @@ SRCREV_FORMAT = "edk2"
 
 EDKBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
-SRCREV_edk2_hikey = "eccdd98efb4a4ec8a13142313e8db08eb02e01ed"
+SRCREV_edk2_hikey = "757c7476d74ddcaf344d5a40a9e34ddfc0f3a969"
 
 ATFBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-SRCREV_atf_hikey = "ad26bebfac3aa8f0fa1503b78c22cfbea962fbfc"
+SRCREV_atf_hikey = "70604d0c707862198d41e68ecbd9423c7a57bb63"
 
 SRCREV_uefitools = "1a4887ae459b4c6242ac94fc5342c6c7200fb66c"
 
@@ -27,7 +27,6 @@ SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
 
 SRC_URI_append_hikey = " \
           file://0001-hikey-enable-ddr-800mhz.patch;patchdir=atf \
-          file://0002-hikey-usb-fix-alignment-issue.patch;patchdir=atf \
          "
 
 S = "${WORKDIR}/git"
