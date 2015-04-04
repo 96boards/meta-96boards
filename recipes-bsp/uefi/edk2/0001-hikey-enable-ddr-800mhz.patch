@@ -1,4 +1,4 @@
-From be108a73d438b6871b7112bf0537f09ba4ae0f40 Mon Sep 17 00:00:00 2001
+From 53f88bcd38e65521a6b4df64327140ae6241710f Mon Sep 17 00:00:00 2001
 From: Haojian Zhuang <haojian.zhuang@linaro.org>
 Date: Tue, 17 Mar 2015 19:49:53 +0800
 Subject: [PATCH] hikey: enable ddr 800mhz
@@ -48,7 +48,7 @@ index c1fda51..fd8c2bc 100644
  	/* configure BUCK4 */
  	hi6553_write_8(BUCK4_REG2, 0x9a);
 diff --git a/plat/hikey/include/platform_def.h b/plat/hikey/include/platform_def.h
-index a11f7d2..ef6cd3d 100755
+index a11f7d2..ef6cd3d 100644
 --- a/plat/hikey/include/platform_def.h
 +++ b/plat/hikey/include/platform_def.h
 @@ -101,6 +101,7 @@
