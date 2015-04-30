@@ -1,4 +1,4 @@
-From 7a094ed1198196da19ed99e044dd8a30b9f2881f Mon Sep 17 00:00:00 2001
+From 64fe2cb33e4715d8118450644969a90f4f251af7 Mon Sep 17 00:00:00 2001
 From: Haojian Zhuang <haojian.zhuang@linaro.org>
 Date: Tue, 17 Mar 2015 19:49:53 +0800
 Subject: [PATCH] hikey: enable ddr 800mhz
@@ -13,10 +13,10 @@ Signed-off-by: Haojian Zhuang <haojian.zhuang@linaro.org>
  3 files changed, 325 insertions(+), 52 deletions(-)
 
 diff --git a/plat/hikey/bl1_plat_setup.c b/plat/hikey/bl1_plat_setup.c
-index c1fda51..fd8c2bc 100644
+index 59142a7..f1831d9 100644
 --- a/plat/hikey/bl1_plat_setup.c
 +++ b/plat/hikey/bl1_plat_setup.c
-@@ -218,11 +218,30 @@ static void hikey_hi6553_init(void)
+@@ -255,11 +255,30 @@ static void hikey_hi6553_init(void)
  	hi6553_write_8(BUCK2_REG1, 0x4f);
  	hi6553_write_8(BUCK2_REG5, 0x99);
  	hi6553_write_8(BUCK2_REG6, 0x45);
@@ -60,7 +60,7 @@ index fc4b65c..d49682f 100644
  #define MMC_DESC_BASE			(DDR_BASE + 0x0080000)
  #define MMC_DESC_SIZE			0x00020000
 diff --git a/plat/hikey/pll.c b/plat/hikey/pll.c
-index f6889ed..92efe6a 100644
+index f53ac61..423c21a 100644
 --- a/plat/hikey/pll.c
 +++ b/plat/hikey/pll.c
 @@ -39,8 +39,6 @@
@@ -1079,8 +1079,8 @@ index f6889ed..92efe6a 100644
 +	dsb();
  }
  
- static void init_mmc_pll(void)
-@@ -1113,6 +1357,15 @@ static void init_media_clk(void)
+ static void init_mmc0_pll(void)
+@@ -1180,6 +1424,15 @@ static void reset_mmc1_clk(void)
  
  void hi6220_pll_init(void)
  {
