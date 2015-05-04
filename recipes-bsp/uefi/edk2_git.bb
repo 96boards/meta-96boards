@@ -16,7 +16,7 @@ SRCREV_edk2_hikey = "f451072918b0d6ddceac46b6bf62024112520f51"
 
 ATFBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-SRCREV_atf_hikey = "0786ab7347b460fe4928daeaf3527c18ef6e5936"
+SRCREV_atf_hikey = "164d550808328705ffe1358ca0cd28fd9c23aaff"
 
 SRCREV_uefitools = "1a4887ae459b4c6242ac94fc5342c6c7200fb66c"
 
@@ -24,10 +24,6 @@ SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
            git://github.com/96boards/arm-trusted-firmware.git;name=atf;branch=${ATFBRANCH};destsuffix=git/atf \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
           "
-
-SRC_URI_append_hikey = " \
-          file://0001-hikey-enable-ddr-800mhz.patch;patchdir=atf \
-         "
 
 S = "${WORKDIR}/git"
 
