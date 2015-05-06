@@ -9,10 +9,10 @@ inherit deploy pythonnative
 
 PV = "0.2.2"
 
-SRC_URI = "git://github.com/96boards/l-loader.git;branch=tag-merge \
+SRC_URI = "git://github.com/96boards/l-loader.git;branch=master \
            file://temp.bin \
           "
-SRCREV = "e1cbde79063e7db3f7171cdc9068d097056936ae"
+SRCREV = "b19f4488965e97f556d3390a1ed0e8e02cad36ca"
 S = "${WORKDIR}/git"
 
 do_configure() {
