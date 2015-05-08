@@ -1,0 +1,35 @@
+From f22bad85283f8cdb15e0b508c44c181e33cb5296 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Fri, 8 May 2015 00:18:05 -0700
+Subject: [PATCH] accomodate OE to let it provide its own native sysroot
+
+We need util-linux for uuid stuff from build host otherwise
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ BaseTools/Source/C/Makefiles/header.makefile | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+Index: git/BaseTools/Source/C/Makefiles/header.makefile
+===================================================================
+--- git.orig/BaseTools/Source/C/Makefiles/header.makefile
++++ git/BaseTools/Source/C/Makefiles/header.makefile
+@@ -21,12 +21,12 @@ CYGWIN:=$(findstring CYGWIN, $(shell una
+ LINUX:=$(findstring Linux, $(shell uname -s))
+ DARWIN:=$(findstring Darwin, $(shell uname -s))
+ 
+-CC = gcc
+-CXX = g++
+-AS = gcc
+-AR = ar
+-LD = ld
+-LINKER ?= $(CC)
++CC = $(BUILD_CC) $(BUILD_CFLAGS)
++CXX = $(BUILD_CXX)
++AS = $(BUILD_GCC)
++AR = $(BUILD_AR)
++LD = $(BUILD_LD) $(BUILD_LDFLAGS)
++LINKER ?= $(CC) $(BUILD_LDFLAGS)
+ ifeq ($(ARCH), IA32)
+ ARCH_INCLUDE = -I $(MAKEROOT)/Include/Ia32/
+ endif
