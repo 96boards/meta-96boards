@@ -4,6 +4,8 @@ LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://BaseTools/License.txt;md5=a041d47c90fd51b4514d09a5127210e6 \
                    "
 
+DEPENDS += "util-linux-native"
+
 inherit deploy
 
 PV = "0.0+${SRCPV}"
@@ -23,6 +25,8 @@ SRCREV_uefitools = "1a4887ae459b4c6242ac94fc5342c6c7200fb66c"
 SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
            git://github.com/96boards/arm-trusted-firmware.git;name=atf;branch=${ATFBRANCH};destsuffix=git/atf \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
+	   file://0001-accomodate-OE-to-let-it-provide-its-own-native-sysro.patch \
+	   file://0001-Check-the-result-of-fread.patch \
           "
 
 S = "${WORKDIR}/git"
@@ -36,6 +40,7 @@ export CROSS_COMPILE_32 = "${TARGET_PREFIX}"
 # Workaround a gcc 4.9 feature
 # https://lists.96boards.org/pipermail/dev/2015-March/000146.html 
 CFLAGS = " -fno-delete-null-pointer-checks"
+BUILD_CFLAGS += "-Wno-error=unused-result"
 
 # This is a bootloader, so unset OE LDFLAGS.
 # OE assumes ld==gcc and passes -Wl,foo
