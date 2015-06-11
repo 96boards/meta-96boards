@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "Hisilicon 3.18 Kernel"
 
 PV = "3.18+git${SRCPV}"
-SRCREV_kernel="7835d9a428a5dcfeb34f6b88a5f904d34ff668dd"
+SRCREV_kernel="4f24dce25c64afe3a8b60822407307032fb101c0"
 
 SRC_URI = "git://github.com/96boards/linux.git;branch=hikey;name=kernel \
            file://0001-CRDA-add-full-db-into-kernel.patch \
