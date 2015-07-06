@@ -12,7 +12,7 @@ PV = "0.2.2"
 SRC_URI = "git://github.com/96boards/l-loader.git;branch=master \
            file://temp.bin \
           "
-SRCREV = "b19f4488965e97f556d3390a1ed0e8e02cad36ca"
+SRCREV = "64797c79ac51ed71c1757e0f837c8178a363d41a"
 S = "${WORKDIR}/git"
 
 do_configure() {
