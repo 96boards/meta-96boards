@@ -14,3 +14,6 @@ COMPATIBLE_MACHINE = "dragonboard-410c"
 KERNEL_IMAGETYPE ?= "Image"
 
 KERNEL_DEVICETREE = "qcom/apq8016-sbc.dtb"
+
+# Wifi firmware has a recognizable arch :( 
+ERROR_QA_remove = "arch"
