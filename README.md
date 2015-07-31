@@ -18,6 +18,12 @@ The meta-96boards layer depends on:
 
 Please follow the recommended setup procedures of your OE distribution. For Angstrom that is http://www.angstrom-distribution.org/building-angstrom, other distros should have similar online resources.
 
+Notes
+-------------------------
+
+Please note that the support for Qualcomm based 96boards.org, such as the
+DragonBoard 410c, is done through the meta-qualcomm BSP layer:
+https://github.com/ndechesne/meta-qualcomm not meta-96boards.
 
 Contributing
 -------------------------
