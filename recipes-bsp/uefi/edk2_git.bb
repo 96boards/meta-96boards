@@ -14,13 +14,13 @@ SRCREV_FORMAT = "edk2-atf"
 
 EDKBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
-SRCREV_edk2_hikey = "9ad60ff668a3b9c85878705108f054125757b4cb"
+SRCREV_edk2_hikey = "12d63b5f3627a000b5e39c559c37c5a8f304305a"
 
 ATFBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-SRCREV_atf_hikey = "46d70fb5a302b12f543c7b8b637d96c6ecffee48"
+SRCREV_atf_hikey = "e8b71743247d3d5fee89e1a382f3315a543f8416"
 
-SRCREV_uefitools = "869b77de3357868643ac558fec490a9fd507cd63"
+SRCREV_uefitools = "9b024328afa28ad27760f94df2375618bcf325b2"
 
 SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
            git://github.com/96boards/arm-trusted-firmware.git;name=atf;branch=${ATFBRANCH};destsuffix=git/atf \
