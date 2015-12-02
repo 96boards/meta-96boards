@@ -4,7 +4,7 @@ Meta-96boards
 Introduction
 -------------------------
 
-The official OpenEmbedded/Yocto Project BSP layer for my 96boards.org machines
+The official OpenEmbedded/Yocto Project BSP layer for the 96boards.org machines
 
 The meta-96boards layer depends on:
 
@@ -35,4 +35,8 @@ Reporting bugs
 
 The github issue tracker (https://github.com/koenkooi/meta-96boards/issues) is being used to keep track of bugs.
 
-Maintainers: Koen Kooi <koen.kooi@linaro.org>
+Maintainers
+-------------------------
+
+* Koen Kooi <koen.kooi@linaro.org>
+* Fathi Boudra <mailto:fathi.boudra@linaro.org>
