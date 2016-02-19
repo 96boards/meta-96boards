@@ -30,6 +30,7 @@ python __anonymous () {
 }
 
 do_configure_prepend() {
+    if [ -e ${WORKDIR}/defconfig ] ; then
 
         # Rename getline in ./scripts/unifdef.c
         # Kernels up to 2.6.29 are currently failing to build unifdef.c,
@@ -186,6 +187,7 @@ do_configure_prepend() {
 
 	yes '' | oe_runmake -C ${S} O=${B} oldconfig
         oe_runmake -C ${S} O=${B} savedefconfig && cp ${B}/defconfig ${WORKDIR}/defconfig.saved
+    fi
 }
 
 do_configure_append() {
