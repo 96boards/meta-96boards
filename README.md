@@ -28,12 +28,12 @@ https://github.com/ndechesne/meta-qualcomm not meta-96boards.
 Contributing
 -------------------------
 
-Please use github for pull requests: https://github.com/koenkooi/meta-96boards/pulls
+Please use github for pull requests: https://github.com/96boards/meta-96boards/pulls
 
 Reporting bugs
 -------------------------
 
-The github issue tracker (https://github.com/koenkooi/meta-96boards/issues) is being used to keep track of bugs.
+The github issue tracker (https://github.com/96boards/meta-96boards/issues) is being used to keep track of bugs.
 
 Maintainers
 -------------------------
