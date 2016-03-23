@@ -25,6 +25,17 @@ Please note that the support for Qualcomm based 96boards.org, such as the
 DragonBoard 410c, is done through the meta-qualcomm BSP layer:
 https://github.com/ndechesne/meta-qualcomm not meta-96boards.
 
+Hikey kernel enables CONFIG_MODULE_SIG options which enforces that openssl dev
+package is installed on build host.
+
+for debian-like systems
+
+sudo apt-get install libssl-dev
+
+fedora-like systems
+
+sudo yum install openssl-devel
+
 Contributing
 -------------------------
 
