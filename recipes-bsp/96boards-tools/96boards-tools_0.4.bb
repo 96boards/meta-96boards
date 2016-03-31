@@ -24,4 +24,4 @@ do_install () {
 }
 
 SYSTEMD_SERVICE_${PN} = "resize-helper.service"
-RDEPENDS_${PN} += "e2fsprogs-resize2fs parted util-linux udev"
+RDEPENDS_${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
