@@ -1,4 +1,5 @@
 require linux.inc
+require linux-optee.inc
 
 DESCRIPTION = "Generic 96boards kernel"
 
