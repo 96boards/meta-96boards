@@ -18,6 +18,7 @@ SRC_URI = "git://github.com/OP-TEE/optee_os.git \
 S = "${WORKDIR}/git"
 
 OPTEEMACHINE ?= "${MACHINE}"
+OPTEEOUTPUTMACHINE ?= "${MACHINE}"
 
 EXTRA_OEMAKE = "PLATFORM=${OPTEEMACHINE} CFG_ARM64_core=y \
                 CROSS_COMPILE_core=${HOST_PREFIX}  \
@@ -38,11 +39,11 @@ do_install() {
     #install core on boot directory
     install -d ${D}/lib/firmware/
 
-    install -m 644 ${B}/out/arm-plat-${OPTEEMACHINE}/core/*.bin ${D}/lib/firmware/
+    install -m 644 ${B}/out/arm-plat-${OPTEEOUTPUTMACHINE}/core/*.bin ${D}/lib/firmware/
     #install TA devkit
     install -d ${D}/usr/include/optee/export-user_ta/
 
-    for f in  ${B}/out/arm-plat-${OPTEEMACHINE}/export-ta_${OPTEE_ARCH}/* ; do
+    for f in  ${B}/out/arm-plat-${OPTEEOUTPUTMACHINE}/export-ta_${OPTEE_ARCH}/* ; do
         cp -aR  $f  ${D}/usr/include/optee/export-user_ta/
     done
 }
