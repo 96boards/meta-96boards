@@ -11,7 +11,7 @@ SRC_URI = "git://github.com/96boards/linux.git;protocol=https;branch=96b/release
           "
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "96boards-64|hikey"
+COMPATIBLE_MACHINE = "96boards-64|96boards-32|vexpress-juno|hikey"
 KERNEL_IMAGETYPE ?= "Image"
 # make[3]: *** [scripts/extract-cert] Error 1
 DEPENDS += "openssl-native"
