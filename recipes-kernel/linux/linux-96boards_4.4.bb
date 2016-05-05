@@ -4,7 +4,7 @@ require linux-optee.inc
 DESCRIPTION = "Generic 96boards kernel"
 
 PV = "4.4.8+git"
-SRCREV_kernel = "83c121882f0db55e5195f458d5c0217d6b08edf2"
+SRCREV_kernel = "d82c8093bdd4fbe0578194a30a512bf0fb4c791e"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://github.com/96boards/linux.git;protocol=https;branch=96b/releases/2016.06;name=kernel \
