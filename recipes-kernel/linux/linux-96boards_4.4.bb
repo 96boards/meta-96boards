@@ -3,11 +3,11 @@ require linux-optee.inc
 
 DESCRIPTION = "Generic 96boards kernel"
 
-PV = "4.4.0+git"
-SRCREV_kernel = "1a35563f4affa5bfe9e6ca30802e7aebf0a072d7"
+PV = "4.4.8+git"
+SRCREV_kernel = "83c121882f0db55e5195f458d5c0217d6b08edf2"
 SRCREV_FORMAT = "kernel"
 
-SRC_URI = "git://github.com/96boards/linux.git;protocol=https;branch=96b/releases/2016.03;name=kernel \
+SRC_URI = "git://github.com/96boards/linux.git;protocol=https;branch=96b/releases/2016.06;name=kernel \
           "
 S = "${WORKDIR}/git"
 
