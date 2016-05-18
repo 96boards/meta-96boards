@@ -4,12 +4,12 @@ HOMEPAGE = "https://github.com/OP-TEE/optee_client"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=69663ab153298557a59c67a60a743e5b"
 
-PV = "1.0+git${SRCPV}"
+PV = "2.0.0+git${SRCPV}"
 
 SRC_URI = "git://github.com/OP-TEE/optee_client.git"
 S = "${WORKDIR}/git"
 
-SRCREV = "0b0d237779de6982451f6f5971b7106e459a2958"
+SRCREV = "88acd6bda5f9e19124fce0015fe64a6644eff036"
 
 do_compile() {
     install -d ${D}${prefix}
