@@ -13,7 +13,7 @@ COMPATIBLE_MACHINE = "96boards-64|hikey"
 KERNEL_IMAGETYPE ?= "Image"
 # make[3]: *** [scripts/extract-cert] Error 1
 DEPENDS += "openssl-native"
-HOSTCFLAGS += "-I${STAGING_INCDIR_NATIVE}"
+HOST_EXTRACFLAGS += "-I${STAGING_INCDIR_NATIVE}"
 
 do_configure() {
     cp ${S}/arch/arm64/configs/distro.config ${B}/.config
