@@ -1,4 +1,5 @@
 require linux.inc
+require linux-96boards-bootimg.inc
 
 DESCRIPTION = "Generic 96boards kernel"
 
