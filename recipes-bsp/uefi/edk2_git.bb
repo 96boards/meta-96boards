@@ -4,7 +4,7 @@ LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://BaseTools/License.txt;md5=a041d47c90fd51b4514d09a5127210e6 \
                    "
 
-DEPENDS += "util-linux-native"
+DEPENDS += "util-linux-native iasl-native"
 
 inherit deploy
 
@@ -14,33 +14,39 @@ SRCREV_FORMAT = "edk2-atf"
 
 EDKBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
-SRCREV_edk2_hikey = "12d63b5f3627a000b5e39c559c37c5a8f304305a"
 
 ATFBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-SRCREV_atf_hikey = "e8b71743247d3d5fee89e1a382f3315a543f8416"
 
-SRCREV_uefitools = "9b024328afa28ad27760f94df2375618bcf325b2"
+OPENPLATFORMPKGBRANCH ?= "${MACHINE_ARCH}"
+SRCREV_openplatformpkg = "1269d3fa0d2e8704be9c8ad74d320ce91c8ff8cb"
 
-SRC_URI = "git://github.com/96boards/edk2.git;name=edk2;branch=${EDKBRANCH} \
-           git://github.com/96boards/arm-trusted-firmware.git;name=atf;branch=${ATFBRANCH};destsuffix=git/atf \
-           git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
-	   file://0001-accomodate-OE-to-let-it-provide-its-own-native-sysro.patch \
-	   file://0001-Check-the-result-of-fread.patch \
+SRCREV_uefitools = "d30846ab593f8e525c5b0f4399406d0ac8e69002"
+
+SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2;branch=${EDKBRANCH} \
+           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=${ATFBRANCH};destsuffix=git/atf \
+           git://git.linaro.org/uefi/OpenPlatformPkg.git;name=openplatformpkg;branch=${OPENPLATFORMPKGBRANCH};destsuffix=git/OpenPlatformPkg \
           "
+
+SRC_URI_append = "git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
+                 "
 
 S = "${WORKDIR}/git"
 
 export AARCH64_TOOLCHAIN = "GCC49"
 export EDK2_DIR = "${S}"
-export UEFI_TOOLS_DIR = "${S}/uefi-tools"
+
 export CROSS_COMPILE_64 = "${TARGET_PREFIX}"
 export CROSS_COMPILE_32 = "${TARGET_PREFIX}"
 
-# Workaround a gcc 4.9 feature
-# https://lists.96boards.org/pipermail/dev/2015-March/000146.html 
-CFLAGS = " -fno-delete-null-pointer-checks"
-BUILD_CFLAGS += "-Wno-error=unused-result"
+# Override variables from BaseTools/Source/C/Makefiles/header.makefile
+# to build BaseTools with host toolchain
+export CC = "${BUILD_CC}"
+export CXX = "${BUILD_CXX}"
+export AS = "${BUILD_CC}"
+export AR = "${BUILD_AR}"
+export LD = "${BUILD_LD}"
+export LINKER = "${CC}"
 
 # This is a bootloader, so unset OE LDFLAGS.
 # OE assumes ld==gcc and passes -Wl,foo
@@ -49,21 +55,10 @@ LDFLAGS = ""
 export UEFIMACHINE ?= "${MACHINE_ARCH}"
 
 do_compile() {
-    ${UEFI_TOOLS_DIR}/uefi-build.sh -b RELEASE -a ${S}/atf ${UEFIMACHINE}
-}
-
-do_install() {
-    install -d ${D}/boot
-    install -m 0644 ${S}/atf/build/${UEFIMACHINE}/release/*.bin ${D}/boot/
-}
-
-do_deploy() {
-    install -d ${DEPLOYDIR}
-    install -m 0644 ${S}/atf/build/${UEFIMACHINE}/release/*.bin ${DEPLOYDIR}/
+    ${EDK2_DIR}/uefi-tools/uefi-build.sh -b RELEASE -a ${EDK2_DIR}/atf ${UEFIMACHINE}
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 FILES_${PN} += "/boot"
 
 addtask deploy before do_build after do_compile
-
