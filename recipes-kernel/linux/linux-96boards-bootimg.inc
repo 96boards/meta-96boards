@@ -1,7 +1,7 @@
 DEPENDS += "dosfstools-native mtools-native"
 
 # Create a 64M boot image. block size is 1024. (64*1024=65536)
-BOOT_IMAGE_SIZE = 65536
+BOOT_IMAGE_SIZE = "65536"
 BOOT_IMAGE_BASE_NAME = "boot-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
