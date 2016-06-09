@@ -58,6 +58,10 @@ do_compile() {
     ${EDK2_DIR}/uefi-tools/uefi-build.sh -b RELEASE -a ${EDK2_DIR}/atf ${UEFIMACHINE}
 }
 
+do_deploy() {
+    # Placeholder to be implemented in machine specific recipe
+}
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 FILES_${PN} += "/boot"
 
