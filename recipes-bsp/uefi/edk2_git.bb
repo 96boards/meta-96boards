@@ -12,20 +12,14 @@ PV = "0.0+${SRCPV}"
 
 SRCREV_FORMAT = "edk2-atf"
 
-EDKBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
-
-ATFBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-
-OPENPLATFORMPKGBRANCH ?= "${MACHINE_ARCH}"
 SRCREV_openplatformpkg = "1269d3fa0d2e8704be9c8ad74d320ce91c8ff8cb"
-
 SRCREV_uefitools = "d30846ab593f8e525c5b0f4399406d0ac8e69002"
 
-SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2;branch=${EDKBRANCH} \
-           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=${ATFBRANCH};destsuffix=git/atf \
-           git://git.linaro.org/uefi/OpenPlatformPkg.git;name=openplatformpkg;branch=${OPENPLATFORMPKGBRANCH};destsuffix=git/OpenPlatformPkg \
+SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
+           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;destsuffix=git/atf \
+           git://git.linaro.org/uefi/OpenPlatformPkg.git;name=openplatformpkg;destsuffix=git/OpenPlatformPkg \
           "
 
 SRC_URI_append = "git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
