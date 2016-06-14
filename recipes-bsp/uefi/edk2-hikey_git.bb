@@ -3,7 +3,7 @@ require edk2_git.bb
 COMPATIBLE_MACHINE = "hikey"
 
 SRCREV_edk2 = "76c7cfcc22c7448638acb6f904088b2ff3f79f63"
-SRCREV_atf = "c006778cf5c97bd9ecc929620cb71c1b11a29480"
+SRCREV_atf = "e02159297b04d50be456e2083e06db7358b85709"
 SRCREV_openplatformpkg = "36fc0dd400c95c44143026f9c77454b62df3087f"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp \
