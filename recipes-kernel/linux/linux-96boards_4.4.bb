@@ -18,6 +18,14 @@ DEPENDS += "openssl-native"
 HOST_EXTRACFLAGS += "-I${STAGING_INCDIR_NATIVE}"
 
 do_configure() {
-    cp ${S}/arch/arm64/configs/distro.config ${B}/.config
+    # Make sure to disable debug info and enable ext4fs built-in
+    sed -e '/CONFIG_EXT4_FS=/d' \
+        -e '/CONFIG_DEBUG_INFO=/d' \
+        < ${S}/arch/arm64/configs/distro.config \
+        > ${B}/.config
+
+    echo 'CONFIG_EXT4_FS=y' >> ${B}/.config
+    echo '# CONFIG_DEBUG_INFO is not set' >> ${B}/.config
+
     yes '' | oe_runmake -C ${S} O=${B} oldconfig
 }
