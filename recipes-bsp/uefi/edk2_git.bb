@@ -49,6 +49,11 @@ LDFLAGS = ""
 export UEFIMACHINE ?= "${MACHINE_ARCH}"
 
 do_compile() {
+    # Add in path to native sysroot to find uuid/uuid.h
+    sed -i -e 's:-I \.\.:-I \.\. -I ${STAGING_INCDIR_NATIVE} :' ${S}/BaseTools/Source/C/Makefiles/header.makefile
+    # ... and the library itself
+    sed -i -e 's: -luuid: -luuid -L ${STAGING_LIBDIR_NATIVE}:g' ${S}/BaseTools/Source/C/*/GNUmakefile
+
     ${EDK2_DIR}/uefi-tools/uefi-build.sh -b RELEASE -a ${EDK2_DIR}/atf ${UEFIMACHINE}
 }
 
