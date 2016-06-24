@@ -14,7 +14,7 @@ SRCREV_FORMAT = "edk2-atf"
 
 SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-SRCREV_openplatformpkg = "1269d3fa0d2e8704be9c8ad74d320ce91c8ff8cb"
+SRCREV_openplatformpkg = "ce9c1b7dbb2f5d506240626c77b685adbdeeda8e"
 SRCREV_uefitools = "d30846ab593f8e525c5b0f4399406d0ac8e69002"
 
 SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
