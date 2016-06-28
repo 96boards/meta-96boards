@@ -4,7 +4,7 @@ require linux-96boards-bootimg.inc
 DESCRIPTION = "Generic 96boards kernel"
 
 PV = "4.4.11+git"
-SRCREV_kernel = "21413b876ba9108165ea3a1221baeeed24d32b8e"
+SRCREV_kernel = "fcbd8ceb37c74b46292e4cc615042efe039ceaa9"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://github.com/96boards/linux.git;protocol=https;branch=96b/releases/2016.06;name=kernel \
