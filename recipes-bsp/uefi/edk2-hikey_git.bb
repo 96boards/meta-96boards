@@ -4,7 +4,7 @@ COMPATIBLE_MACHINE = "hikey"
 
 SRCREV_edk2 = "76c7cfcc22c7448638acb6f904088b2ff3f79f63"
 SRCREV_atf = "bdec62eeb8f3153a4647770e08aafd56a0bcd42b"
-SRCREV_openplatformpkg = "36fc0dd400c95c44143026f9c77454b62df3087f"
+SRCREV_openplatformpkg = "db64042266ed377f4a6748232497de8e05d36e35"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=hikey;destsuffix=git/atf \
