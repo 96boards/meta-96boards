@@ -16,11 +16,11 @@ do_install() {
 }
 
 do_deploy() {
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${DEPLOYDIR}/bl1.bin
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl2.bin ${DEPLOYDIR}/bl2.bin
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOYDIR}/fip.bin
-    install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${DEPLOYDIR}/fastboot.efi
+    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${DEPLOY_DIR_IMAGE}/bl1.bin
+    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl2.bin ${DEPLOY_DIR_IMAGE}/bl2.bin
+    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOY_DIR_IMAGE}/fip.bin
+    install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${DEPLOY_DIR_IMAGE}/fastboot.efi
 
     # Ship nvme.img with UEFI binaries for convenience
-    dd if=/dev/zero of=${DEPLOYDIR}/nvme.img bs=128 count=1024
+    dd if=/dev/zero of=${DEPLOY_DIR_IMAGE}/nvme.img bs=128 count=1024
 }
