@@ -1,0 +1,18 @@
+diff --git a/src/compositor-drm.c b/src/compositor-drm.c
+index 6777bf8..81d3052 100644
+--- a/src/compositor-drm.c
++++ b/src/compositor-drm.c
+@@ -651,6 +651,13 @@ drm_output_repaint(struct weston_output *output_base,
+ 	if (!output->next)
+ 		return -1;
+ 
++  /* Workaround for Hikey page flip issue.
++   * Hikey page flip chokes on async atomic drm
++   *  page flip.
++   */
++
++  backend->cursors_are_broken = 1;
++
+ 	mode = container_of(output->base.current_mode, struct drm_mode, base);
+ 	if (!output->current ||
+ 	    output->current->stride != output->next->stride) {
