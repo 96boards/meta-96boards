@@ -18,9 +18,9 @@ do_install() {
     install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
 
     # Install grub configuration
-    sed -e "s|\${DISTRO}|${DISTRO}|" \
-        -e "s|\${KERNEL_IMAGETYPE}|${KERNEL_IMAGETYPE}|" \
-        -e "s|\${CMDLINE}|${CMDLINE}|" \
+    sed -e "s|@DISTRO|${DISTRO}|" \
+        -e "s|@KERNEL_IMAGETYPE|${KERNEL_IMAGETYPE}|" \
+        -e "s|@CMDLINE|${CMDLINE}|" \
         < ${WORKDIR}/grub.cfg.in \
         > ${WORKDIR}/grub.cfg
     install -D -p -m0644 ${WORKDIR}/grub.cfg ${D}/boot/grub/grub.cfg
