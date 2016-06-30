@@ -1,4 +1,4 @@
-SUMMARY = "Mali450 libraries (drm backend)"
+SUMMARY = "ARM Mali Utgard GPU User Space driver for HiKey (drm backend)"
 
 LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9836ad038c5a090a0280233eea"
@@ -12,12 +12,12 @@ PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2"
 
 DEPENDS = "libdrm wayland mesa"
 
-SRC_URI = " http://malideveloper.arm.com/downloads/drivers/binary/utgard/r6p0-01rel0/mali-450_${PV}-${PR}_linux_1+arm64.tar.gz;destsuffix=mali"
+SRC_URI = "http://malideveloper.arm.com/downloads/drivers/binary/utgard/r6p0-01rel0/mali-450_${PV}-${PR}_linux_1+arm64.tar.gz;destsuffix=mali"
 
 S = "${WORKDIR}/wayland-drm"
 
-# The SRC is just a set of binaries to install - nothing to configure and to
-# compile
+# The driver is a set of binary libraries to install
+# there's nothing to configure or compile
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
@@ -40,17 +40,17 @@ do_install() {
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-# FIXME this part needs better comment
-# The mali-450 driver tarball has only *.so files, so all the packages
-# except the ${PN} one would be empty
+# The driver tarball has only shared libraries
 FILES_${PN} += "${libdir}/*.so* "
+# All the packages except ${PN} are empty, including the development package.
+# Set the development package files empty to avoid the QA issue error
+# ERROR: QA Issue: mali450-userland rdepends on mali450-userland-dev [dev-deps]
 FILES_${PN}-dev = ""
 
 INSANE_SKIP_${PN} = "ldflags dev-so"
 
-# To get the egl/gles headers and the packageconfig files (missing from this
-# mali-450 driver tarball) we have to build mesa, and to handle the conflicts
-# due to both mali450-userland, and mesa providing the same libraries.
+# The driver is missing EGL/GLES headers and pkgconfig files. Handle
+# the conflicts as mesa and the driver are both providing the same shared libraries.
 RREPLACES_${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm"
 RPROVIDES_${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm"
 RCONFLICTS_${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm"
