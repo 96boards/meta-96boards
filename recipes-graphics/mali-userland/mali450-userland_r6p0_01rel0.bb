@@ -12,7 +12,7 @@ PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2"
 
 DEPENDS = "libdrm wayland mesa"
 
-SRC_URI = " http://malideveloper.arm.com/downloads/drivers/binary/utgard/r6p0-01rel0/mali-450_${PV}-${PR}_linux_1+arm64.tar.gz;destsuffix=mali"
+SRC_URI = "http://malideveloper.arm.com/downloads/drivers/binary/utgard/r6p0-01rel0/mali-450_${PV}-${PR}_linux_1+arm64.tar.gz;destsuffix=mali"
 
 S = "${WORKDIR}/wayland-drm"
 
