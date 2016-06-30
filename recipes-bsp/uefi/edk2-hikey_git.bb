@@ -11,10 +11,19 @@ SRCREV_openplatformpkg = "db64042266ed377f4a6748232497de8e05d36e35"
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=hikey;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=hikey-aosp;destsuffix=git/OpenPlatformPkg \
+           file://grub.cfg.in \
           "
 
 do_install() {
     install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
+
+    # Install grub configuration
+    sed -e "s|\${DISTRO}|${DISTRO}|" \
+        -e "s|\${KERNEL_IMAGETYPE}|${KERNEL_IMAGETYPE}|" \
+        -e "s|\${CMDLINE}|${CMDLINE}|" \
+        < ${WORKDIR}/grub.cfg.in \
+        > ${WORKDIR}/grub.cfg
+    install -D -p -m0644 ${WORKDIR}/grub.cfg ${D}/boot/grub/grub.cfg
 }
 
 # Create a 64M boot image. block size is 1024. (64*1024=65536)
