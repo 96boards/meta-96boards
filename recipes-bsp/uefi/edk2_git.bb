@@ -22,7 +22,7 @@ SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
            git://git.linaro.org/uefi/OpenPlatformPkg.git;name=openplatformpkg;destsuffix=git/OpenPlatformPkg \
           "
 
-SRC_URI_append = "git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
+SRC_URI_append = " git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
                  "
 
 S = "${WORKDIR}/git"
