@@ -15,6 +15,11 @@ do_install() {
     install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
 }
 
+# FIXME: HiKey boot image requires fastboot and grub EFI
+# ensure we deploy fastboot.efi before we try to create the boot image.
+# ideally, we create the boot image in edk2-hikey and depends on grub
+# as the HiKey boot image doesn't contain any kernel artifacts
+do_deploy[depends] += "virtual/kernel:do_shared_workdir"
 do_deploy() {
     install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${DEPLOY_DIR_IMAGE}/bl1.bin
     install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl2.bin ${DEPLOY_DIR_IMAGE}/bl2.bin
