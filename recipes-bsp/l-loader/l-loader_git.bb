@@ -3,16 +3,16 @@ SUMMARY = "Loader to switch from aarch32 to aarch64 and boot"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=e8c1458438ead3c34974bc0be3a03ed6"
 
-do_configure[depends] = "edk2-hikey:do_deploy"
+do_configure[depends] += "edk2-hikey:do_deploy"
 
 inherit deploy pythonnative
 
 PV = "0.2.2"
 
-SRC_URI = "git://github.com/96boards/l-loader.git;branch=master \
+SRC_URI = "git://github.com/96boards-hikey/l-loader.git;branch=master \
            file://temp.bin \
           "
-SRCREV = "64797c79ac51ed71c1757e0f837c8178a363d41a"
+SRCREV = "cddd213c1b820d5f224d20b38581c504552dd59e"
 S = "${WORKDIR}/git"
 
 do_configure() {
