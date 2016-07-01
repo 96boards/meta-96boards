@@ -1,7 +1,7 @@
 SUMMARY = "Loader to switch from aarch32 to aarch64 and boot"
 
-LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://COPYING;md5=e8c1458438ead3c34974bc0be3a03ed6"
+LICENSE = "BSD"
+LIC_FILES_CHKSUM = "file://COPYING;md5=00ef5534e9238b3296c56a2caa13630c"
 
 do_configure[depends] += "edk2-hikey:do_deploy"
 
