@@ -1,3 +1,3 @@
 search.fs_label rootfs root
-set prefix=(\$root)'/boot/grub'
-configfile \$prefix/grub.cfg
+set prefix=($root)'/boot/grub'
+configfile $prefix/grub.cfg
