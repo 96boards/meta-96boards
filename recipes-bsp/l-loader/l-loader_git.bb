@@ -25,9 +25,9 @@ SRC_URI[tc.sha256sum] = "dd66f07662e1f3b555eaa0d076f133b6db702ab0b9ab18f7dfc91a2
 
 S = "${WORKDIR}/git"
 
-do_configure[depends] += "edk2-hikey:do_deploy"
 do_configure[noexec] = "1"
 
+do_compile[depends] += "edk2-hikey:do_deploy"
 do_compile() {
     # Use pre-built aarch32 toolchain
     export PATH=${WORKDIR}/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/bin:$PATH
