@@ -38,7 +38,9 @@ do_compile() {
     make
 }
 
-do_install[noexec] = "1"
+do_install() {
+    install -D -p -m0644 l-loader.bin ${D}${libdir}/l-loader/l-loader.bin
+}
 
 do_deploy() {
     install -D -p -m0644 l-loader.bin ${DEPLOY_DIR_IMAGE}/l-loader.bin
