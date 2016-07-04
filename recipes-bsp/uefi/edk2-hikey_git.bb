@@ -16,6 +16,9 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp 
 
 do_install() {
     install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
+    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${D}${libdir}/edk2/bl1.bin
+    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl2.bin ${D}${libdir}/edk2/bl2.bin
+    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${D}${libdir}/edk2/fip.bin
 
     # Install grub configuration
     sed -e "s|@DISTRO|${DISTRO}|" \
@@ -35,8 +38,6 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 # ensure we deploy grubaa64.efi before we try to create the boot image.
 do_deploy[depends] += "grub:do_deploy"
 do_deploy() {
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${DEPLOY_DIR_IMAGE}/bl1.bin
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl2.bin ${DEPLOY_DIR_IMAGE}/bl2.bin
     install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOY_DIR_IMAGE}/fip.bin
     install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${DEPLOY_DIR_IMAGE}/fastboot.efi
 
