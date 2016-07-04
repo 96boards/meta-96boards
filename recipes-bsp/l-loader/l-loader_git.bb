@@ -33,7 +33,8 @@ do_compile() {
     export PATH=${WORKDIR}/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/bin:$PATH
 
     # bl1 from edk2 is required
-    ln -s ${DEPLOY_DIR_IMAGE}/bl1.bin
+    rm -f bl1.bin
+    ln -sf ${DEPLOY_DIR_IMAGE}/bl1.bin
 
     make
 }
