@@ -27,14 +27,13 @@ S = "${WORKDIR}/git"
 
 do_configure[noexec] = "1"
 
-do_compile[depends] += "edk2-hikey:do_deploy"
 do_compile() {
     # Use pre-built aarch32 toolchain
     export PATH=${WORKDIR}/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/bin:$PATH
 
     # bl1 from edk2 is required
     rm -f bl1.bin
-    ln -sf ${DEPLOY_DIR_IMAGE}/bl1.bin
+    ln -sf ${STAGING_LIBDIR}/edk2/bl1.bin
 
     make
 }
