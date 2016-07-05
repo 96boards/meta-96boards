@@ -2,7 +2,7 @@ require edk2_git.bb
 
 COMPATIBLE_MACHINE = "hikey"
 
-DEPENDS_append = " dosfstools-native mtools-native grub"
+DEPENDS_append = " dosfstools-native mtools-native grub optee-os"
 
 SRCREV_edk2 = "76c7cfcc22c7448638acb6f904088b2ff3f79f63"
 SRCREV_atf = "bdec62eeb8f3153a4647770e08aafd56a0bcd42b"
@@ -13,6 +13,24 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp 
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=hikey-aosp;destsuffix=git/OpenPlatformPkg \
            file://grub.cfg.in \
           "
+
+OPTEE_OS_ARG = "-s ${EDK2_DIR}/optee_os"
+
+# We need the secure payload (Trusted OS) built from OP-TEE Trusted OS (tee.bin)
+# but we have already built tee.bin from optee-os recipe and
+# uefi-build.sh script has a few assumptions...
+# Copy tee.bin and create dummy files to make uefi-build.sh script happy
+do_compile_prepend() {
+    install -D -p -m0644 \
+      ${STAGING_DIR_HOST}/lib/firmware/tee.bin \
+      ${EDK2_DIR}/optee_os/out/arm-plat-hikey/core/tee.bin
+
+    mkdir -p ${EDK2_DIR}/optee_os/documentation
+    touch ${EDK2_DIR}/optee_os/documentation/optee_design.md
+
+    printf "all:\n"  > ${EDK2_DIR}/optee_os/Makefile
+    printf "\ttrue" >> ${EDK2_DIR}/optee_os/Makefile
+}
 
 do_install() {
     install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
