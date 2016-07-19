@@ -3,6 +3,7 @@ SUMMARY = "Loader to switch from aarch32 to aarch64 and boot"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://COPYING;md5=00ef5534e9238b3296c56a2caa13630c"
 
+COMPATIBLE_MACHINE = "hikey"
 DEPENDS += " gptfdisk-native edk2-hikey"
 
 inherit deploy pythonnative
