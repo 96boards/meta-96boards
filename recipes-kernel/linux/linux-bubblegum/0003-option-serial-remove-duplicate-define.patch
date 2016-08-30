@@ -1,0 +1,25 @@
+From 8c313972a32588592ac6704965c9e6298e6d817a Mon Sep 17 00:00:00 2001
+From: Koen Kooi <koen.kooi@linaro.org>
+Date: Wed, 31 Aug 2016 08:52:40 +0200
+Subject: [PATCH 3/3] option serial: remove duplicate define
+
+Signed-off-by: Koen Kooi <koen.kooi@linaro.org>
+---
+ drivers/usb/serial/option.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
+index 3427731..948c5d0 100644
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -360,7 +360,6 @@ static void option_instat_callback(struct urb *urb);
+ #define ZTE_PRODUCT_MC2718			0xffe8
+ #define ZTE_PRODUCT_AD3812			0xffeb
+ #define ZTE_PRODUCT_MC2716			0xffed
+-#define ZTE_PRODUCT_AC2726			0xfff1
+ 
+ #define BENQ_VENDOR_ID				0x04a5
+ #define BENQ_PRODUCT_H10			0x4068
+-- 
+2.4.11
+

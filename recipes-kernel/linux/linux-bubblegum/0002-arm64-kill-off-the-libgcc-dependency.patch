@@ -1,0 +1,55 @@
+From 529590bc56c7800ac41fe5f1035d30c600f53da6 Mon Sep 17 00:00:00 2001
+From: Kevin Hao <haokexin@gmail.com>
+Date: Thu, 15 Jan 2015 12:07:33 +0000
+Subject: [PATCH 2/2] arm64: kill off the libgcc dependency
+
+The arm64 kernel builds fine without the libgcc. Actually it should not
+be used at all in the kernel. The following are the reasons indicated
+by Russell King:
+
+  Although libgcc is part of the compiler, libgcc is built with the
+  expectation that it will be running in userland - it expects to link
+  to a libc.  That's why you can't build libgcc without having the glibc
+  headers around.
+
+  [...]
+
+  Meanwhile, having the kernel build the compiler support functions that
+  it needs ensures that (a) we know what compiler support functions are
+  being used, (b) we know the implementation of those support functions
+  are sane for use in the kernel, (c) we can build them with appropriate
+  compiler flags for best performance, and (d) we remove an unnecessary
+  dependency on the build toolchain.
+
+Signed-off-by: Kevin Hao <haokexin@gmail.com>
+Acked-by: Will Deacon <will.deacon@arm.com>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+---
+ arch/arm64/Makefile | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+index e129f36..ac1c9cd 100644
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -15,8 +15,6 @@ CPPFLAGS_vmlinux.lds = -DTEXT_OFFSET=$(TEXT_OFFSET)
+ OBJCOPYFLAGS	:=-O binary -R .note -R .note.gnu.build-id -R .comment -S
+ GZFLAGS		:=-9
+ 
+-LIBGCC 		:= $(shell $(CC) $(KBUILD_CFLAGS) -print-libgcc-file-name)
+-
+ KBUILD_DEFCONFIG := defconfig
+ 
+ KBUILD_CFLAGS	+= -mgeneral-regs-only -fno-pic
+@@ -45,7 +43,7 @@ export	TEXT_OFFSET GZFLAGS
+ core-y		+= arch/arm64/kernel/ arch/arm64/mm/
+ core-$(CONFIG_CRYPTO) += arch/arm64/crypto/
+ libs-y		:= arch/arm64/lib/ $(libs-y)
+-libs-y		+= $(LIBGCC)
++libs-$(CONFIG_EFI_STUB) += drivers/firmware/efi/libstub/
+ 
+ # Default target when executing plain make
+ ifeq ($(CONFIG_BUILD_ARM64_APPENDED_DTB_IMAGE),y)
+-- 
+2.4.11
+
