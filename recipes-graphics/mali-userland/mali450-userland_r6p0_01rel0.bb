@@ -3,16 +3,22 @@ SUMMARY = "ARM Mali Utgard GPU User Space driver for HiKey (drm backend)"
 LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9836ad038c5a090a0280233eea"
 
-COMPATIBLE_MACHINE = "hikey"
+COMPATIBLE_MACHINE = "(hikey|hikey-32)"
 
 SRC_URI[md5sum] = "36f39e86ccfe5a6a4cb2090865c339ba"
 SRC_URI[sha256sum] = "dd136931cdbb309c0ce30297c06f7c6b0a48450f51acbbbc10529d341977f728"
+SRC_URI[arm64.md5sum] = "36f39e86ccfe5a6a4cb2090865c339ba"
+SRC_URI[arm64.sha256sum] = "dd136931cdbb309c0ce30297c06f7c6b0a48450f51acbbbc10529d341977f728"
+SRC_URI[armhf.md5sum] = "50a5585525660ff8e71c8478e88571c3"
+SRC_URI[armhf.sha256sum] = "3785359486e52cbad19cd221555452de768e5deae879b24ae9c7ef0f3f3d65ae"
 
 PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2"
 
 DEPENDS = "libdrm wayland mesa"
 
-SRC_URI = "http://malideveloper.arm.com/downloads/drivers/binary/utgard/r6p0-01rel0/mali-450_${PV}-${PR}_linux_1+arm64.tar.gz;destsuffix=mali"
+VER ?= "${@bb.utils.contains('TUNE_FEATURES', 'aarch64', '64', 'hf', d)}"
+
+SRC_URI = " http://malideveloper.arm.com/downloads/drivers/binary/utgard/r6p0-01rel0/mali-450_r6p0-01rel0_linux_1+arm${VER}.tar.gz;destsuffix=mali;name=arm${VER}"
 
 S = "${WORKDIR}/wayland-drm"
 
