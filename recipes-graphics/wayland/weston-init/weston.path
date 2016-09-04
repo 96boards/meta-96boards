@@ -1,0 +1,7 @@
+[Unit]
+Description=Graphic Card Watch
+Before=paths.target shutdown.target
+
+[Path]
+# DRM backend requires /dev/dri/card0
+PathExists=/dev/dri/card0
