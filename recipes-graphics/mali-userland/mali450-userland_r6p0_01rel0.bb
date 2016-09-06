@@ -3,7 +3,16 @@ SUMMARY = "ARM Mali Utgard GPU User Space driver for HiKey (drm backend)"
 LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9836ad038c5a090a0280233eea"
 
-COMPATIBLE_MACHINE = "(hikey|hikey-32)"
+# Disable for non-MALI machines
+python __anonymous() {
+    features = bb.data.getVar("MACHINE_FEATURES", d, 1)
+    if not features:
+        return
+    if "mali450" not in features:
+        pkgn = bb.data.getVar("PN", d, 1)
+        pkgv = bb.data.getVar("PV", d, 1)
+        raise bb.parse.SkipPackage("%s-%s ONLY supports machines with a MALI iGPU" % (pkgn, pkgv))
+}
 
 SRC_URI[md5sum] = "36f39e86ccfe5a6a4cb2090865c339ba"
 SRC_URI[sha256sum] = "dd136931cdbb309c0ce30297c06f7c6b0a48450f51acbbbc10529d341977f728"
