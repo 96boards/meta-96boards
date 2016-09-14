@@ -1,7 +1,15 @@
-SRC_URI += "file://weston.ini"
+SRC_URI += "file://weston.ini \
+            file://weston-start \
+"
 
 do_install_append() {
     install -D -p -m0644 ${WORKDIR}/weston.ini ${D}${sysconfdir}/xdg/weston/weston.ini
+
+    # Install weston-start script
+    install -D -p -m0755 ${WORKDIR}/weston-start ${D}${bindir}/weston-start
+    sed -i -e s:@DATADIR@:${datadir}:g \
+           -e s:@LOCALSTATEDIR@:${localstatedir}:g \
+              ${D}${bindir}/weston-start
 }
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
