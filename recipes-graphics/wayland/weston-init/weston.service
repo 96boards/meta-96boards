@@ -1,0 +1,13 @@
+[Unit]
+Description=Weston Wayland Compositor
+RequiresMountsFor=/run
+Requires=dev-input-event0.device
+After=dev-input-event0.device
+
+[Service]
+User=root
+EnvironmentFile=-/etc/default/weston
+ExecStart=/usr/bin/weston-start -v -e -- $OPTARGS
+
+[Install]
+WantedBy=multi-user.target
