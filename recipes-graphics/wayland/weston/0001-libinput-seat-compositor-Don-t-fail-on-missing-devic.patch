@@ -1,0 +1,48 @@
+From 7e0f54b1d49fac4dc9fd227f6b0741087db0b69f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Daniel=20D=C3=ADaz?= <daniel.diaz@linaro.org>
+Date: Thu, 8 Sep 2016 10:43:42 -0500
+Subject: [PATCH] libinput-seat/compositor: Don't fail on missing devices.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+It should be possible to run Weston without any initial
+input device. A sample use case for this is when running
+automated tests; another is when a user plugs an input
+device after launch.
+
+Signed-off-by: Daniel Díaz <daniel.diaz@linaro.org>
+---
+ src/compositor-drm.c | 2 +-
+ src/libinput-seat.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/compositor-drm.c b/src/compositor-drm.c
+index 6777bf8..71e16b6 100644
+--- a/src/compositor-drm.c
++++ b/src/compositor-drm.c
+@@ -3149,7 +3149,7 @@ drm_backend_create(struct weston_compositor *compositor,
+ 	if (udev_input_init(&b->input,
+ 			    compositor, b->udev, param->seat_id) < 0) {
+ 		weston_log("failed to create input devices\n");
+-		goto err_sprite;
++		/* goto err_sprite; */
+ 	}
+ 
+ 	if (create_outputs(b, param->connector, drm_device) < 0) {
+diff --git a/src/libinput-seat.c b/src/libinput-seat.c
+index c9f9ed2..7c84fe8 100644
+--- a/src/libinput-seat.c
++++ b/src/libinput-seat.c
+@@ -258,7 +258,7 @@ udev_input_enable(struct udev_input *input)
+ 			"\t- seats misconfigured "
+ 			"(Weston backend option 'seat', "
+ 			"udev device property ID_SEAT)\n");
+-		return -1;
++		return 0;
+ 	}
+ 
+ 	return 0;
+-- 
+1.9.1
+

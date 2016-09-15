@@ -1,0 +1,12 @@
+[Unit]
+Description=Weston Wayland Compositor
+RequiresMountsFor=/run
+
+[Service]
+User=root
+EnvironmentFile=-/etc/default/weston
+ExecStartPre=/usr/bin/weston-waitforcard.sh
+ExecStart=/usr/bin/weston-start -v -e -- $OPTARGS
+
+[Install]
+WantedBy=multi-user.target
