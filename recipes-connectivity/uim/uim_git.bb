@@ -16,7 +16,7 @@ do_install() {
 	oe_runmake install DESTDIR=${D} PREFIX=${prefix} V=1
 
 	sed -i -e s:/usr/sbin:${sbindir}:g ${S}/systemd/system/ti-uim.service
-	
+
 	install -d ${D}${systemd_unitdir}/system/
 	install -m 0644 ${S}/systemd/system/ti-uim.service ${D}${systemd_unitdir}/system
 
