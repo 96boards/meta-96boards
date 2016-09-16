@@ -7,7 +7,7 @@ inherit systemd
 # Doesn't have a version, so we'll make one up
 PV = "0.0"
 
-SRCREV = "24535fcc2708e00d88c95ce0f285fa3d917d9472"
+SRCREV = "a0236bc252e6484835ce266ae4a50b361f6a902d"
 SRC_URI = "git://github.com/96boards/uim.git"
 
 S= "${WORKDIR}/git"
@@ -16,7 +16,7 @@ do_install() {
 	oe_runmake install DESTDIR=${D} PREFIX=${prefix} V=1
 
 	sed -i -e s:/usr/sbin:${sbindir}:g ${S}/systemd/system/ti-uim.service
-	
+
 	install -d ${D}${systemd_unitdir}/system/
 	install -m 0644 ${S}/systemd/system/ti-uim.service ${D}${systemd_unitdir}/system
 
