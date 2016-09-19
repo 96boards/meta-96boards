@@ -54,19 +54,18 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 # ensure we deploy grubaa64.efi before we try to create the boot image.
 do_deploy[depends] += "grub:do_deploy"
 do_deploy() {
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOY_DIR_IMAGE}/fip.bin
+    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOYDIR}/fip.bin
 
     # Ship nvme.img with UEFI binaries for convenience
-    dd if=/dev/zero of=${DEPLOY_DIR_IMAGE}/nvme.img bs=128 count=1024
+    dd if=/dev/zero of=${DEPLOYDIR}/nvme.img bs=128 count=1024
 
     # Create boot image
-    mkfs.vfat -F32 -n "boot" -C ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${BOOT_IMAGE_SIZE}
-    mmd -i ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI
-    mmd -i ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI/BOOT
-    mcopy -i ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ::EFI/BOOT/fastboot.efi
-    mcopy -i ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${DEPLOY_DIR_IMAGE}/grubaa64.efi ::EFI/BOOT/grubaa64.efi
-    chmod 644 ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE_BASE_NAME}.uefi.img
-    rm -f ${DEPLOY_DIR_IMAGE}/grubaa64.efi
+    mkfs.vfat -F32 -n "boot" -C ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${BOOT_IMAGE_SIZE}
+    mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI
+    mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI/BOOT
+    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ::EFI/BOOT/fastboot.efi
+    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${DEPLOY_DIR_IMAGE}/grubaa64.efi ::EFI/BOOT/grubaa64.efi
+    chmod 644 ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img
 
-    (cd ${DEPLOY_DIR_IMAGE} && ln -sf ${BOOT_IMAGE_BASE_NAME}.uefi.img boot-${MACHINE}.uefi.img)
+    (cd ${DEPLOYDIR} && ln -sf ${BOOT_IMAGE_BASE_NAME}.uefi.img boot-${MACHINE}.uefi.img)
 }

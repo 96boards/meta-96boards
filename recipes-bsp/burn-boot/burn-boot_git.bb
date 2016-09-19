@@ -15,8 +15,10 @@ do_install() {
 
 RDEPENDS_${PN} += "python-pyserial"
 
+inherit deploy
+
 do_deploy() {
-    install -D -p -m 0755 ${S}/hisi-idt.py ${DEPLOY_DIR_IMAGE}/hisi-idt.py
+    install -D -p -m 0755 ${S}/hisi-idt.py ${DEPLOYDIR}/hisi-idt.py
 }
 
 addtask deploy before do_build after do_compile
