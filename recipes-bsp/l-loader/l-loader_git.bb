@@ -44,8 +44,8 @@ do_install() {
 }
 
 do_deploy() {
-    install -D -p -m0644 l-loader.bin ${DEPLOY_DIR_IMAGE}/l-loader.bin
-    cp -a ptable-linux-*.img ${DEPLOY_DIR_IMAGE}
+    install -D -p -m0644 l-loader.bin ${DEPLOYDIR}/l-loader.bin
+    cp -a ptable-linux-*.img ${DEPLOYDIR}
 }
 
 addtask deploy before do_build after do_compile
