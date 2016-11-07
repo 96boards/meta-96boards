@@ -30,7 +30,7 @@ fi
 if [ -n "$DISPLAY" ]; then
 	launcher="weston"
 else
-	launcher="weston-launch --"
+	launcher="weston-launch -u root --"
 fi
 
 openvt_args="-s"
