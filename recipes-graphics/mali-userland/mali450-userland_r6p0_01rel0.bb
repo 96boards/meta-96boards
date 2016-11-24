@@ -5,12 +5,12 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9
 
 # Disable for non-MALI machines
 python __anonymous() {
-    features = bb.data.getVar("MACHINE_FEATURES", d, 1)
+    features = d.getVar("MACHINE_FEATURES", True)
     if not features:
         return
     if "mali450" not in features:
-        pkgn = bb.data.getVar("PN", d, 1)
-        pkgv = bb.data.getVar("PV", d, 1)
+        pkgn = d.getVar("PN", True)
+        pkgv = d.getVar("PV", True)
         raise bb.parse.SkipPackage("%s-%s ONLY supports machines with a MALI iGPU" % (pkgn, pkgv))
 }
 
