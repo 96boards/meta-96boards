@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "96boards-hikey kernel"
 
 PV = "4.8+4.9-rc6+git${SRCPV}"
-SRCREV_kernel = "328d683059ec35c0359df2e58f8b0954fbf52ea5"
+SRCREV_kernel = "876b943b123dcc2d516ad12ce8bee5006de48321"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://github.com/Linaro/rpk.git;protocol=https;branch=master;name=kernel \
@@ -13,6 +13,7 @@ SRC_URI_append_hikey = " \
     file://defconfig;subdir=git/kernel/configs \
     file://mali-450.conf;subdir=git/kernel/configs \
     file://END_USER_LICENCE_AGREEMENT.txt;subdir=git \
+    file://0001-thermal-hisilicon-use-dev_dbg-when-bind-sensors.patch \
 "
 
 # Mali 400/450 GPU kernel device drivers license is GPLv2
