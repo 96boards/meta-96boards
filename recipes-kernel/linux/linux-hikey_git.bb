@@ -14,6 +14,7 @@ SRC_URI_append_hikey = " \
     file://defconfig;subdir=git/kernel/configs \
     file://mali-450.conf;subdir=git/kernel/configs \
     file://END_USER_LICENCE_AGREEMENT.txt;subdir=git \
+    file://0001-linux-hikey-dts-add-mali-configuration-in-the-device.patch \
     file://0001-thermal-hisilicon-use-dev_dbg-when-bind-sensors.patch \
     file://0001-drivers-gpu-Add-ARM-Mali-Utgard-r6p0-driver.patch \
     file://0002-drivers-gpu-arm-utgard-add-option-for-custom-device-.patch \
