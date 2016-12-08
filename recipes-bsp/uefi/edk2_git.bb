@@ -12,9 +12,9 @@ PV = "0.0+${SRCPV}"
 
 SRCREV_FORMAT = "edk2-atf"
 
-SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
-SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
-SRCREV_openplatformpkg = "ce9c1b7dbb2f5d506240626c77b685adbdeeda8e"
+SRCREV_edk2 = "90b10821cd3518d07e4ae106d4a02e77179e5b6f"
+SRCREV_atf = "7a1c268fd80e85fa00998533d8993c660682e88d"
+SRCREV_openplatformpkg = "b4375302ff2c26786a9d42126359c3a394a65ed4"
 SRCREV_uefitools = "12e8e46a138bd8e3b99a5ac7b1a7922f06500743"
 
 SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
@@ -60,6 +60,7 @@ do_compile() {
 
 do_deploy() {
     # Placeholder to be implemented in machine specific recipe
+    echo "placeholder, see recipe"
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
