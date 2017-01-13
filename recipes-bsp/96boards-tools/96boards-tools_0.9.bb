@@ -7,6 +7,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0;md5=80
 
 SRCREV = "fba12c14c391721335c249959c11ca8765f0ae96"
 SRC_URI = "git://github.com/96boards/96boards-tools;branch=master;protocol=https"
+SRC_URI += "file://0001-resize-helper.service-Use-ConditionFirstBoot-directi.patch"
 
 S = "${WORKDIR}/git"
 
