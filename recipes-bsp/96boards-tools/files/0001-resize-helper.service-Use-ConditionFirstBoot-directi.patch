@@ -1,0 +1,35 @@
+From 488a3e0eee948cec2a6f87652bc3cea2a2d52e4f Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 1 Dec 2016 21:27:21 -0800
+Subject: [PATCH] resize-helper.service: Use ConditionFirstBoot directive
+
+ConditionFirstBoot when set to yes would be run
+when booting for first time. There is no need to
+manually enabled/disable the service then
+
+https://www.freedesktop.org/software/systemd/man/systemd.unit.html#ConditionFirstBoot=
+
+and reboot immediately after resize is done
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ resize-helper.service | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: git/resize-helper.service
+===================================================================
+--- git.orig/resize-helper.service
++++ git/resize-helper.service
+@@ -1,11 +1,11 @@
+ [Unit]
+ Description=Resize root filesystem to fit available disk space
+ After=systemd-remount-fs.service
++ConditionFirstBoot=yes
+ 
+ [Service]
+ Type=oneshot
+ ExecStart=-/usr/sbin/resize-helper
+-ExecStartPost=/bin/systemctl disable resize-helper.service
+ 
+ [Install]
+ WantedBy=basic.target
