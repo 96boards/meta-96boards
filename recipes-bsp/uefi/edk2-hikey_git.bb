@@ -4,14 +4,15 @@ COMPATIBLE_MACHINE = "hikey"
 
 DEPENDS_append = " dosfstools-native mtools-native grub optee-os"
 
-SRCREV_edk2 = "76c7cfcc22c7448638acb6f904088b2ff3f79f63"
-SRCREV_atf = "bdec62eeb8f3153a4647770e08aafd56a0bcd42b"
-SRCREV_openplatformpkg = "db64042266ed377f4a6748232497de8e05d36e35"
+SRCREV_edk2 = "9f98bde85b03fbd7e58f1190b08aeba80d76f97a"
+SRCREV_atf = "63655eba61d1739fd710f34fbe7ba8df3873ac4f"
+SRCREV_openplatformpkg = "f70886cd45a12a0ce961752de55dc70a878f8a15"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=hikey;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=hikey-aosp;destsuffix=git/OpenPlatformPkg \
            file://grub.cfg.in \
+           file://0001-ATF-fix-build-failure-with-gcc6.patch \
           "
 
 OPTEE_OS_ARG = "-s ${EDK2_DIR}/optee_os"
