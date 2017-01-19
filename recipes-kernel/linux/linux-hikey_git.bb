@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "96boards-hikey kernel"
 
 PV = "4.9+git${SRCPV}"
-SRCREV_kernel = "11f2cb25b44923fc671ea485d795f4f45319d9a7"
+SRCREV_kernel = "04ec80a78dbc970cf921abc02910d2148cec6dbb"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://github.com/Linaro/rpk.git;protocol=https;branch=master;name=kernel \
