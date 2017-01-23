@@ -5,7 +5,7 @@ Conflicts=getty@tty7.service plymouth-quit.service
 After=systemd-user-sessions.service getty@tty7.service plymouth-quit-wait.service
 
 [Service]
-User=root
+User=%i
 PermissionsStartOnly=true
 
 # Log us in via PAM so we get our XDG & co. environment and
@@ -29,7 +29,7 @@ EnvironmentFile=-/etc/default/weston
 # Weston does not successfully change VT, nor does systemd place us on
 # the VT it just activated for us. Switch manually:
 ExecStartPre=/usr/bin/chvt 7
-ExecStart=/usr/bin/weston --log=/var/log/weston.log $OPTARGS
+ExecStart=/usr/bin/weston --log=${XDG_RUNTIME_DIR}/weston.log $OPTARGS
 
 IgnoreSIGPIPE=no
 
