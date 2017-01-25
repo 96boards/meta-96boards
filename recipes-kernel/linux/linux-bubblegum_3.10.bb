@@ -41,6 +41,10 @@ do_configure() {
     echo '# CONFIG_RTL8723BU is not set' >> ${B}/.config 
     echo '# CONFIG_RTL8723BS is not set' >> ${B}/.config 
 
+    # Workaround build failure with GCC6:
+    # Don't build ARM AMBA Multimedia Card Interface support as a module
+    sed -i -e '/CONFIG_MMC_ARMMMCI/d' ${B}/.config
+    echo 'CONFIG_MMC_ARMMMCI=y' >> ${B}/.config
 
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
