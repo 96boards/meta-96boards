@@ -28,7 +28,7 @@ DEPENDS = "libdrm wayland mesa"
 VER ?= "${@bb.utils.contains('TUNE_FEATURES', 'aarch64', '64', 'hf', d)}"
 
 SRC_URI = " http://malideveloper.arm.com/downloads/drivers/binary/utgard/r6p0-01rel0/mali-450_r6p0-01rel0_linux_1+arm${VER}.tar.gz;destsuffix=mali;name=arm${VER} \
-            file://50-mali.rules
+            file://50-mali.rules \
 "
 
 S = "${WORKDIR}/wayland-drm"
