@@ -4,15 +4,14 @@ COMPATIBLE_MACHINE = "hikey"
 
 DEPENDS_append = " dosfstools-native mtools-native grub optee-os"
 
-SRCREV_edk2 = "9f98bde85b03fbd7e58f1190b08aeba80d76f97a"
-SRCREV_atf = "63655eba61d1739fd710f34fbe7ba8df3873ac4f"
+SRCREV_edk2 = "06e4def583a56aebb67d11ab8f782220bbc5f621"
+SRCREV_atf = "4adfdd06f11deb2ab6a056a68ed6f22dcb99a791"
 SRCREV_openplatformpkg = "f70886cd45a12a0ce961752de55dc70a878f8a15"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=hikey;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=hikey-aosp;destsuffix=git/OpenPlatformPkg \
            file://grub.cfg.in \
-           file://0001-ATF-fix-build-failure-with-gcc6.patch \
           "
 
 OPTEE_OS_ARG = "-s ${EDK2_DIR}/optee_os"
@@ -34,7 +33,7 @@ do_compile_prepend() {
 }
 
 do_install() {
-    install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
+    install -D -p -m0644 ${EDK2_DIR}/Build/HiKey/RELEASE_${AARCH64_TOOLCHAIN}/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
     install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${D}${libdir}/edk2/bl1.bin
 
     # Install grub configuration
@@ -64,7 +63,7 @@ do_deploy() {
     mkfs.vfat -F32 -n "boot" -C ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${BOOT_IMAGE_SIZE}
     mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI
     mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI/BOOT
-    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${EDK2_DIR}/Build/HiKey/RELEASE_GCC49/AARCH64/AndroidFastbootApp.efi ::EFI/BOOT/fastboot.efi
+    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${EDK2_DIR}/Build/HiKey/RELEASE_${AARCH64_TOOLCHAIN}/AARCH64/AndroidFastbootApp.efi ::EFI/BOOT/fastboot.efi
     mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${DEPLOY_DIR_IMAGE}/grubaa64.efi ::EFI/BOOT/grubaa64.efi
     chmod 644 ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img
 
