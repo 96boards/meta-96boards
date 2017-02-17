@@ -15,7 +15,7 @@ SRCREV_FORMAT = "edk2-atf"
 SRCREV_edk2 = "53596a72cd96f84c7ca83254246f3520a49861b1"
 SRCREV_atf = "68fc81743e8671312a98c364ba2b0d69429cf4c6"
 SRCREV_openplatformpkg = "ce9c1b7dbb2f5d506240626c77b685adbdeeda8e"
-SRCREV_uefitools = "d30846ab593f8e525c5b0f4399406d0ac8e69002"
+SRCREV_uefitools = "12e8e46a138bd8e3b99a5ac7b1a7922f06500743"
 
 SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
            git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;destsuffix=git/atf \
@@ -55,7 +55,7 @@ do_compile() {
     # ... and the library itself
     sed -i -e 's: -luuid: -luuid -L ${STAGING_LIBDIR_NATIVE}:g' ${S}/BaseTools/Source/C/*/GNUmakefile
 
-    ${EDK2_DIR}/uefi-tools/uefi-build.sh -b RELEASE -a ${EDK2_DIR}/atf ${OPTEE_OS_ARG} ${UEFIMACHINE}
+    ${EDK2_DIR}/uefi-tools/uefi-build.sh -T ${AARCH64_TOOLCHAIN} -b RELEASE -a ${EDK2_DIR}/atf ${OPTEE_OS_ARG} ${UEFIMACHINE}
 }
 
 do_deploy() {
