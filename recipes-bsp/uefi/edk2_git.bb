@@ -62,7 +62,7 @@ do_deploy() {
     # Placeholder to be implemented in machine specific recipe
 
     if [ -e ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ] ; then 
-    	install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOYDIR}/fip.bin
+        install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOYDIR}/fip.bin
     fi
 }
 

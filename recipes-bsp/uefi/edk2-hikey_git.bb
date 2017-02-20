@@ -54,8 +54,6 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 # ensure we deploy grubaa64.efi before we try to create the boot image.
 do_deploy[depends] += "grub:do_deploy"
 do_deploy() {
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin ${DEPLOYDIR}/fip.bin
-
     # Ship nvme.img with UEFI binaries for convenience
     dd if=/dev/zero of=${DEPLOYDIR}/nvme.img bs=128 count=1024
 
