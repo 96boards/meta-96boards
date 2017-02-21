@@ -53,7 +53,7 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 # HiKey boot image requires fastboot and grub EFI
 # ensure we deploy grubaa64.efi before we try to create the boot image.
 do_deploy[depends] += "grub:do_deploy"
-do_deploy() {
+do_deploy_append() {
     # Ship nvme.img with UEFI binaries for convenience
     dd if=/dev/zero of=${DEPLOYDIR}/nvme.img bs=128 count=1024
 
