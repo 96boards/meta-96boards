@@ -2,8 +2,8 @@ require linux.inc
 
 DESCRIPTION = "ARM LT kernel"
 
-PV = "4.9.0+git"
-SRCREV_kernel = "bd4ec9ac3787a05c0e6878e09aa8d2b66dd3f80d"
+PV = "4.10.0+git"
+SRCREV_kernel = "51fefc39fb8dc3f794cd7d41c97b78ee565f3264"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://git.linaro.org/landing-teams/working/arm/kernel-release.git;protocol=https;branch=latest-armlt;name=kernel;rebaseable=1 \
