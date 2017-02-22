@@ -5,7 +5,7 @@ SECTION = "devel"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
-SRCREV = "fba12c14c391721335c249959c11ca8765f0ae96"
+SRCREV = "d300017ce489fd09c6a8f025eaa2a0c61104b84f"
 SRC_URI = "git://github.com/96boards/96boards-tools;branch=master;protocol=https"
 
 S = "${WORKDIR}/git"
