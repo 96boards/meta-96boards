@@ -60,7 +60,7 @@ do_configure() {
 
 # Exclude DATETIME for signatures to avoid invalidating them during a build
 BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
-DT_IMAGE_BASE_NAME [vardepsexclude] = "DATETIME"
+DT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
 BOOT_IMAGE_BASE_NAME = "boot-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 DT_IMAGE_BASE_NAME = "dt-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
