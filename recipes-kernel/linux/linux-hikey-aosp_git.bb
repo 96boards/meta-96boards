@@ -18,9 +18,9 @@ COMPATIBLE_MACHINE = "hikey"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/arch/arm64/configs/hikey_defconfig \
+    ${S}/kernel/configs/oe-overrides.config \
     ${S}/kernel/configs/kselftests.config \
     ${S}/kernel/configs/kselftests-extras.config \
-    ${S}/kernel/configs/oe-overrides.config \
 "
 
 # make[3]: *** [scripts/extract-cert] Error 1
