@@ -9,6 +9,7 @@ SRCREV_FORMAT = "kernel"
 SRC_URI = "\
     git://android.googlesource.com/kernel/hikey-linaro;protocol=https;branch=android-hikey-linaro-4.9;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
+    file://systemd.config;subdir=git/kernel/configs \
     file://kselftests-extras.config;subdir=git/kernel/configs \
 "
 
@@ -19,6 +20,7 @@ KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/arch/arm64/configs/hikey_defconfig \
     ${S}/kernel/configs/distro-overrides.config \
+    ${S}/kernel/configs/systemd.config \
     ${S}/kernel/configs/kselftests.config \
     ${S}/kernel/configs/kselftests-extras.config \
 "
