@@ -1,0 +1,24 @@
+From 42e211f092aa73ce97a0cabe68201ec6d2409800 Mon Sep 17 00:00:00 2001
+From: Fathi Boudra <fathi.boudra@linaro.org>
+Date: Mon, 20 Mar 2017 11:13:19 +0200
+Subject: [PATCH 3/3] selftests: vm: add CONFIG_SYSVIPC=y to the config
+ fragment
+
+vm tests rely on shared memory settings. Enable system V IPC to run these
+tests.
+
+Signed-off-by: Fathi Boudra <fathi.boudra@linaro.org>
+---
+ tools/testing/selftests/vm/config | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tools/testing/selftests/vm/config b/tools/testing/selftests/vm/config
+index 698c7ed28a26..1c0d76cb5adf 100644
+--- a/tools/testing/selftests/vm/config
++++ b/tools/testing/selftests/vm/config
+@@ -1 +1,2 @@
++CONFIG_SYSVIPC=y
+ CONFIG_USERFAULTFD=y
+-- 
+2.11.0
+
