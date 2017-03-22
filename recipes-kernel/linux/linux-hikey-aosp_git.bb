@@ -10,7 +10,9 @@ SRC_URI = "\
     git://android.googlesource.com/kernel/hikey-linaro;protocol=https;branch=android-hikey-linaro-4.9;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
-    file://kselftests-extras.config;subdir=git/kernel/configs \
+    file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
+    file://0002-selftests-ftrace-add-CONFIG_KPROBES-y-to-the-config-.patch \
+    file://0003-selftests-vm-add-CONFIG_SYSVIPC-y-to-the-config-frag.patch \
 "
 
 S = "${WORKDIR}/git"
@@ -18,11 +20,8 @@ S = "${WORKDIR}/git"
 COMPATIBLE_MACHINE = "hikey"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
-    ${S}/arch/arm64/configs/hikey_defconfig \
     ${S}/kernel/configs/distro-overrides.config \
     ${S}/kernel/configs/systemd.config \
-    ${S}/kernel/configs/kselftests.config \
-    ${S}/kernel/configs/kselftests-extras.config \
 "
 
 # make[3]: *** [scripts/extract-cert] Error 1
@@ -30,18 +29,7 @@ DEPENDS += "openssl-native"
 HOST_EXTRACFLAGS += "-I${STAGING_INCDIR_NATIVE}"
 
 do_configure() {
-    touch ${B}/.config
-
-    # Generate a config fragment from the individual selftests config files
-    # included in the kernel source tree
-    for f in $(find ${S}/tools/testing/selftests -type f -name config); do
-        cat ${f} >> ${S}/kernel/configs/kselftests.config
-    done
-
-    # Remove duplicated lines and sort the content
-    LANG=C sort \
-        -u ${S}/kernel/configs/kselftests.config \
-        -o ${S}/kernel/configs/kselftests.config
+    cp ${S}/arch/arm64/configs/hikey_defconfig ${B}/.config
 
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
@@ -67,6 +55,8 @@ do_configure() {
         # Now that all the fragments are located merge them.
         ( cd ${WORKDIR} && ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} ${B}/.config ${KERNEL_CONFIG_FRAGMENTS} 1>&2 )
     fi
+
+    oe_runmake -C ${S} O=${B} kselftest-merge
 
     yes '' | oe_runmake -C ${S} O=${B} oldconfig
 }
