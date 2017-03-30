@@ -13,6 +13,7 @@ SRCREV = "b524fa27f56381bb0efa4944e36f50265113aee5"
 SRC_URI = "git://git.savannah.gnu.org/grub.git \
            file://autogen.sh-exclude-pc.patch \
            file://0001-grub.d-10_linux.in-add-oe-s-kernel-name.patch \
+           file://0001-configure-add-check-for-no-pie-if-the-compiler-defau.patch \
            file://cfg \
           "
 
