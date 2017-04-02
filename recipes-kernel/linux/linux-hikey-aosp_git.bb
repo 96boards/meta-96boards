@@ -60,4 +60,8 @@ do_configure() {
     oe_runmake -C ${S} O=${B} kselftest-merge
 
     yes '' | oe_runmake -C ${S} O=${B} oldconfig
+
+    bbplain "Saving defconfig to:\n${B}/defconfig"
+    oe_runmake -C ${B} savedefconfig
+    cp -a ${B}/defconfig ${DEPLOYDIR}
 }
