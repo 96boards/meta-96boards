@@ -14,6 +14,9 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp 
            file://grub.cfg.in \
           "
 
+# /usr/lib/edk2/bl1.bin not shipped files. [installed-vs-shipped]
+INSANE_SKIP_${PN} += "installed-vs-shipped"
+
 OPTEE_OS_ARG = "-s ${EDK2_DIR}/optee_os"
 
 # We need the secure payload (Trusted OS) built from OP-TEE Trusted OS (tee.bin)
