@@ -56,6 +56,10 @@ do_configure() {
     fi
 
     yes '' | oe_runmake -C ${S} O=${B} oldconfig
+
+    bbplain "Saving defconfig to:\n${B}/defconfig"
+    oe_runmake -C ${B} savedefconfig
+    cp -a ${B}/defconfig ${DEPLOYDIR}
 }
 
 # Exclude DATETIME for signatures to avoid invalidating them during a build
