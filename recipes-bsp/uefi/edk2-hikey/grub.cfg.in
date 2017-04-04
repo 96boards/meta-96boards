@@ -5,3 +5,8 @@ menuentry 'CE Reference Platform (HiKey @DISTRO)' {
     linux /boot/@KERNEL_IMAGETYPE console=tty0 @CMDLINE
     devicetree /boot/hi6220-hikey.dtb
 }
+
+menuentry 'Fastboot' {
+    search.fs_label boot boot_part
+    chainloader ($boot_part)/EFI/BOOT/fastboot.efi
+}
