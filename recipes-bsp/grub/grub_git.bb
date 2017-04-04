@@ -14,8 +14,12 @@ SRC_URI = "git://git.savannah.gnu.org/grub.git \
            file://autogen.sh-exclude-pc.patch \
            file://0001-grub.d-10_linux.in-add-oe-s-kernel-name.patch \
            file://0001-configure-add-check-for-no-pie-if-the-compiler-defau.patch \
-           file://cfg \
           "
+
+SRC_URI_append_hikey = " \
+    file://cfg.emmc \
+    file://cfg.sdcard \
+"
 
 S = "${WORKDIR}/git"
 
@@ -67,11 +71,21 @@ do_install_append () {
 
 GRUB_BUILDIN ?= "boot chain configfile echo efinet eval ext2 fat font gettext gfxterm gzio help linux loadenv lsefi normal part_gpt part_msdos read regexp search search_fs_file search_fs_uuid search_label terminal terminfo test tftp time"
 
+python () {
+    emmc = d.getVar('CMDLINE_ROOT_EMMC', True)
+    cmdline = d.getVar('CMDLINE', True)
+
+    if emmc in cmdline:
+        d.setVar('GRUB_CFG', 'cfg.emmc')
+    else:
+        d.setVar('GRUB_CFG', 'cfg.sdcard')
+}
+
 do_deploy() {
 	# Search for the grub.cfg on the local boot media by using the
 	# built in cfg file provided via this recipe
 	if [ "${GRUBPLATFORM}" = "efi" ] ; then
-		grub-mkimage -c ../cfg -p /EFI/BOOT -d ./grub-core/ \
+		grub-mkimage -c ../${GRUB_CFG} -p /EFI/BOOT -d ./grub-core/ \
 		               -O ${GRUB_TARGET}-efi -o ./${GRUB_IMAGE} \
 		               ${GRUB_BUILDIN}
 		install -m 644 ${B}/${GRUB_IMAGE} ${DEPLOYDIR}

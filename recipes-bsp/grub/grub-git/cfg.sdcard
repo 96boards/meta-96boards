@@ -1,0 +1,3 @@
+set root=(hd1,msdos2)
+set prefix=($root)'/boot/grub'
+configfile $prefix/grub.cfg
