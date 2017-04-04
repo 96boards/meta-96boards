@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "AOSP kernel for HiKey"
 
 PV = "4.9+git${SRCPV}"
-SRCREV_kernel = "be4ec6f250edf541075cae12c6214271881764d2"
+SRCREV_kernel = "0d350a8aad994825941c4c0a6f5764330e2ff50c"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
