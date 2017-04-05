@@ -14,11 +14,8 @@ SRC_URI = "git://git.savannah.gnu.org/grub.git \
            file://autogen.sh-exclude-pc.patch \
            file://0001-grub.d-10_linux.in-add-oe-s-kernel-name.patch \
            file://0001-configure-add-check-for-no-pie-if-the-compiler-defau.patch \
-          "
-
-SRC_URI_append_hikey = " \
-    file://cfg.emmc \
-    file://cfg.sdcard \
+           file://cfg.emmc \
+           file://cfg.sdcard \
 "
 
 S = "${WORKDIR}/git"
@@ -72,13 +69,14 @@ do_install_append () {
 GRUB_BUILDIN ?= "boot chain configfile echo efinet eval ext2 fat font gettext gfxterm gzio help linux loadenv lsefi normal part_gpt part_msdos read regexp search search_fs_file search_fs_uuid search_label terminal terminfo test tftp time"
 
 python () {
-    emmc = d.getVar('CMDLINE_ROOT_EMMC', True)
-    cmdline = d.getVar('CMDLINE', True)
+    grub_cfg = 'cfg.emmc'
 
-    if emmc in cmdline:
-        d.setVar('GRUB_CFG', 'cfg.emmc')
-    else:
-        d.setVar('GRUB_CFG', 'cfg.sdcard')
+    sdcard = d.getVar('CMDLINE_ROOT_SDCARD', True)
+    cmdline = d.getVar('CMDLINE', True)
+    if sdcard is not None and sdcard in cmdline:
+        grub_cfg = 'cfg.sdcard'
+
+    d.setVar('GRUB_CFG', grub_cfg)
 }
 
 do_deploy() {
