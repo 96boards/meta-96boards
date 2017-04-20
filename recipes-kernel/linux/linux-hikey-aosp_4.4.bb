@@ -54,7 +54,11 @@ do_configure() {
         ( cd ${WORKDIR} && ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} ${B}/.config ${KERNEL_CONFIG_FRAGMENTS} 1>&2 )
     fi
 
-    #oe_runmake -C ${S} O=${B} kselftest-merge
+    # Since kselftest-merge target isn't available, merge the individual
+    # selftests config fragments included in the kernel source tree
+    for f in $(find ${S}/tools/testing/selftests -type f -name config); do
+        ( cd ${WORKDIR} && ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} ${B}/.config ${f} 1>&2 )
+    done
 
     yes '' | oe_runmake -C ${S} O=${B} oldconfig
 
