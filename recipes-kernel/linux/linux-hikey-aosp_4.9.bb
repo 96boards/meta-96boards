@@ -31,6 +31,9 @@ HOST_EXTRACFLAGS += "-I${STAGING_INCDIR_NATIVE}"
 do_configure() {
     cp ${S}/arch/arm64/configs/hikey_defconfig ${B}/.config
 
+    # Make sure to enable NUMA
+    echo 'CONFIG_NUMA=y' >> ${B}/.config
+
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
     #   * ${WORKDIR}/config1.cfg
