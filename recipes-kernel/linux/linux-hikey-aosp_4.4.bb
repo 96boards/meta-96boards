@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "AOSP kernel for HiKey"
 
 PV = "4.4+git${SRCPV}"
-SRCREV_kernel = "aa29bf908c441d230b0fc95bc89a90e254ce6060"
+SRCREV_kernel = "f982d16336a48c51d0ef158dd2634d432cc5dd43"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
@@ -11,6 +11,8 @@ SRC_URI = "\
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
+    file://0002-4.4-selftests-ftrace-add-config-fragment.patch \
+    file://0003-4.4-selftests-vm-add-config-fragment-fragment.patch \
 "
 
 S = "${WORKDIR}/git"

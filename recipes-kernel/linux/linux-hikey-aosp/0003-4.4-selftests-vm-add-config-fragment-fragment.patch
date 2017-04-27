@@ -1,0 +1,25 @@
+From 825de5c763d35a139871c1519896f4e8abfaebc3 Mon Sep 17 00:00:00 2001
+From: Fathi Boudra <fathi.boudra@linaro.org>
+Date: Mon, 20 Mar 2017 11:13:19 +0200
+Subject: [PATCH 3/3] selftests: vm: add config fragment fragment
+
+vm tests rely on shared memory settings. Enable system V IPC to run these
+tests.
+
+Signed-off-by: Fathi Boudra <fathi.boudra@linaro.org>
+---
+ tools/testing/selftests/vm/config | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 tools/testing/selftests/vm/config
+
+diff --git a/tools/testing/selftests/vm/config b/tools/testing/selftests/vm/config
+new file mode 100644
+index 000000000000..1c0d76cb5adf
+--- /dev/null
++++ b/tools/testing/selftests/vm/config
+@@ -0,0 +1,2 @@
++CONFIG_SYSVIPC=y
++CONFIG_USERFAULTFD=y
+-- 
+2.11.0
+
