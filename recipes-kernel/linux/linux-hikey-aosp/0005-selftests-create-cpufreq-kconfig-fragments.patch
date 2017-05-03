@@ -1,0 +1,37 @@
+From 83896c68fd32895ba4ff685c4df9d1e794dfb4fe Mon Sep 17 00:00:00 2001
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Wed, 26 Apr 2017 15:39:37 +0530
+Subject: selftests: create cpufreq kconfig fragments
+
+For the better test coverage of cpufreq driver code these extra
+configurations are needed. Enable cpufreq governors and stats.
+
+Signed-off-by: Naresh Kamboju <naresh.kamboju@linaro.org>
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+Signed-off-by: Shuah Khan <shuahkh@osg.samsung.com>
+---
+ tools/testing/selftests/cpufreq/config | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+ create mode 100644 tools/testing/selftests/cpufreq/config
+
+diff --git a/tools/testing/selftests/cpufreq/config b/tools/testing/selftests/cpufreq/config
+new file mode 100644
+index 0000000..27ff72e
+--- /dev/null
++++ b/tools/testing/selftests/cpufreq/config
+@@ -0,0 +1,15 @@
++CONFIG_CPU_FREQ=y
++CONFIG_CPU_FREQ_STAT=y
++CONFIG_CPU_FREQ_GOV_POWERSAVE=y
++CONFIG_CPU_FREQ_GOV_USERSPACE=y
++CONFIG_CPU_FREQ_GOV_ONDEMAND=y
++CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y
++CONFIG_CPU_FREQ_GOV_SCHEDUTIL=y
++CONFIG_DEBUG_RT_MUTEXES=y
++CONFIG_DEBUG_PI_LIST=y
++CONFIG_DEBUG_SPINLOCK=y
++CONFIG_DEBUG_MUTEXES=y
++CONFIG_DEBUG_LOCK_ALLOC=y
++CONFIG_PROVE_LOCKING=y
++CONFIG_LOCKDEP=y
++CONFIG_DEBUG_ATOMIC_SLEEP=y
