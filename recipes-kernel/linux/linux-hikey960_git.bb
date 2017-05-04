@@ -2,12 +2,12 @@ require linux.inc
 
 DESCRIPTION = "96boards-hikey kernel for HiKey960"
 
-PV = "4.4+git${SRCPV}"
-SRCREV_kernel = "ffbd0f9ccd7a1b6a64ff33deac8d7d746991072b"
+PV = "4.9+git${SRCPV}"
+SRCREV_kernel = "6bf755da691ff7b6e828798a8ac56dcddc76dab7"
 SRCREV_FORMAT = "kernel"
-SRCREV_tools = "939a59a3689f47322d02d46109567eb517eec8ff"
+SRCREV_tools = "a02e386da7f5e2ed4499ad35ea18f3363b11c292"
 
-SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=working-hikey960-1208-base-android;name=kernel \
+SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=hikey960-v4.9;name=kernel \
     git://github.com/96boards-hikey/tools-images-hikey960.git;protocol=https;name=tools;destsuffix=tools-images-hikey960 \
 "
 
