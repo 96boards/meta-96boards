@@ -74,7 +74,7 @@ do_deploy_append() {
     touch ramdisk; echo ramdisk | cpio -vo > ${B}/ramdisk.img; rm -f ramdisk
 
     # Create boot image
-    python ${WORKDIR}/tools-images-hikey960/mkbootimg \
+    python ${WORKDIR}/tools-images-hikey960/build-from-source/mkbootimg \
       --kernel ${DEPLOYDIR}/${KERNEL_IMAGETYPE} \
       --ramdisk ${B}/ramdisk.img \
       --cmdline "${CMDLINE}" \
@@ -85,7 +85,7 @@ do_deploy_append() {
       --output ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img
 
     # Create device tree image
-    python ${WORKDIR}/tools-images-hikey960/mkdtimg \
+    python ${WORKDIR}/tools-images-hikey960/build-from-source/mkdtimg \
       --compress \
       --dtb ${DEPLOYDIR}/Image-hi3660-hikey960.dtb \
       --pagesize 2048 \
