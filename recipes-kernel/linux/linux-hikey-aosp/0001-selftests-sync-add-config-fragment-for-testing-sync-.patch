@@ -1,0 +1,63 @@
+From 3be6db3585cdb7f2fb76dfad94a4055782394fea Mon Sep 17 00:00:00 2001
+From: Fathi Boudra <fathi.boudra@linaro.org>
+Date: Fri, 5 May 2017 07:56:45 +0300
+Subject: [PATCH 1/1] selftests: sync: add config fragment for testing sync
+ framework
+
+Unless the software synchronization objects (CONFIG_SW_SYNC) is enabled,
+the sync test will fail:
+
+Additional Information:
+Running tests in sync
+========================================
+[RUN]   Testing sync framework
+[RUN]   Executing test_alloc_timeline
+[ERROR] Failure allocating timeline
+[RUN]   Executing test_alloc_fence
+[ERROR] Failure allocating timeline
+[RUN]   Executing test_alloc_fence_negative
+[ERROR] Failure allocating timeline
+[RUN]   Executing test_fence_one_timeline_wait
+[ERROR] Failure allocating timeline
+[RUN]   Executing test_fence_one_timeline_merge
+[ERROR] Failure allocating fences
+[RUN]   Executing test_fence_merge_same_fence
+[ERROR] Failure allocating timeline
+[RUN]   Executing test_fence_multi_timeline_wait
+[ERROR] Failure merging fence from various timelines
+[RUN]   Executing test_stress_two_threads_shared_timeline
+[ERROR] Failure allocating timeline
+[RUN]   Executing test_consumer_stress_multi_producer_single_consumer
+[ERROR] Failure merging fences
+[ERROR] Failure creating fence
+[ERROR] Failure creating fence
+[ERROR] Failure creating fence
+[ERROR] Failure creating fence
+[ERROR] Failure creating fence
+[RUN]   Executing test_merge_stress_random_merge
+[ERROR] Failure creating fence
+[FAIL]  sync errors: 10
+selftests: sync_test [FAIL]
+
+Add a config fragment with the relevant configuration required in order to
+run the sync test.
+
+Signed-off-by: Fathi Boudra <fathi.boudra@linaro.org>
+---
+ tools/testing/selftests/sync/config | 4 ++++
+ 1 file changed, 4 insertions(+)
+ create mode 100644 tools/testing/selftests/sync/config
+
+diff --git a/tools/testing/selftests/sync/config b/tools/testing/selftests/sync/config
+new file mode 100644
+index 000000000000..1ab7e8130db2
+--- /dev/null
++++ b/tools/testing/selftests/sync/config
+@@ -0,0 +1,4 @@
++CONFIG_STAGING=y
++CONFIG_ANDROID=y
++CONFIG_SYNC=y
++CONFIG_SW_SYNC=y
+-- 
+2.11.0
+
