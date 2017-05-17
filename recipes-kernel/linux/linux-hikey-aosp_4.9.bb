@@ -15,7 +15,7 @@ SRC_URI = "\
     file://0003-selftests-vm-add-CONFIG_SYSVIPC-y-to-the-config-frag.patch \
     file://0004-selftests-gpio-add-config-fragment-for-gpio-mockup.patch \
     file://0005-selftests-create-cpufreq-kconfig-fragments.patch \
-    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
+    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch;apply=no \
 "
 
 S = "${WORKDIR}/git"

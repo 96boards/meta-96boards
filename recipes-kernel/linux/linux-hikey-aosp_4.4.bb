@@ -12,7 +12,6 @@ SRC_URI = "\
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
     file://0005-selftests-create-cpufreq-kconfig-fragments.patch \
-    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
     file://0002-4.4-selftests-ftrace-add-config-fragment.patch \
     file://0003-4.4-selftests-vm-add-config-fragment-fragment.patch \
     file://0004-4.4-selftests-firmware-add-config-fragment-fragment.patch \
