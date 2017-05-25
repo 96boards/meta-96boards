@@ -6,7 +6,7 @@ PV = "4.9+git${SRCPV}"
 SRCREV_kernel = "04ec80a78dbc970cf921abc02910d2148cec6dbb"
 SRCREV_FORMAT = "kernel"
 
-SRC_URI = "git://github.com/Linaro/rpk.git;protocol=https;branch=master;name=kernel \
+SRC_URI = "git://github.com/Linaro/rpk.git;protocol=https;branch=rpk-v4.9;name=kernel \
 "
 
 SRC_URI_append_hikey = " \
