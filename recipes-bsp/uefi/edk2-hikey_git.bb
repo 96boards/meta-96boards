@@ -7,10 +7,12 @@ DEPENDS_append = " dosfstools-native mtools-native grub optee-os"
 SRCREV_edk2 = "06e4def583a56aebb67d11ab8f782220bbc5f621"
 SRCREV_atf = "4adfdd06f11deb2ab6a056a68ed6f22dcb99a791"
 SRCREV_openplatformpkg = "f70886cd45a12a0ce961752de55dc70a878f8a15"
+SRCREV_uefitools = "12e8e46a138bd8e3b99a5ac7b1a7922f06500743"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=hikey;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=hikey-aosp;destsuffix=git/OpenPlatformPkg \
+           git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
            file://grub.cfg.in \
           "
 
