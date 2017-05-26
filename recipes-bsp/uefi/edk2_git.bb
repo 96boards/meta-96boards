@@ -20,10 +20,8 @@ SRCREV_uefitools = "12e8e46a138bd8e3b99a5ac7b1a7922f06500743"
 SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
            git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;destsuffix=git/atf \
            git://git.linaro.org/uefi/OpenPlatformPkg.git;name=openplatformpkg;destsuffix=git/OpenPlatformPkg \
+           git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
           "
-
-SRC_URI_append = " git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
-                 "
 
 S = "${WORKDIR}/git"
 
