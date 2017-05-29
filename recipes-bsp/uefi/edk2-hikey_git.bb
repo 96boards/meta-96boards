@@ -5,7 +5,7 @@ COMPATIBLE_MACHINE = "hikey"
 DEPENDS_append = " dosfstools-native mtools-native grub optee-os"
 
 SRCREV_edk2 = "06e4def583a56aebb67d11ab8f782220bbc5f621"
-SRCREV_atf = "4adfdd06f11deb2ab6a056a68ed6f22dcb99a791"
+SRCREV_atf = "fb1158a365e2bf5bba638cde950678fddf67fe60"
 SRCREV_openplatformpkg = "f70886cd45a12a0ce961752de55dc70a878f8a15"
 SRCREV_uefitools = "12e8e46a138bd8e3b99a5ac7b1a7922f06500743"
 
