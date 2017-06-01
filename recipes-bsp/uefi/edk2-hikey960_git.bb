@@ -7,16 +7,16 @@ DEPENDS_append = " dosfstools-native mtools-native fakeroot-native grub"
 inherit deploy pythonnative
 
 SRCREV_edk2 = "7efa39f3631ca8a42cc17210fb293b850aecbf3f"
-SRCREV_atf = "58c95367b955b8c1f29962c72dd4e5ea23c74776"
-SRCREV_openplatformpkg = "5960fa698ccb61a7a131b8be18c37a355044d88b"
-SRCREV_uefitools = "9857704d962ed9dad02e7cee2f3de240d132c872"
-SRCREV_lloader = "2835202b47bf734e48c6c25cd35ffbeecb8aa141"
+SRCREV_atf = "e4dc181c0f830fe6f44c01d0f7c1bdba00c0a789"
+SRCREV_openplatformpkg = "3caefa85c4c7b69de05647350092efa743c96803"
+SRCREV_uefitools = "abbe1c0a2dbeadde0e3c5f3a183f6c595b70158e"
+SRCREV_lloader = "4dc71ca0c190a2f5d17796233076e0fb66675d0b"
 SRCREV_toolsimageshikey960 = "5716ead2fbf063b1ff578de7d6004a100d2ff92d"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=testing/hikey960_v1.1;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=testing/hikey960_v1.3.4;destsuffix=git/OpenPlatformPkg \
-           git://github.com/96boards-hikey/uefi-tools.git;name=uefitools;branch=testing/hikey960_v1;destsuffix=git/uefi-tools \
+           git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
            git://github.com/96boards-hikey/l-loader.git;name=lloader;branch=testing/hikey960_v1.2;destsuffix=git/l-loader \
            git://github.com/96boards-hikey/tools-images-hikey960.git;name=toolsimageshikey960;destsuffix=git/tools-images-hikey960 \
            file://grub.cfg.in \

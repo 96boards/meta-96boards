@@ -15,7 +15,7 @@ SRCREV_FORMAT = "edk2-atf"
 SRCREV_edk2 = "90b10821cd3518d07e4ae106d4a02e77179e5b6f"
 SRCREV_atf = "7a1c268fd80e85fa00998533d8993c660682e88d"
 SRCREV_openplatformpkg = "b4375302ff2c26786a9d42126359c3a394a65ed4"
-SRCREV_uefitools = "12e8e46a138bd8e3b99a5ac7b1a7922f06500743"
+SRCREV_uefitools = "abbe1c0a2dbeadde0e3c5f3a183f6c595b70158e"
 
 SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
            git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;destsuffix=git/atf \
