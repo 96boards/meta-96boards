@@ -7,7 +7,7 @@ DEPENDS_append = " dosfstools-native mtools-native grub optee-os"
 SRCREV_edk2 = "06e4def583a56aebb67d11ab8f782220bbc5f621"
 SRCREV_atf = "fb1158a365e2bf5bba638cde950678fddf67fe60"
 SRCREV_openplatformpkg = "f70886cd45a12a0ce961752de55dc70a878f8a15"
-SRCREV_uefitools = "12e8e46a138bd8e3b99a5ac7b1a7922f06500743"
+SRCREV_uefitools = "abbe1c0a2dbeadde0e3c5f3a183f6c595b70158e"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=hikey;destsuffix=git/atf \
