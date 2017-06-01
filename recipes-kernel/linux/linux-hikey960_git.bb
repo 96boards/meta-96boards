@@ -5,10 +5,8 @@ DESCRIPTION = "96boards-hikey kernel for HiKey960"
 PV = "4.9+git${SRCPV}"
 SRCREV_kernel = "dfd2f77df3430ff6e70fd93f135fdf1da581601c"
 SRCREV_FORMAT = "kernel"
-SRCREV_tools = "a02e386da7f5e2ed4499ad35ea18f3363b11c292"
 
 SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=hikey960-v4.9;name=kernel \
-    git://github.com/96boards-hikey/tools-images-hikey960.git;protocol=https;name=tools;destsuffix=tools-images-hikey960 \
 "
 
 S = "${WORKDIR}/git"
@@ -60,37 +58,4 @@ do_configure() {
     bbplain "Saving defconfig to:\n${B}/defconfig"
     oe_runmake -C ${B} savedefconfig
     cp -a ${B}/defconfig ${DEPLOYDIR}
-}
-
-# Exclude DATETIME for signatures to avoid invalidating them during a build
-BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
-DT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
-
-BOOT_IMAGE_BASE_NAME = "boot-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
-DT_IMAGE_BASE_NAME = "dt-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
-
-do_deploy_append() {
-    # mkbootimg requires a ramdisk, make a dummy one
-    touch ramdisk; echo ramdisk | cpio -vo > ${B}/ramdisk.img; rm -f ramdisk
-
-    # Create boot image
-    python ${WORKDIR}/tools-images-hikey960/build-from-source/mkbootimg \
-      --kernel ${DEPLOYDIR}/${KERNEL_IMAGETYPE} \
-      --ramdisk ${B}/ramdisk.img \
-      --cmdline "${CMDLINE}" \
-      --base 0x0 \
-      --tags-addr 0x07A00000 \
-      --kernel_offset 0x00080000 \
-      --ramdisk_offset 0x07c00000 \
-      --output ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img
-
-    # Create device tree image
-    python ${WORKDIR}/tools-images-hikey960/build-from-source/mkdtimg \
-      --compress \
-      --dtb ${DEPLOYDIR}/Image-hi3660-hikey960.dtb \
-      --pagesize 2048 \
-      --output ${DEPLOYDIR}/${DT_IMAGE_BASE_NAME}.img
-
-    (cd ${DEPLOYDIR} && ln -sf ${BOOT_IMAGE_BASE_NAME}.img boot-${MACHINE}.img)
-    (cd ${DEPLOYDIR} && ln -sf ${DT_IMAGE_BASE_NAME}.img dt-${MACHINE}.img)
 }
