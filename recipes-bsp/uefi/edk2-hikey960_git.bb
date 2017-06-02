@@ -10,8 +10,8 @@ SRCREV_edk2 = "7efa39f3631ca8a42cc17210fb293b850aecbf3f"
 SRCREV_atf = "e4dc181c0f830fe6f44c01d0f7c1bdba00c0a789"
 SRCREV_openplatformpkg = "3caefa85c4c7b69de05647350092efa743c96803"
 SRCREV_uefitools = "abbe1c0a2dbeadde0e3c5f3a183f6c595b70158e"
-SRCREV_lloader = "4dc71ca0c190a2f5d17796233076e0fb66675d0b"
-SRCREV_toolsimageshikey960 = "5716ead2fbf063b1ff578de7d6004a100d2ff92d"
+SRCREV_lloader = "b190ad9f72c45886333366e9a8a224500969bd09"
+SRCREV_toolsimageshikey960 = "f27a11f495f3ec73c510dcd2024eb64fb8deb240"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=testing/hikey960_v1.1;destsuffix=git/atf \
