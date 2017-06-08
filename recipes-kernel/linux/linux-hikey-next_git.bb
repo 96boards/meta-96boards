@@ -1,4 +1,5 @@
 require linux.inc
+require kselftests.inc
 
 DESCRIPTION = "Linux next kernel for HiKey"
 
