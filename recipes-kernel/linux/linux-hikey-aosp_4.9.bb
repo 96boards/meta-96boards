@@ -1,4 +1,5 @@
 require linux.inc
+require kselftests.inc
 
 DESCRIPTION = "AOSP kernel for HiKey"
 
