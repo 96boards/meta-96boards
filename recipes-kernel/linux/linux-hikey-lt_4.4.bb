@@ -1,4 +1,5 @@
 require linux.inc
+require kselftests.inc
 
 DESCRIPTION = "HiSilicon Landing Team kernel for HiKey"
 
