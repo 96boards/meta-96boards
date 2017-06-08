@@ -1,4 +1,5 @@
 require linux.inc
+require kselftests.inc
 
 DESCRIPTION = "4.9 LTS kernel for HiKey"
 
