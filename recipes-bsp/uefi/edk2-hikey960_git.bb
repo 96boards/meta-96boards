@@ -7,7 +7,7 @@ DEPENDS_append = " dosfstools-native mtools-native fakeroot-native grub"
 inherit deploy pythonnative
 
 SRCREV_edk2 = "7efa39f3631ca8a42cc17210fb293b850aecbf3f"
-SRCREV_atf = "e4dc181c0f830fe6f44c01d0f7c1bdba00c0a789"
+SRCREV_atf = "c906d2a8493bedcb5478a466f13a579551900c17"
 SRCREV_openplatformpkg = "3caefa85c4c7b69de05647350092efa743c96803"
 SRCREV_uefitools = "abbe1c0a2dbeadde0e3c5f3a183f6c595b70158e"
 SRCREV_lloader = "b190ad9f72c45886333366e9a8a224500969bd09"
