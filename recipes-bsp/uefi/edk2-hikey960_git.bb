@@ -14,7 +14,7 @@ SRCREV_lloader = "b190ad9f72c45886333366e9a8a224500969bd09"
 SRCREV_toolsimageshikey960 = "f27a11f495f3ec73c510dcd2024eb64fb8deb240"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
-           git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=testing/hikey960_v1.1;destsuffix=git/atf \
+           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=integration;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=testing/hikey960_v1.3.4;destsuffix=git/OpenPlatformPkg \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
            git://github.com/96boards-hikey/l-loader.git;name=lloader;branch=testing/hikey960_v1.2;destsuffix=git/l-loader \
