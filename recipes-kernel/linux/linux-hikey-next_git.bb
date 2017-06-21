@@ -3,7 +3,7 @@ require kselftests.inc
 
 DESCRIPTION = "Linux next kernel for HiKey"
 
-PV = "4.11+git${SRCPV}"
+PV = "4.12+git${SRCPV}"
 SRCREV_kernel = "a8c90ef62281db933118aa84489eb0e1e9cc347c"
 SRCREV_FORMAT = "kernel"
 
