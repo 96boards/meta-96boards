@@ -3,7 +3,7 @@ require kselftests.inc
 
 DESCRIPTION = "Linux mainline kernel for HiKey"
 
-PV = "4.11+git${SRCPV}"
+PV = "4.12+git${SRCPV}"
 SRCREV_kernel = "41f1830f5a7af77cf5c86359aba3cbd706687e52"
 SRCREV_FORMAT = "kernel"
 
