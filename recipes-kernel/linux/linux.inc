@@ -201,7 +201,6 @@ do_configure_append() {
 EXTRA_OEMAKE = "${PARALLEL_MAKE} "
 
 do_install_append() {
-	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
 	oe_runmake firmware_install INSTALL_MOD_PATH=${D} ARCH=$ARCH
 	install -d ${D}/boot
 	make -C ${S} O=${B} ARCH=$ARCH dtbs || true
@@ -212,9 +211,6 @@ do_install_append() {
 
 	rm -f ${D}${KERNEL_SRC_PATH}/arch/*/vdso/vdso*.so
 }
-
-PACKAGES =+ "kernel-headers"
-FILES_kernel-headers = "${exec_prefix}/src/linux*"
 
 require recipes-kernel/linux/linux-dtb.inc
 
