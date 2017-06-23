@@ -57,7 +57,7 @@ do_configure() {
 
     bbplain "Saving defconfig to:\n${B}/defconfig"
     oe_runmake -C ${B} savedefconfig
-    cp -a ${B}/defconfig ${DEPLOYDIR}
+    cp -a ${B}/defconfig ${DEPLOY_DIR_IMAGE}
 }
 
 # Create a 128M boot image. block size is 1024. (128*1024=131072)
