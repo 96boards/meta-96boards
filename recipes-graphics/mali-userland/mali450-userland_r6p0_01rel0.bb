@@ -38,21 +38,24 @@ S = "${WORKDIR}/wayland-drm"
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
+# rpm doesn't set the correct arch for symlinks:
+#   https://github.com/96boards/meta-96boards/issues/156
+# For this reason we have to use hardlinks vs symlinks.
 do_install() {
     install -m 755 -d ${D}/${libdir}
     install ${S}/libMali.so ${D}/${libdir}
-    (cd ${D}/${libdir} && ln -sf libMali.so libEGL.so.1.4 \
-    && ln -sf libEGL.so.1.4 libEGL.so.1 \
-    && ln -sf libEGL.so.1 libEGL.so)
-    (cd ${D}/${libdir} && ln -sf libMali.so libGLESv1_CM.so.1.1 \
-    && ln -sf libGLESv1_CM.so.1.1 libGLESv1_CM.so.1 \
-    && ln -sf libGLESv1_CM.so.1 libGLESv1_CM.so)
-    (cd ${D}/${libdir} && ln -sf libMali.so libGLESv2.so.2.0 \
-    && ln -sf libGLESv2.so.2.0 libGLESv2.so.2 \
-    && ln -sf libGLESv2.so.2 libGLESv2.so)
-    (cd ${D}/${libdir} && ln -sf libMali.so libgbm.so.1 \
-    && ln -sf libgbm.so.1 libgbm.so)
-    (cd ${D}/${libdir} && ln -sf libMali.so libwayland-egl.so)
+    (cd ${D}/${libdir} && ln -f libMali.so libEGL.so.1.4 \
+    && ln -f libEGL.so.1.4 libEGL.so.1 \
+    && ln -f libEGL.so.1 libEGL.so)
+    (cd ${D}/${libdir} && ln -f libMali.so libGLESv1_CM.so.1.1 \
+    && ln -f libGLESv1_CM.so.1.1 libGLESv1_CM.so.1 \
+    && ln -f libGLESv1_CM.so.1 libGLESv1_CM.so)
+    (cd ${D}/${libdir} && ln -f libMali.so libGLESv2.so.2.0 \
+    && ln -f libGLESv2.so.2.0 libGLESv2.so.2 \
+    && ln -f libGLESv2.so.2 libGLESv2.so)
+    (cd ${D}/${libdir} && ln -f libMali.so libgbm.so.1 \
+    && ln -f libgbm.so.1 libgbm.so)
+    (cd ${D}/${libdir} && ln -f libMali.so libwayland-egl.so)
 
     install -D -m0644 ${WORKDIR}/50-mali.rules \
         ${D}/${base_prefix}/lib/udev/rules.d/50-mali.rules
