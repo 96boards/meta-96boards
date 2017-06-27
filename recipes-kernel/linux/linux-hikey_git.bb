@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/Linaro/rpk.git;protocol=https;branch=rpk-v4.9;name=k
 "
 
 SRC_URI_append_hikey = " \
-    http://malideveloper.arm.com/downloads/drivers/DX910/r6p0-01rel0/DX910-SW-99002-r6p0-01rel0.tgz;name=mali \
+    https://developer.arm.com/-/media/Files/downloads/mali-drivers/kernel/mali-utgard-gpu/DX910-SW-99002-r6p0-01rel0.tgz;name=mali \
     file://defconfig;subdir=git/kernel/configs \
     file://mali-450.conf;subdir=git/kernel/configs \
     file://END_USER_LICENCE_AGREEMENT.txt;subdir=git \
