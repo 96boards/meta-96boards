@@ -1,0 +1,37 @@
+From 928567be1373627362cc8bf3ed8cb59f375375fe Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Daniel=20D=C3=ADaz?= <daniel.diaz@linaro.org>
+Date: Thu, 4 May 2017 01:28:52 -0500
+Subject: [PATCH 2/2] workaround: don't try to test
+ egl_mesa_platform_surfaceless
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Errors like the following:
+  undefined reference to `eglGetPlatformDisplay'
+ocurr because those symbols are nowhere to be found in
+libMali.so. Even though Mali defines a cousin of this
+symbol (eglGetPlatformDisplayEXT), and because this is a very
+specific test, it can be skipped altogether so that the build
+continues given these symbols are not even included.
+
+Signed-off-by: Daniel Díaz <daniel.diaz@linaro.org>
+---
+ tests/egl/spec/CMakeLists.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/tests/egl/spec/CMakeLists.txt b/tests/egl/spec/CMakeLists.txt
+index 66d76db..efebf3b 100644
+--- a/tests/egl/spec/CMakeLists.txt
++++ b/tests/egl/spec/CMakeLists.txt
+@@ -7,7 +7,6 @@ add_subdirectory (egl_khr_get_all_proc_addresses)
+ add_subdirectory (egl_khr_gl_image)
+ add_subdirectory (egl_khr_fence_sync)
+ add_subdirectory (egl_khr_surfaceless_context)
+-add_subdirectory (egl_mesa_platform_surfaceless)
+ 
+ if (PIGLIT_HAS_X11)
+ 	add_subdirectory (egl_chromium_sync_control)
+-- 
+1.9.1
+
