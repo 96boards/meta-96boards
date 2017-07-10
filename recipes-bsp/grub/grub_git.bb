@@ -17,6 +17,7 @@ SRC_URI = "git://git.savannah.gnu.org/grub.git \
            file://0001-configure-add-check-for-no-pie-if-the-compiler-defau.patch \
            file://0001-btrfs-avoid-used-uninitialized-error-with-GCC7.patch \
            file://0002-i386-x86_64-ppc-fix-switch-fallthrough-cases-with-GC.patch \
+           file://0001-Enforce-no-pie-if-the-compiler-supports-it.patch \
            "
 
 S = "${WORKDIR}/git"
