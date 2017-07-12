@@ -1,6 +1,5 @@
 require recipes-bsp/grub/grub2.inc
 
-DEPENDS += "autogen-native"
 DEPENDS_class-target = "grub-native"
 
 DEFAULT_PREFERENCE = "-1"
@@ -11,12 +10,15 @@ FILESEXTRAPATHS =. "${FILE_DIRNAME}/grub-git:"
 PV = "2.01+${SRCPV}"
 SRCREV = "b524fa27f56381bb0efa4944e36f50265113aee5"
 SRC_URI = "git://git.savannah.gnu.org/grub.git \
+           file://cfg.emmc \
+           file://cfg.sdcard \
            file://autogen.sh-exclude-pc.patch \
            file://0001-grub.d-10_linux.in-add-oe-s-kernel-name.patch \
            file://0001-configure-add-check-for-no-pie-if-the-compiler-defau.patch \
-           file://cfg.emmc \
-           file://cfg.sdcard \
-"
+           file://0001-btrfs-avoid-used-uninitialized-error-with-GCC7.patch \
+           file://0002-i386-x86_64-ppc-fix-switch-fallthrough-cases-with-GC.patch \
+           file://0001-Enforce-no-pie-if-the-compiler-supports-it.patch \
+           "
 
 S = "${WORKDIR}/git"
 
