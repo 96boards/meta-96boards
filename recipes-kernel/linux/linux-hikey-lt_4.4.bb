@@ -72,4 +72,6 @@ do_configure() {
     bbplain "Saving defconfig to:\n${B}/defconfig"
     oe_runmake -C ${B} savedefconfig
     cp -a ${B}/defconfig ${DEPLOY_DIR_IMAGE}
+    bbplain "Saving .config to:\n${B}/config"
+    cp -a ${B}/.config ${DEPLOY_DIR_IMAGE}/config
 }
