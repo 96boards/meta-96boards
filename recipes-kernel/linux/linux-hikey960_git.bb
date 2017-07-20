@@ -3,10 +3,10 @@ require linux.inc
 DESCRIPTION = "96boards-hikey kernel for HiKey960"
 
 PV = "4.9+git${SRCPV}"
-SRCREV_kernel = "dfd2f77df3430ff6e70fd93f135fdf1da581601c"
+SRCREV_kernel = "e74c7e1b28b13056e7fb3c6d8901ba708efbec8d"
 SRCREV_FORMAT = "kernel"
 
-SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=hikey960-v4.9;name=kernel \
+SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=hikey960-v4.9;name=kernel;rebaseable=1 \
 "
 
 S = "${WORKDIR}/git"
@@ -57,5 +57,6 @@ do_configure() {
 
     bbplain "Saving defconfig to:\n${B}/defconfig"
     oe_runmake -C ${B} savedefconfig
+    install -d ${DEPLOY_DIR_IMAGE} 
     cp -a ${B}/defconfig ${DEPLOY_DIR_IMAGE}
 }
