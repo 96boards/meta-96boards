@@ -57,7 +57,6 @@ do_configure() {
 
     bbplain "Saving defconfig to:\n${B}/defconfig"
     oe_runmake -C ${B} savedefconfig
-    cp -a ${B}/defconfig ${DEPLOY_DIR_IMAGE}
 }
 
 # Create a 128M boot image. block size is 1024. (128*1024=131072)
@@ -66,6 +65,8 @@ BOOT_IMAGE_BASE_NAME = "boot-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
 do_deploy_append() {
+    cp -a ${B}/defconfig ${DEPLOYDIR}
+
     # Create boot image
     mkfs.vfat -F32 -n "boot" -C ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${BOOT_IMAGE_SIZE}
 
