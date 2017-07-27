@@ -22,7 +22,7 @@ do_configure() {
     # Make sure to disable debug info and enable ext4fs built-in
     sed -e '/CONFIG_EXT4_FS=/d' \
         -e '/CONFIG_DEBUG_INFO=/d' \
-        < ${S}/arch/arm64/configs/defconfig \
+        < ${S}/arch/arm64/configs/hikey960_defconfig \
         > ${B}/.config
 
     echo 'CONFIG_EXT4_FS=y' >> ${B}/.config
