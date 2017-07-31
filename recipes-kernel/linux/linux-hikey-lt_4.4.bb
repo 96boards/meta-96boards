@@ -75,4 +75,5 @@ do_configure() {
 
 do_deploy_append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
+    cp -a ${B}/.config ${DEPLOYDIR}/config
 }
