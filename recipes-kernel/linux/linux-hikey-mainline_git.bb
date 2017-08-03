@@ -1,1 +1,1 @@
-recipes-kernel/linux/linux-generic-mainline_git.bb
+linux-generic-mainline_git.bb
