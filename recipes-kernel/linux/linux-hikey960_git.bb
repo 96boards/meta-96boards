@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "96boards-hikey kernel for HiKey960"
 
 PV = "4.9+git${SRCPV}"
-SRCREV_kernel = "e74c7e1b28b13056e7fb3c6d8901ba708efbec8d"
+SRCREV_kernel = "dfe5529349b80e199006488e8a0379e7d5581999"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=hikey960-v4.9;name=kernel;rebaseable=1 \
@@ -22,7 +22,7 @@ do_configure() {
     # Make sure to disable debug info and enable ext4fs built-in
     sed -e '/CONFIG_EXT4_FS=/d' \
         -e '/CONFIG_DEBUG_INFO=/d' \
-        < ${S}/arch/arm64/configs/hikey960_defconfig \
+        < ${S}/arch/arm64/configs/defconfig \
         > ${B}/.config
 
     echo 'CONFIG_EXT4_FS=y' >> ${B}/.config
