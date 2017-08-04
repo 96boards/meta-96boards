@@ -9,6 +9,7 @@ SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
     git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;protocol=https;branch=master;name=kernel \
+    file://0001-arm64-defconfig-enable-missing-HWSPINLOCK.patch \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
 "
