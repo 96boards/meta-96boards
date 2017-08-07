@@ -63,9 +63,9 @@ do_configure() {
         ( cd ${WORKDIR} && ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} ${B}/.config ${KERNEL_CONFIG_FRAGMENTS} 1>&2 )
     fi
 
-    oe_runmake -C ${S} O=${B} kselftest-merge
-
     oe_runmake -C ${S} O=${B} olddefconfig
+
+    oe_runmake -C ${S} O=${B} kselftest-merge
 
     bbplain "Saving defconfig to:\n${B}/defconfig"
     oe_runmake -C ${B} savedefconfig
