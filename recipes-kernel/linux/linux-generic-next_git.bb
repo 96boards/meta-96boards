@@ -15,7 +15,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "hikey|dragonboard-410c|intel-corei7-64"
+COMPATIBLE_MACHINE = "hikey|dragonboard-410c|am57xx-evm|intel-corei7-64"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/distro-overrides.config \
@@ -32,6 +32,9 @@ do_configure() {
     case "${HOST_ARCH}" in
       aarch64)
         cp ${S}/arch/arm64/configs/defconfig ${B}/.config
+      ;;
+      arm)
+        cp ${S}/arch/arm/configs/multi_v7_defconfig ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
