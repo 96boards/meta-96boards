@@ -14,3 +14,6 @@ def get_include_handler(d):
 include ${@get_include_handler(d)}
 
 KERNEL_EXTRA_ARGS_am57xx-evm += "LOADADDR=${UBOOT_ENTRYPOINT}"
+# Define the kernel device tree for am57xx-evm machine
+# meta-ti is setting more device trees than the ones available in mainline kernel
+KERNEL_DEVICETREE_am57xx-evm = "am57xx-beagle-x15.dtb am57xx-beagle-x15-revb1.dtb"
