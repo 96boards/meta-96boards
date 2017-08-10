@@ -12,3 +12,5 @@ def get_include_handler(d):
 # Use a weak include to avoid to produce an error when the file cannot be found.
 # It is the case when we don't have any machine specific hooks.
 include ${@get_include_handler(d)}
+
+KERNEL_EXTRA_ARGS_am57xx-evm += "LOADADDR=${UBOOT_ENTRYPOINT}"
