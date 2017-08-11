@@ -15,7 +15,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "hikey|dragonboard-410c|am57xx-evm|intel-corei7-64"
+COMPATIBLE_MACHINE = "hikey|dragonboard-410c|am57xx-evm|intel-core2-32|intel-corei7-64"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/distro-overrides.config \
