@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "96boards-hikey kernel for HiKey960"
 
 PV = "4.9+git${SRCPV}"
-SRCREV_kernel = "19f56ed0195b0edd9a3d822048803a35a5efbfbe"
+SRCREV_kernel = "0e82bc3b3afaf5c154c781a5f62e1e9000e94e6a"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=hikey960-v4.9;name=kernel;rebaseable=1 \
