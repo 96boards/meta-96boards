@@ -41,6 +41,7 @@ do_configure() {
     case "${HOST_ARCH}" in
       aarch64)
         cp ${S}/arch/arm64/configs/defconfig ${B}/.config
+        echo 'CONFIG_STUB_CLK_HI6220=y' >> ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config

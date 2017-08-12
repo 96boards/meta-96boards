@@ -1,25 +1,22 @@
 require linux.inc
 require kselftests.inc
 
-DESCRIPTION = "Generic Linux Stable 4.4"
+DESCRIPTION = "AOSP kernel for HiKey"
 
-PV = "4.4+git${SRCPV}"
-SRCREV_kernel = "5fc13741fc3a013f67ed3c4dd70c9ed2e9ded971"
+PV = "4.9+git${SRCPV}"
+SRCREV_kernel = "465c718d6948d54c9ec2b477668c45766f7a3236"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    git://git.linaro.org/people/sumit.semwal/linux-lts.git;protocol=https;nobranch=1;name=kernel \
+    git://android.googlesource.com/kernel/hikey-linaro;protocol=https;branch=android-hikey-linaro-4.9;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
+    file://0002-selftests-ftrace-add-CONFIG_KPROBES-y-to-the-config-.patch \
+    file://0003-selftests-vm-add-CONFIG_SYSVIPC-y-to-the-config-frag.patch \
+    file://0004-selftests-gpio-add-config-fragment-for-gpio-mockup.patch \
     file://0005-selftests-create-cpufreq-kconfig-fragments.patch \
-    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
-    file://0002-4.4-selftests-ftrace-add-config-fragment.patch \
-    file://0003-4.4-selftests-vm-add-config-fragment-fragment.patch \
-    file://0004-4.4-selftests-firmware-add-config-fragment-fragment.patch \
-    file://0005-4.4-selftests-static_keys-add-config-fragment-fragment.patch \
-    file://0006-4.4-selftests-user-add-config-fragment-fragment.patch \
-    file://0007-4.4-selftests-zram-add-config-fragment-fragment.patch \
+    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch;apply=no \
 "
 
 S = "${WORKDIR}/git"
@@ -48,6 +45,9 @@ do_configure() {
       ;;
     esac
 
+    # Make sure to enable NUMA
+    echo 'CONFIG_NUMA=y' >> ${B}/.config
+
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
     #   * ${WORKDIR}/config1.cfg
@@ -73,11 +73,9 @@ do_configure() {
         ( cd ${WORKDIR} && ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} ${B}/.config ${KERNEL_CONFIG_FRAGMENTS} 1>&2 )
     fi
 
-    # Since kselftest-merge target isn't available, merge the individual
-    # selftests config fragments included in the kernel source tree
-    ( cd ${WORKDIR} && ${S}/scripts/kconfig/merge_config.sh -m -r -O ${B} ${B}/.config ${S}/tools/testing/selftests/*/config 1>&2 )
-
     oe_runmake -C ${S} O=${B} olddefconfig
+
+    oe_runmake -C ${S} O=${B} kselftest-merge
 
     bbplain "Saving defconfig to:\n${B}/defconfig"
     oe_runmake -C ${B} savedefconfig
@@ -87,5 +85,3 @@ do_deploy_append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
     cp -a ${B}/.config ${DEPLOYDIR}/config
 }
-
-require machine-specific-hooks.inc
