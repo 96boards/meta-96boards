@@ -1,19 +1,18 @@
 require linux.inc
 require kselftests.inc
 
-DESCRIPTION = "Generic Linux Stable 4.4"
+DESCRIPTION = "AOSP kernel for HiKey"
 
 PV = "4.4+git${SRCPV}"
-SRCREV_kernel = "5fc13741fc3a013f67ed3c4dd70c9ed2e9ded971"
+SRCREV_kernel = "f982d16336a48c51d0ef158dd2634d432cc5dd43"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    git://git.linaro.org/people/sumit.semwal/linux-lts.git;protocol=https;nobranch=1;name=kernel \
+    git://android.googlesource.com/kernel/hikey-linaro;protocol=https;branch=android-hikey-linaro-4.4;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
     file://0005-selftests-create-cpufreq-kconfig-fragments.patch \
-    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
     file://0002-4.4-selftests-ftrace-add-config-fragment.patch \
     file://0003-4.4-selftests-vm-add-config-fragment-fragment.patch \
     file://0004-4.4-selftests-firmware-add-config-fragment-fragment.patch \
@@ -87,5 +86,3 @@ do_deploy_append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
     cp -a ${B}/.config ${DEPLOYDIR}/config
 }
-
-require machine-specific-hooks.inc
