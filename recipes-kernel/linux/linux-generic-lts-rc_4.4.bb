@@ -24,7 +24,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "hikey|intel-core2-32"
+COMPATIBLE_MACHINE = "am57xx-evm|hikey|intel-core2-32"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/distro-overrides.config \
@@ -42,6 +42,9 @@ do_configure() {
       aarch64)
         cp ${S}/arch/arm64/configs/defconfig ${B}/.config
         echo 'CONFIG_STUB_CLK_HI6220=y' >> ${B}/.config
+      ;;
+      arm)
+        cp ${S}/arch/arm/configs/multi_v7_defconfig ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
