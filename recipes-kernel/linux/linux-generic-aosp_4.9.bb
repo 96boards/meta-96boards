@@ -37,8 +37,7 @@ do_configure() {
     # the kernel config file has a different name.
     case "${HOST_ARCH}" in
       aarch64)
-        cp ${S}/arch/arm64/configs/defconfig ${B}/.config
-        echo 'CONFIG_STUB_CLK_HI6220=y' >> ${B}/.config
+        cp ${S}/arch/arm64/configs/hikey_defconfig ${B}/.config
       ;;
       arm)
         cp ${S}/arch/arm/configs/multi_v7_defconfig ${B}/.config
