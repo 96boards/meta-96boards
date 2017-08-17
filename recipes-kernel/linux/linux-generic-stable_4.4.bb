@@ -1,14 +1,14 @@
 require linux.inc
 require kselftests.inc
 
-DESCRIPTION = "Generic Linux Stable RC 4.4"
+DESCRIPTION = "Generic 4.4 LTS kernel"
 
 PV = "4.4+git${SRCPV}"
-SRCREV_kernel = "01c829496f253e0b9ac1b9ff683bfd5ef8b5a90d"
+SRCREV_kernel = "425fdd287e9b41a20bc8b47a00064da3fcd8cae4"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    git://git.linaro.org/people/sumit.semwal/arm64-stable-rc.git;protocol=https;nobranch=1;name=kernel \
+    git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=https;branch=linux-4.4.y;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
@@ -24,7 +24,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "hikey"
+COMPATIBLE_MACHINE = "am57xx-evm|intel-core2-32"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/distro-overrides.config \
