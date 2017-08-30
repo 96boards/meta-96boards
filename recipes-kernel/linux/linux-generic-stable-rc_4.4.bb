@@ -41,6 +41,8 @@ do_configure() {
     case "${HOST_ARCH}" in
       aarch64)
         cp ${S}/arch/arm64/configs/defconfig ${B}/.config
+        echo 'CONFIG_CHECKPOINT_RESTORE=y' >> ${B}/.config
+        echo 'CONFIG_EXPERT=y' >> ${B}/.config
         echo 'CONFIG_STUB_CLK_HI6220=y' >> ${B}/.config
       ;;
       arm)
