@@ -43,6 +43,7 @@ do_configure() {
         cp ${S}/arch/arm64/configs/defconfig ${B}/.config
         echo 'CONFIG_CHECKPOINT_RESTORE=y' >> ${B}/.config
         echo 'CONFIG_EXPERT=y' >> ${B}/.config
+        echo 'CONFIG_RTC_DRV_PL031=y' >> ${B}/.config
         echo 'CONFIG_STUB_CLK_HI6220=y' >> ${B}/.config
       ;;
       arm)
