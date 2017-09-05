@@ -1,8 +1,0 @@
----
- tools/testing/selftests/firmware/config |    1 +
- 1 file changed, 1 insertion(+)
-
---- /dev/null
-+++ b/tools/testing/selftests/firmware/config
-@@ -0,0 +1 @@
-+CONFIG_TEST_FIRMWARE=y

@@ -1,0 +1,158 @@
+From 8c749ce93ee69e789e46b3be98de9e0cbfcf8ed8 Mon Sep 17 00:00:00 2001
+From: Bamvor Jian Zhang <bamvor.zhangjian@linaro.org>
+Date: Fri, 8 Jan 2016 15:27:33 +0800
+Subject: [PATCH] selftests: create test-specific kconfig fragments
+
+Create the config file in each directory of testcase which need
+more kernel configuration than the default defconfig. User could
+use these configs with merge_config.sh script:
+
+Enable config for specific testcase:
+(export ARCH=xxx #for cross compiling)
+./scripts/kconfig/merge_config.sh .config \
+		tools/testing/selftests/xxx/config
+
+Enable configs for all testcases:
+(export ARCH=xxx #for cross compiling)
+./scripts/kconfig/merge_config.sh .config \
+		tools/testing/selftests/*/config
+
+Signed-off-by: Bamvor Jian Zhang <bamvor.zhangjian@linaro.org>
+Reviewed-by: Shuah Khan <shuahkh@osg.samsung.com>
+Signed-off-by: Shuah Khan <shuahkh@osg.samsung.com>
+---
+ tools/testing/selftests/cpu-hotplug/config    | 2 ++
+ tools/testing/selftests/firmware/config       | 1 +
+ tools/testing/selftests/ftrace/config         | 1 +
+ tools/testing/selftests/ipc/config            | 2 ++
+ tools/testing/selftests/memory-hotplug/config | 4 ++++
+ tools/testing/selftests/mount/config          | 2 ++
+ tools/testing/selftests/net/config            | 3 +++
+ tools/testing/selftests/pstore/config         | 4 ++++
+ tools/testing/selftests/seccomp/config        | 2 ++
+ tools/testing/selftests/static_keys/config    | 1 +
+ tools/testing/selftests/user/config           | 1 +
+ tools/testing/selftests/vm/config             | 1 +
+ tools/testing/selftests/zram/config           | 2 ++
+ 13 files changed, 26 insertions(+)
+ create mode 100644 tools/testing/selftests/cpu-hotplug/config
+ create mode 100644 tools/testing/selftests/firmware/config
+ create mode 100644 tools/testing/selftests/ftrace/config
+ create mode 100644 tools/testing/selftests/ipc/config
+ create mode 100644 tools/testing/selftests/memory-hotplug/config
+ create mode 100644 tools/testing/selftests/mount/config
+ create mode 100644 tools/testing/selftests/net/config
+ create mode 100644 tools/testing/selftests/pstore/config
+ create mode 100644 tools/testing/selftests/seccomp/config
+ create mode 100644 tools/testing/selftests/static_keys/config
+ create mode 100644 tools/testing/selftests/user/config
+ create mode 100644 tools/testing/selftests/vm/config
+ create mode 100644 tools/testing/selftests/zram/config
+
+diff --git a/tools/testing/selftests/cpu-hotplug/config b/tools/testing/selftests/cpu-hotplug/config
+new file mode 100644
+index 000000000000..e6ab090cfbf3
+--- /dev/null
++++ b/tools/testing/selftests/cpu-hotplug/config
+@@ -0,0 +1,2 @@
++CONFIG_NOTIFIER_ERROR_INJECTION=y
++CONFIG_CPU_NOTIFIER_ERROR_INJECT=m
+diff --git a/tools/testing/selftests/firmware/config b/tools/testing/selftests/firmware/config
+new file mode 100644
+index 000000000000..c8137f70e291
+--- /dev/null
++++ b/tools/testing/selftests/firmware/config
+@@ -0,0 +1 @@
++CONFIG_TEST_FIRMWARE=y
+diff --git a/tools/testing/selftests/ftrace/config b/tools/testing/selftests/ftrace/config
+new file mode 100644
+index 000000000000..ef8214661612
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/config
+@@ -0,0 +1 @@
++CONFIG_FTRACE=y
+diff --git a/tools/testing/selftests/ipc/config b/tools/testing/selftests/ipc/config
+new file mode 100644
+index 000000000000..0702447109f5
+--- /dev/null
++++ b/tools/testing/selftests/ipc/config
+@@ -0,0 +1,2 @@
++CONFIG_EXPERT=y
++CONFIG_CHECKPOINT_RESTORE=y
+diff --git a/tools/testing/selftests/memory-hotplug/config b/tools/testing/selftests/memory-hotplug/config
+new file mode 100644
+index 000000000000..2fde30191a47
+--- /dev/null
++++ b/tools/testing/selftests/memory-hotplug/config
+@@ -0,0 +1,4 @@
++CONFIG_MEMORY_HOTPLUG=y
++CONFIG_MEMORY_HOTPLUG_SPARSE=y
++CONFIG_NOTIFIER_ERROR_INJECTION=y
++CONFIG_MEMORY_NOTIFIER_ERROR_INJECT=m
+diff --git a/tools/testing/selftests/mount/config b/tools/testing/selftests/mount/config
+new file mode 100644
+index 000000000000..b5d881e48548
+--- /dev/null
++++ b/tools/testing/selftests/mount/config
+@@ -0,0 +1,2 @@
++CONFIG_USER_NS=y
++CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
+diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
+new file mode 100644
+index 000000000000..e57b4ac40e72
+--- /dev/null
++++ b/tools/testing/selftests/net/config
+@@ -0,0 +1,3 @@
++CONFIG_USER_NS=y
++CONFIG_BPF_SYSCALL=y
++CONFIG_TEST_BPF=m
+diff --git a/tools/testing/selftests/pstore/config b/tools/testing/selftests/pstore/config
+new file mode 100644
+index 000000000000..6a8e5a9bfc10
+--- /dev/null
++++ b/tools/testing/selftests/pstore/config
+@@ -0,0 +1,4 @@
++CONFIG_MISC_FILESYSTEMS=y
++CONFIG_PSTORE=y
++CONFIG_PSTORE_PMSG=y
++CONFIG_PSTORE_CONSOLE=y
+diff --git a/tools/testing/selftests/seccomp/config b/tools/testing/selftests/seccomp/config
+new file mode 100644
+index 000000000000..db1e11b08c8a
+--- /dev/null
++++ b/tools/testing/selftests/seccomp/config
+@@ -0,0 +1,2 @@
++CONFIG_SECCOMP=y
++CONFIG_SECCOMP_FILTER=y
+diff --git a/tools/testing/selftests/static_keys/config b/tools/testing/selftests/static_keys/config
+new file mode 100644
+index 000000000000..d538fb774b96
+--- /dev/null
++++ b/tools/testing/selftests/static_keys/config
+@@ -0,0 +1 @@
++CONFIG_TEST_STATIC_KEYS=m
+diff --git a/tools/testing/selftests/user/config b/tools/testing/selftests/user/config
+new file mode 100644
+index 000000000000..784ed8416324
+--- /dev/null
++++ b/tools/testing/selftests/user/config
+@@ -0,0 +1 @@
++CONFIG_TEST_USER_COPY=m
+diff --git a/tools/testing/selftests/vm/config b/tools/testing/selftests/vm/config
+new file mode 100644
+index 000000000000..698c7ed28a26
+--- /dev/null
++++ b/tools/testing/selftests/vm/config
+@@ -0,0 +1 @@
++CONFIG_USERFAULTFD=y
+diff --git a/tools/testing/selftests/zram/config b/tools/testing/selftests/zram/config
+new file mode 100644
+index 000000000000..e0cc47e2c7e2
+--- /dev/null
++++ b/tools/testing/selftests/zram/config
+@@ -0,0 +1,2 @@
++CONFIG_ZSMALLOC=y
++CONFIG_ZRAM=m
+-- 
+2.14.1
+
