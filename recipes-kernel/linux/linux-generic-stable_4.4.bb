@@ -51,6 +51,8 @@ do_configure() {
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
+        echo 'CONFIG_CHECKPOINT_RESTORE=y' >> ${B}/.config
+        echo 'CONFIG_EXPERT=y' >> ${B}/.config
       ;;
     esac
 
