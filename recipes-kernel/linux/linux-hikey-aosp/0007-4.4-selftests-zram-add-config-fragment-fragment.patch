@@ -1,9 +1,0 @@
----
- tools/testing/selftests/zram/config |    2 ++
- 1 file changed, 2 insertions(+)
-
---- /dev/null
-+++ b/tools/testing/selftests/zram/config
-@@ -0,0 +1,2 @@
-+CONFIG_ZSMALLOC=y
-+CONFIG_ZRAM=m

@@ -1,7 +1,7 @@
 From 83896c68fd32895ba4ff685c4df9d1e794dfb4fe Mon Sep 17 00:00:00 2001
 From: Naresh Kamboju <naresh.kamboju@linaro.org>
 Date: Wed, 26 Apr 2017 15:39:37 +0530
-Subject: selftests: create cpufreq kconfig fragments
+Subject: [PATCH] selftests: create cpufreq kconfig fragments
 
 For the better test coverage of cpufreq driver code these extra
 configurations are needed. Enable cpufreq governors and stats.
@@ -16,7 +16,7 @@ Signed-off-by: Shuah Khan <shuahkh@osg.samsung.com>
 
 diff --git a/tools/testing/selftests/cpufreq/config b/tools/testing/selftests/cpufreq/config
 new file mode 100644
-index 0000000..27ff72e
+index 000000000000..27ff72ebd0f5
 --- /dev/null
 +++ b/tools/testing/selftests/cpufreq/config
 @@ -0,0 +1,15 @@
@@ -35,3 +35,6 @@ index 0000000..27ff72e
 +CONFIG_PROVE_LOCKING=y
 +CONFIG_LOCKDEP=y
 +CONFIG_DEBUG_ATOMIC_SLEEP=y
+-- 
+2.14.1
+

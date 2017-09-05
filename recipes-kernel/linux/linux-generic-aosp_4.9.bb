@@ -12,11 +12,10 @@ SRC_URI = "\
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
-    file://0002-selftests-ftrace-add-CONFIG_KPROBES-y-to-the-config-.patch \
-    file://0003-selftests-vm-add-CONFIG_SYSVIPC-y-to-the-config-frag.patch \
-    file://0004-selftests-gpio-add-config-fragment-for-gpio-mockup.patch \
-    file://0005-selftests-create-cpufreq-kconfig-fragments.patch \
-    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch;apply=no \
+    file://0001-selftests-ftrace-add-CONFIG_KPROBES-y-to-the-config-.patch \
+    file://0001-selftests-vm-add-CONFIG_SYSVIPC-y-to-the-config-frag.patch \
+    file://0001-selftests-gpio-add-config-fragment-for-gpio-mockup.patch \
+    file://0001-selftests-create-cpufreq-kconfig-fragments.patch \
 "
 
 S = "${WORKDIR}/git"
