@@ -1,13 +1,14 @@
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # kernel selftests dependencies
-DEPENDS += "libcap libcap-ng pkgconfig-native popt rsync-native util-linux \
+DEPENDS += "fuse libcap libcap-ng pkgconfig-native popt rsync-native util-linux \
     ${@bb.utils.contains("TARGET_ARCH", "arm", "", "numactl", d)} \
 "
 
 inherit kernel-arch
 
-KSELFTESTS_ARGS = "-C ${S}/tools/testing/selftests INSTALL_PATH=${D}/opt/kselftests CC="${CC}" LD="${LD}" ARCH=${ARCH}"
+export KST_INSTALL_PATH = "/opt/kselftests/default-in-kernel"
+KSELFTESTS_ARGS = "-C ${S}/tools/testing/selftests INSTALL_PATH=${D}${KST_INSTALL_PATH} CC="${CC}" LD="${LD}" ARCH=${ARCH}"
 
 do_compile_append() {
     # Make sure to install the user space API used by some tests
@@ -20,15 +21,15 @@ do_install_append() {
     ${MAKE} ${KSELFTESTS_ARGS} install
     chown -R root:root ${D}
     # fixup run_kselftest.sh due to spurious lines starting by "make[1]:"
-    sed -i '/^make/d' ${D}/opt/kselftests/run_kselftest.sh
+    sed -i '/^make/d' ${D}${KST_INSTALL_PATH}/run_kselftest.sh
 }
 
 PACKAGES =+ "kernel-selftests"
-FILES_kernel-selftests = "/opt/kselftests"
+FILES_kernel-selftests = "${KST_INSTALL_PATH}"
 
 PACKAGES =+ "kernel-selftests-dbg"
-FILES_kernel-selftests-dbg = "/opt/kselftests/*/.debug"
+FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug"
 
-RDEPENDS_kernel-selftests = "bash bc ncurses sudo"
+RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 ncurses sudo"
 
 INSANE_SKIP_kernel-selftests = "already-stripped"
