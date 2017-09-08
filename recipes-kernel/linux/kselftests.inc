@@ -30,6 +30,6 @@ FILES_kernel-selftests = "${KST_INSTALL_PATH}"
 PACKAGES =+ "kernel-selftests-dbg"
 FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug"
 
-RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 libc6-utils ncurses sudo"
+RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 glibc-utils ncurses sudo"
 
 INSANE_SKIP_kernel-selftests = "already-stripped"
