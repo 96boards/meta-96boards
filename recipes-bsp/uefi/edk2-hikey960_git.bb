@@ -6,12 +6,12 @@ DEPENDS_append = " dosfstools-native mtools-native fakeroot-native grub"
 
 inherit deploy pythonnative
 
-SRCREV_edk2 = "7efa39f3631ca8a42cc17210fb293b850aecbf3f"
-SRCREV_atf = "c906d2a8493bedcb5478a466f13a579551900c17"
-SRCREV_openplatformpkg = "3caefa85c4c7b69de05647350092efa743c96803"
-SRCREV_uefitools = "abbe1c0a2dbeadde0e3c5f3a183f6c595b70158e"
-SRCREV_lloader = "b190ad9f72c45886333366e9a8a224500969bd09"
-SRCREV_toolsimageshikey960 = "f27a11f495f3ec73c510dcd2024eb64fb8deb240"
+SRCREV_edk2 = "ba458199435ce045086e522c4aec8743e954b329"
+SRCREV_atf = "edbd7bb7dcfb0faddb512d6f1808d303631d303a"
+SRCREV_openplatformpkg = "32de72337511f38ff7faafa4d3dcd2e80e2f246c"
+SRCREV_uefitools = "e960afaa7ce3474724a8548a746b97b4cd0ff500"
+SRCREV_lloader = "e720b9b9477e4a2b29c6f018da78dc02db870dbf"
+SRCREV_toolsimageshikey960 = "ccb401f726346355e948ec776a411ad037bab4cc"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
            git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=integration;destsuffix=git/atf \
