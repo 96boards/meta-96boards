@@ -6,7 +6,7 @@ PV = "4.12+git${SRCPV}"
 SRCREV_kernel = "d3afe7b5840e00de563448727eae8e876ab9e308"
 SRCREV_FORMAT = "kernel"
 
-SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;branch=hikey960-upstream-rebase;name=kernel;rebaseable=1 \
+SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;name=kernel;nobranch=1 \
 "
 
 S = "${WORKDIR}/git"
