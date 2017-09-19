@@ -1,0 +1,33 @@
+From 562ef1104558387d73365b50b86488f2d9aff653 Mon Sep 17 00:00:00 2001
+From: Matthew McClintock <msm-oss@mcclintock.net>
+Date: Thu, 6 Jul 2017 13:05:32 -0500
+Subject: [PATCH] tools: disable _libfdt.so (swig present, python-dev missing
+ breakage)
+
+This is probing for tools and enabling if swig is found, however Python
+libraries might be absent per the comment. This is just a host tool so
+let's just disable it entirely for the now.
+
+Signed-off-by: Matthew McClintock <msm-oss@mcclintock.net>
+Upstream-Status: Pending
+---
+ tools/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/Makefile b/tools/Makefile
+index 2fc4a58..ac30086 100644
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -114,8 +114,8 @@ fit_check_sign-objs   := $(dumpimage-mkimage-objs) fit_check_sign.o
+ 
+ # Build a libfdt Python module if swig is available
+ # Use 'sudo apt-get install swig libpython-dev' to enable this
+-hostprogs-y += \
+-	$(if $(shell which swig 2> /dev/null),_libfdt.so)
++#hostprogs-y += \
++#	$(if $(shell which swig 2> /dev/null),_libfdt.so)
+ _libfdt.so-sharedobjs += $(LIBFDT_OBJS)
+ libfdt:
+ 
+-- 
+2.13.1
