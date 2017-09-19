@@ -6,7 +6,7 @@ PV = "4.10.0+git"
 SRCREV_kernel = "51fefc39fb8dc3f794cd7d41c97b78ee565f3264"
 SRCREV_FORMAT = "kernel"
 
-SRC_URI = "git://git.linaro.org/landing-teams/working/arm/kernel-release.git;protocol=https;branch=latest-armlt;name=kernel;rebaseable=1 \
+SRC_URI = "git://git.linaro.org/landing-teams/working/arm/kernel-release.git;protocol=https;nobranch=1;name=kernel;rebaseable=1 \
           "
 S = "${WORKDIR}/git"
 
