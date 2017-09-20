@@ -5,10 +5,10 @@ DEPENDS += "u-boot-juno zip-native"
 SRCREV = "b762fc7481c66b64eb98b6ff694d569e66253973"
 
 SRC_URI = "git://github.com/ARM-software/arm-trusted-firmware.git;protocol=https;name=atf;branch=master \
-    http://releases.linaro.org/members/arm/platforms/17.04/juno-latest-oe-uboot.zip;name=junofip;subdir=juno-oe-uboot \
+    http://releases.linaro.org/members/arm/platforms/17.07/juno-latest-oe-uboot.zip;name=junofip;subdir=juno-oe-uboot \
 "
-SRC_URI[junofip.md5sum] = "12fc772de457930fc60e42bdde97eb0a"
-SRC_URI[junofip.sha256sum] = "be1a3f8b72a0dd98ba1bf9f4fd5415d3adca052c60b090c5dccc178588ec43bc"
+SRC_URI[junofip.md5sum] = "71bbdeee4f1654cab5cad855a32c7c32"
+SRC_URI[junofip.sha256sum] = "acd9d20b467519137a20e72216b2656558ae8981ddd4016ba2c3c69eee2fdf4c"
 
 S = "${WORKDIR}/git"
 
