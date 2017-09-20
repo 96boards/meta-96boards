@@ -6,13 +6,13 @@ DEPENDS += "dtc-native bc-native"
 SRCREV = "d9afcaf973668b3a438a565e00a1a77464ab9143"
 PV = "v2017.09+git${SRCPV}"
 
+require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
+
 SRC_URI = "git://github.com/linaro/poplar-u-boot;protocol=git;branch=latest"
 
 S = "${WORKDIR}/git"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-
-require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
 
 UBOOT_EXTLINUX ??= "1"
 UBOOT_EXTLINUX_LABELS ??= "default"
