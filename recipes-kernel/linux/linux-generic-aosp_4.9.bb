@@ -41,6 +41,9 @@ do_configure() {
       arm)
         cp ${S}/arch/arm/configs/multi_v7_defconfig ${B}/.config
         echo 'CONFIG_SERIAL_8250_OMAP=y' >> ${B}/.config
+        # FIXME test for TI Beagle X15
+        echo '# CONFIG_SERIAL_OMAP is not set' >> ${B}/.config
+        echo '# CONFIG_SERIAL_OMAP_CONSOLE is not set' >> ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
