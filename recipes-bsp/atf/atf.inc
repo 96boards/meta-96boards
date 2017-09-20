@@ -1,5 +1,3 @@
-inherit deploy
-
 DEPENDS = "openssl-native"
 
 export LDFLAGS=""
@@ -14,13 +12,7 @@ do_install() {
     install -D -p -m0644 ${S}/build/${COMPATIBLE_MACHINE}/release/fip.bin ${D}${libdir}/atf/fip.bin
 }
 
-do_deploy() {
-    install -D -p -m0644 ${S}/build/${COMPATIBLE_MACHINE}/release/fip.bin ${DEPLOYDIR}/fip.bin
-}
-
 FILES_${PN} += "${libdir}/atf/*"
 
 # /usr/lib/atf/bl1.bin not shipped files. [installed-vs-shipped]
 INSANE_SKIP_${PN} += "installed-vs-shipped"
-
-addtask deploy before do_build after do_compile
