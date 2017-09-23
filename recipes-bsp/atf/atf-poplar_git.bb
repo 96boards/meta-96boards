@@ -12,6 +12,9 @@ require atf.inc
 
 COMPATIBLE_MACHINE = "poplar"
 
+# ATF requires u-boot.bin file. Ensure it's deployed before we compile.
+do_compile[depends] += "u-boot-poplar:do_deploy"
+
 do_compile() {
     oe_runmake \
       CROSS_COMPILE=${TARGET_PREFIX} \
