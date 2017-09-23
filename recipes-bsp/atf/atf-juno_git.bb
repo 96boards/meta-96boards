@@ -18,7 +18,7 @@ require atf.inc
 
 COMPATIBLE_MACHINE = "juno"
 
-# Juno ATF requires u-boot.bin file. Ensure it's deployed before we compile.
+# ATF requires u-boot.bin file. Ensure it's deployed before we compile.
 do_compile[depends] += "u-boot-juno:do_deploy"
 
 # Building for Juno requires a special SCP firmware to be packed with FIP.
