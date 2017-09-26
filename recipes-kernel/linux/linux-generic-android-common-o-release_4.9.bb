@@ -87,6 +87,8 @@ do_configure() {
 do_deploy_append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
     cp -a ${B}/.config ${DEPLOYDIR}/config
+    cp -a ${B}/vmlinux ${DEPLOYDIR}
+    cp ${T}/log.do_compile ${T}/log.do_compile_kernelmodules ${DEPLOYDIR}
 }
 
 require machine-specific-hooks.inc
