@@ -86,6 +86,12 @@ do_deploy_append() {
     cp -a ${B}/.config ${DEPLOYDIR}/config
     cp -a ${B}/vmlinux ${DEPLOYDIR}
     cp ${T}/log.do_compile ${T}/log.do_compile_kernelmodules ${DEPLOYDIR}
+
+    # FIXME 410c fails to build when skales in invoked
+    # |   File "/usr/bin/skales/dtbTool", line 239, in __init__
+    # |     self.msm_id[0] = soc_ids[matches['soc']] | (foundry << 16)
+    # | KeyError: u'ipq8074'
+    test -d ${B}/arch/arm64/boot/dts/qcom && rm -f ${B}/arch/arm64/boot/dts/qcom/*ipq8074*
 }
 
 require machine-specific-hooks.inc
