@@ -46,6 +46,7 @@ do_configure() {
         # FIXME test for TI Beagle X15
         echo '# CONFIG_SERIAL_OMAP is not set' >> ${B}/.config
         echo '# CONFIG_SERIAL_OMAP_CONSOLE is not set' >> ${B}/.config
+        echo 'CONFIG_POSIX_MQUEUE=y' >> ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
