@@ -60,6 +60,9 @@ do_deploy() {
     cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r1.dtb \
     ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r1.dtb
 
+    cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r1.dtb \
+    ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r2.dtb
+
     [ -L ${DEPLOY_DIR_IMAGE}/Image-juno-r2.dtb ] && \
     cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r2.dtb \
     ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r2.dtb
