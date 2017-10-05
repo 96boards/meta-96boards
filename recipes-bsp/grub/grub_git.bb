@@ -8,12 +8,11 @@ DEFAULT_PREFERENCE_arm = "1"
 
 FILESEXTRAPATHS =. "${FILE_DIRNAME}/grub-git:"
 
-PV = "2.01+${SRCPV}"
-SRCREV = "b524fa27f56381bb0efa4944e36f50265113aee5"
+PV = "2.02+${SRCPV}"
+SRCREV = "e54c99aaff5e5f6f5d3b06028506c57e66d8ef77"
 SRC_URI = "git://git.savannah.gnu.org/grub.git \
            file://autogen.sh-exclude-pc.patch \
            file://0001-grub.d-10_linux.in-add-oe-s-kernel-name.patch \
-           file://0001-configure-add-check-for-no-pie-if-the-compiler-defau.patch \
            file://cfg.emmc \
            file://cfg.sdcard \
 "
