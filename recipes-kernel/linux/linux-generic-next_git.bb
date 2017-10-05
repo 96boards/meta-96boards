@@ -89,7 +89,7 @@ do_deploy_append() {
     # |   File "/usr/bin/skales/dtbTool", line 239, in __init__
     # |     self.msm_id[0] = soc_ids[matches['soc']] | (foundry << 16)
     # | KeyError: u'ipq8074'
-    test -d ${B}/arch/arm64/boot/dts/qcom && rm -f ${B}/arch/arm64/boot/dts/qcom/*ipq8074*
+    rm -f ${B}/arch/arm64/boot/dts/qcom/*ipq8074* || true
 }
 
 require machine-specific-hooks.inc
