@@ -67,6 +67,13 @@ do_deploy() {
     cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r2.dtb \
     ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r2.dtb
 
+    # Move the ramdisk up in NOR flash to give more space for a larger kernel.
+    # This also means that we have less space for the ramdisk, however, on OE
+    # systems, we use a stub ramdisk of 576 bytes, so we don't need much space.
+    # This will probably break Android, which uses a 1.5MB ramdisk.
+    sed -i -e 's/^NOR4ADDRESS:.*/NOR4ADDRESS: 0x02200000          ;Image Flash Address/g' \
+      ${WORKDIR}/juno-oe-uboot/SITE1/*/images.txt
+
     cd ${WORKDIR}/juno-oe-uboot/
     zip -r ${WORKDIR}/juno-oe-uboot.zip .
 
