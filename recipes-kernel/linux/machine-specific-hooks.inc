@@ -17,3 +17,5 @@ KERNEL_EXTRA_ARGS_am57xx-evm += "LOADADDR=${UBOOT_ENTRYPOINT}"
 # Define the kernel device tree for am57xx-evm machine
 # meta-ti is setting more device trees than the ones available in mainline kernel
 KERNEL_DEVICETREE_am57xx-evm = "am57xx-beagle-x15.dtb"
+
+KERNEL_EXTRA_ARGS_stih410-b2260 += "LOADADDR=${ST_KERNEL_LOADADDR}"
