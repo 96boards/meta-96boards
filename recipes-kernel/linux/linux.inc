@@ -208,8 +208,6 @@ do_install_append() {
 	rm -f ${D}${KERNEL_SRC_PATH}/arch/*/vdso/vdso*.so
 }
 
-require recipes-kernel/linux/linux-dtb.inc
-
 PACKAGES =+ "kernel-devicetree-overlays"
 FILES_kernel-devicetree-overlays = "/lib/firmware/*.dtbo /lib/firmware/*.dts"
 FILES_kernel-devicetree += "/boot/*.dtb"
