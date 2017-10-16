@@ -13,6 +13,7 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=hikey-aosp 
            git://github.com/96boards-hikey/arm-trusted-firmware.git;name=atf;branch=hikey;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=hikey-aosp;destsuffix=git/OpenPlatformPkg \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
+           file://0001-MdeModulePkg-UefiHiiLib-Fix-incorrect-comparison-exp.patch \
            file://grub.cfg.in \
           "
 
