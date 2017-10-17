@@ -43,7 +43,7 @@ do_install() {
     install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${D}${libdir}/edk2/bl1.bin
 
     # Install grub configuration
-    sed -e "s|@DISTRO|${DISTRO}|" \
+    sed -e "s|@DISTRO_NAME|${DISTRO_NAME}|" \
         -e "s|@KERNEL_IMAGETYPE|${KERNEL_IMAGETYPE}|" \
         -e "s|@CMDLINE|${CMDLINE}|" \
         < ${WORKDIR}/grub.cfg.in \

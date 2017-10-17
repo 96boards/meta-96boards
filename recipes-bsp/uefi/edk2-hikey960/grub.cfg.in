@@ -1,7 +1,7 @@
 set default="0"
 set timeout=1
 
-menuentry 'CE Reference Platform (HiKey960 @DISTRO)' {
+menuentry '@DISTRO_NAME (HiKey960)' {
     linux /boot/@KERNEL_IMAGETYPE console=tty0 @CMDLINE
     devicetree /boot/hi3660-hikey960.dtb
 }
