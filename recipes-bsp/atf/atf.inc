@@ -1,4 +1,4 @@
-DEPENDS = "openssl-native"
+DEPENDS = "openssl-native zip-native"
 
 export LDFLAGS=""
 
