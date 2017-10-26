@@ -2,15 +2,15 @@ require edk2_git.bb
 
 COMPATIBLE_MACHINE = "hikey960"
 
-DEPENDS_append = " dosfstools-native mtools-native fakeroot-native grub"
+DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native fakeroot-native grub"
 
 inherit deploy pythonnative
 
-SRCREV_edk2 = "ba458199435ce045086e522c4aec8743e954b329"
-SRCREV_atf = "ea12986b879b4b7faa4771d0a098e6b38f5ec6fe"
-SRCREV_openplatformpkg = "32de72337511f38ff7faafa4d3dcd2e80e2f246c"
-SRCREV_uefitools = "e960afaa7ce3474724a8548a746b97b4cd0ff500"
-SRCREV_lloader = "e720b9b9477e4a2b29c6f018da78dc02db870dbf"
+SRCREV_edk2 = "ea7a7e62cce617856b650a86b326f2bd68a738ef"
+SRCREV_atf = "cebec7421b1f8bf168239d2ecc75a398aa4072fe"
+SRCREV_openplatformpkg = "8c2f9655ec46036ed7e412defe851b99fa205b75"
+SRCREV_uefitools = "42eac07beb4da42a182d2a87d6b2e928fc9a31cf"
+SRCREV_lloader = "79530f6d9b2668e2d3a76adadcc0053015937e82"
 SRCREV_toolsimageshikey960 = "ccb401f726346355e948ec776a411ad037bab4cc"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
@@ -44,8 +44,8 @@ do_compile_append() {
     ln -s ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin
     ln -s ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin
     ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/BL33_AP_UEFI.fd
+    make -f ${UEFIMACHINE}.mk l-loader.bin
     PTABLE=aosp-32g SECTOR_SIZE=4096 SGDISK=./sgdisk bash -x generate_ptable.sh
-    python gen_loader_hikey960.py -o l-loader.bin --img_bl1=bl1.bin --img_ns_bl1u=BL33_AP_UEFI.fd
 }
 
 do_install() {
@@ -70,10 +70,9 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 # ensure we deploy grubaa64.efi before we try to create the boot image.
 do_deploy[depends] += "grub:do_deploy"
 do_deploy_append() {
-    mkdir -p ${DEPLOYDIR}/bootloader
-
     cd ${EDK2_DIR}/l-loader
-    cp -a l-loader.bin prm_ptable.img ${DEPLOYDIR}/bootloader/
+    install -D -p -m0644 l-loader.bin ${DEPLOYDIR}/bootloader/l-loader.bin
+    cp -a prm_ptable.img ${DEPLOYDIR}/bootloader/
     cd ${EDK2_DIR}/tools-images-hikey960
     cp -a hikey_idt sec_uce_boot.img sec_usb_xloader.img sec_xloader.img ${DEPLOYDIR}/bootloader/
     cp -a ${WORKDIR}/config ${DEPLOYDIR}/bootloader/
