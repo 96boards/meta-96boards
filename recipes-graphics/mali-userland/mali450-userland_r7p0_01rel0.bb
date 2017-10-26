@@ -1,7 +1,7 @@
 SUMMARY = "ARM Mali Utgard GPU User Space driver for HiKey (drm backend)"
 
 LICENSE = "Proprietary"
-LIC_FILES_CHKSUM = "file://${WORKDIR}/END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9836ad038c5a090a0280233eea"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/mali-450_r7p0-01rel0_linux_1+arm64/END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9836ad038c5a090a0280233eea"
 
 # Disable for non-MALI machines
 python __anonymous() {
@@ -14,12 +14,10 @@ python __anonymous() {
         raise bb.parse.SkipPackage("%s-%s ONLY supports machines with a MALI iGPU" % (pkgn, pkgv))
 }
 
-SRC_URI[md5sum] = "36f39e86ccfe5a6a4cb2090865c339ba"
-SRC_URI[sha256sum] = "dd136931cdbb309c0ce30297c06f7c6b0a48450f51acbbbc10529d341977f728"
-SRC_URI[arm64.md5sum] = "36f39e86ccfe5a6a4cb2090865c339ba"
-SRC_URI[arm64.sha256sum] = "dd136931cdbb309c0ce30297c06f7c6b0a48450f51acbbbc10529d341977f728"
-SRC_URI[armhf.md5sum] = "50a5585525660ff8e71c8478e88571c3"
-SRC_URI[armhf.sha256sum] = "3785359486e52cbad19cd221555452de768e5deae879b24ae9c7ef0f3f3d65ae"
+SRC_URI[md5sum] = "118b0307e087345fe7efdf3fe7a69e86"
+SRC_URI[sha256sum] = "34d3b15f0f81487a6b4e3680a79b22afaa2ea221eabe9e559523b48a073afee5"
+SRC_URI[arm64.md5sum] = "118b0307e087345fe7efdf3fe7a69e86"
+SRC_URI[arm64.sha256sum] = "34d3b15f0f81487a6b4e3680a79b22afaa2ea221eabe9e559523b48a073afee5"
 
 PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2"
 
@@ -27,11 +25,11 @@ DEPENDS = "libdrm wayland mesa"
 
 VER ?= "${@bb.utils.contains('TUNE_FEATURES', 'aarch64', '64', 'hf', d)}"
 
-SRC_URI = " https://developer.arm.com/-/media/Files/downloads/mali-drivers/user-space/hikey/mali450r6p001rel0linux1arm${VER}tar.gz;destsuffix=mali;name=arm${VER};downloadfilename=mali450r6p001rel0linux1arm${VER}.tar.gz \
+SRC_URI = " https://developer.arm.com/-/media/Files/downloads/mali-drivers/user-space/hikey/mali-450_r7p0-01rel0_linux_1arm${VER}.tar.gz;destsuffix=mali;name=arm${VER};downloadfilename=mali-450_r7p0-01rel0_linux_1arm${VER}.tar.gz \
             file://50-mali.rules \
 "
 
-S = "${WORKDIR}/wayland-drm"
+S = "${WORKDIR}/mali-450_r7p0-01rel0_linux_1+arm64/wayland-drm"
 
 # The driver is a set of binary libraries to install
 # there's nothing to configure or compile
