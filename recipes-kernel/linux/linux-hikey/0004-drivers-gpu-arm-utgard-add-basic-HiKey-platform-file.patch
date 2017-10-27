@@ -35,7 +35,7 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  mali-$(CONFIG_MALI400_PROFILING) += linux/mali_osk_profiling.o
 --- /dev/null
 +++ b/drivers/gpu/arm/utgard/platform/hikey/mali_hikey.c
-@@ -0,0 +1,677 @@
+@@ -0,0 +1,675 @@
 +/*
 + * Copyright (C) 2014 Hisilicon Co. Ltd.
 + * Copyright (C) 2015 ARM Limited
@@ -66,9 +66,7 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 +#include <linux/mm.h>
 +#include <linux/of.h>
 +
-+#ifdef CONFIG_PM_RUNTIME
 +#include <linux/pm_runtime.h>
-+#endif
 +#include <linux/fs.h>
 +#include <linux/delay.h>
 +#include <linux/version.h>
