@@ -2,7 +2,7 @@ require edk2_git.bb
 
 COMPATIBLE_MACHINE = "hikey"
 
-DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native fakeroot-native grub optee-os"
+DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub optee-os"
 
 inherit deploy pythonnative
 
