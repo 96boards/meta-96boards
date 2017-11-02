@@ -5,8 +5,8 @@ DESCRIPTION = "96boards-poplar kernel"
 DEPENDS_append = " dosfstools-native mtools-native u-boot-poplar"
 
 PV = "4.9+git${SRCPV}"
-SRCREV = "035bdfc09e5c57d85e5b72ac04a588426e44f728"
-SRC_URI = "git://github.com/Linaro/poplar-linux.git;protocol=https;branch=latest;name=kernel \
+SRCREV = "935fa08838bae790c7670bb0cd3aca9c9b88b096"
+SRC_URI = "git://github.com/Linaro/poplar-linux.git;protocol=https;branch=poplar-4.9;name=kernel \
 "
 
 S = "${WORKDIR}/git"
@@ -22,7 +22,7 @@ do_configure() {
     # Make sure to disable debug info and enable ext4fs built-in
     sed -e '/CONFIG_EXT4_FS=/d' \
         -e '/CONFIG_DEBUG_INFO=/d' \
-        < ${S}/arch/arm64/configs/defconfig \
+        < ${S}/arch/arm64/configs/poplar_defconfig \
         > ${B}/.config
 
     echo 'CONFIG_EXT4_FS=y' >> ${B}/.config
