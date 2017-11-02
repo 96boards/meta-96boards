@@ -1,8 +1,8 @@
 DESCRIPTION = "ARM Trusted Firmware Poplar"
 LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://license.md;md5=829bdeb34c1d9044f393d5a16c068371"
+LIC_FILES_CHKSUM = "file://license.rst;md5=33065335ea03d977d0569f270b39603e"
 DEPENDS += "u-boot-poplar"
-SRCREV = "dc20ebf4faf350567f537e204453497666bd6f6d"
+SRCREV = "812fae9e5ee80ddad6bae6bf1c403c9ffaaae984"
 
 SRC_URI = "git://github.com/linaro/poplar-arm-trusted-firmware.git;name=atf;branch=latest"
 
