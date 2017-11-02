@@ -1,3 +1,5 @@
+require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
+
 SUMMARY = "U-Boot bootloader for OrangePi i96"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
@@ -5,8 +7,6 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 DEPENDS += "dtc-native bc-native"
 SRCREV = "976c9ecfc85a17ea4681c1eb2d1cf8f12251311b"
 PV = "v2012.04.01+git${SRCPV}"
-
-require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
 
 SRC_URI = "git://github.com/daniel-thompson/u-boot.git;nobranch=1"
 
