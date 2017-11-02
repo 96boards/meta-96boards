@@ -1,3 +1,5 @@
+require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
+
 SUMMARY = "U-Boot bootloader for HiSilicon Poplar"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
@@ -5,8 +7,6 @@ LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 DEPENDS += "dtc-native bc-native"
 SRCREV = "d9afcaf973668b3a438a565e00a1a77464ab9143"
 PV = "v2017.09+git${SRCPV}"
-
-require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
 
 SRC_URI = "git://github.com/linaro/poplar-u-boot;protocol=git;branch=latest"
 
