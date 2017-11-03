@@ -1,0 +1,38 @@
+From d3ccad5ff71b64aff88619e35ccbcb5a30ef5348 Mon Sep 17 00:00:00 2001
+From: Jean-Christophe Trotin <jean-christophe.trotin@st.com>
+Date: Mon, 25 Jul 2016 09:57:30 +0200
+Subject: [PATCH 13/28] ARM: dts: STiH410: Add hva dt nodes
+
+Add the hva (multi-format video encoder for STMicroelectronics SoC)
+dt nodes for the hva device, defining register address, interrupt
+and clock.
+
+Signed-off-by: Jean-Christophe TROTIN <jean-christophe.trotin@st.com>
+---
+ arch/arm/boot/dts/stih410.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih410.dtsi b/arch/arm/boot/dts/stih410.dtsi
+index 7590721e9e97..6850f5861dc3 100644
+--- a/arch/arm/boot/dts/stih410.dtsi
++++ b/arch/arm/boot/dts/stih410.dtsi
+@@ -228,6 +228,16 @@
+ 			clocks = <&clk_s_c0_flexgen CLK_IC_BDISP_0>;
+ 		};
+ 
++		hva@8c85000 {
++			compatible = "st,st-hva";
++			reg = <0x8c85000 0x400>, <0x6000000 0x40000>;
++			reg-names = "hva_registers", "hva_esram";
++			interrupts = <GIC_SPI 58 IRQ_TYPE_NONE>,
++				     <GIC_SPI 59 IRQ_TYPE_NONE>;
++			clock-names = "clk_hva";
++			clocks = <&clk_s_c0_flexgen CLK_HVA>;
++		};
++
+ 		thermal@91a0000 {
+ 			compatible = "st,stih407-thermal";
+ 			reg = <0x91a0000 0x28>;
+-- 
+2.15.0
+

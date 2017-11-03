@@ -1,0 +1,39 @@
+From 7a1f5112c49e45da753532208c46694f5eee9409 Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Mon, 15 Aug 2016 14:17:00 +0200
+Subject: [PATCH 05/28] ARM: dts: STiH407-pinctrl: Add pinctrl_rgmii1_mdio_1
+ node
+
+On 96board, we can't reuse rgmii1-mdio as the pin pio1 3
+( mdint ) is dedicated for user led green 1. So create
+rgmii1_mdio_1 for 96board on which only mdio and mdc pins
+are useful.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ arch/arm/boot/dts/stih407-pinctrl.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih407-pinctrl.dtsi b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+index e05be3ccd740..3e7a56dd17ff 100644
+--- a/arch/arm/boot/dts/stih407-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+@@ -230,6 +230,13 @@
+ 					};
+ 				};
+ 
++				pinctrl_rgmii1_mdio_1: rgmii1-mdio-1 {
++					st,pins {
++						mdio = <&pio1 0 ALT1 OUT BYPASS 0>;
++						mdc = <&pio1 1 ALT1 OUT NICLK 0 CLK_A>;
++					};
++				};
++
+ 				pinctrl_mii1: mii1 {
+ 					st,pins {
+ 						txd0 = <&pio0 0 ALT1 OUT SE_NICLK_IO 0 CLK_A>;
+-- 
+2.15.0
+

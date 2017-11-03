@@ -1,0 +1,30 @@
+From ecb90ff9cb189eb9e9e3209144e06392b8f6052b Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Wed, 7 Sep 2016 11:22:57 +0200
+Subject: [PATCH 11/28] ARM: dts: STiH410-b2260: add USB3 node
+
+Allow to use the mico USB port which is driven by USB3 IP
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+---
+ arch/arm/boot/dts/stih410-b2260.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih410-b2260.dts b/arch/arm/boot/dts/stih410-b2260.dts
+index 94e064f193b2..d5d8d08a504c 100644
+--- a/arch/arm/boot/dts/stih410-b2260.dts
++++ b/arch/arm/boot/dts/stih410-b2260.dts
+@@ -147,6 +147,10 @@
+ 			status = "okay";
+ 		};
+ 
++		st_dwc3: dwc3@8f94000 {
++			status = "okay";
++		};
++
+ 		ethernet0: dwmac@9630000 {
+ 			phy-mode = "rgmii";
+ 			pinctrl-0 = <&pinctrl_rgmii1 &pinctrl_rgmii1_mdio_1>;
+-- 
+2.15.0
+

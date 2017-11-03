@@ -1,0 +1,44 @@
+From 61a39d00bb7c98c9b788254dee84e151f7a103f7 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Fri, 3 Feb 2017 10:23:17 +0000
+Subject: [PATCH 26/28] ARM: dts: STiH407-pinctrl: Add Pinctrl group for HW
+ flow-control
+
+Each serial port which supports HW flow-control should have 2 Pinctrl
+groups.  One for when HW flow-control is in progress, where the IP
+will take over controlling the lines and another group which enables
+the lines to be toggled using GPIO mechanisms.
+
+Acked-by: Peter Griffin <peter.griffin@linaro.org>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ arch/arm/boot/dts/stih407-pinctrl.dtsi | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stih407-pinctrl.dtsi b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+index daab16b5ae64..bd1a82e8fffe 100644
+--- a/arch/arm/boot/dts/stih407-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+@@ -465,8 +465,16 @@
+ 			serial0 {
+ 				pinctrl_serial0: serial0-0 {
+ 					st,pins {
+-						tx = <&pio17 0 ALT1 OUT>;
+-						rx = <&pio17 1 ALT1 IN>;
++						tx =  <&pio17 0 ALT1 OUT>;
++						rx =  <&pio17 1 ALT1 IN>;
++					};
++				};
++				pinctrl_serial0_hw_flowctrl: serial0-0_hw_flowctrl {
++					st,pins {
++						tx =  <&pio17 0 ALT1 OUT>;
++						rx =  <&pio17 1 ALT1 IN>;
++						cts = <&pio17 2 ALT1 IN>;
++						rts = <&pio17 3 ALT1 OUT>;
+ 					};
+ 				};
+ 			};
+-- 
+2.15.0
+

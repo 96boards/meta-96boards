@@ -1,0 +1,39 @@
+From e8755dbeeb74ad74ba85a4ef0f39a16990e60dab Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Tue, 16 Aug 2016 11:34:00 +0200
+Subject: [PATCH 10/28] ARM: dts: STiH407: Declare PWM Capture data lines via
+ Pinctrl
+
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+---
+ arch/arm/boot/dts/stih407-pinctrl.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih407-pinctrl.dtsi b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+index 4be681aaf773..2cc7e03f342c 100644
+--- a/arch/arm/boot/dts/stih407-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+@@ -296,10 +296,12 @@
+ 				pinctrl_pwm1_chan0_default: pwm1-0-default {
+ 					st,pins {
+ 						pwm-out = <&pio3 0 ALT1 OUT>;
++						pwm-capturein = <&pio3 2 ALT1 IN>;
+ 					};
+ 				};
+ 				pinctrl_pwm1_chan1_default: pwm1-1-default {
+ 					st,pins {
++						pwm-capturein = <&pio4 3 ALT1 IN>;
+ 						pwm-out = <&pio4 4 ALT1 OUT>;
+ 					};
+ 				};
+@@ -1044,6 +1046,7 @@
+ 			pwm0 {
+ 				pinctrl_pwm0_chan0_default: pwm0-0-default {
+ 					st,pins {
++						pwm-capturein = <&pio31 0 ALT1 IN>;
+ 						pwm-out = <&pio31 1 ALT1 OUT>;
+ 					};
+ 				};
+-- 
+2.15.0
+

@@ -1,0 +1,30 @@
+From 1b9cc6a257dbf3904bddcdc296001db4adcb2597 Mon Sep 17 00:00:00 2001
+From: Loic Pallardy <loic.pallardy@st.com>
+Date: Tue, 15 Nov 2016 09:47:00 +0100
+Subject: [PATCH 18/28] ARM: dts: STiH410-b2260: Fix typo in spi0 chipselect
+ definition
+
+Change cs-gpio to cs-gpios.
+
+Signed-off-by: Loic Pallardy <loic.pallardy@st.com>
+Acked-by: Patrice Chotard <patrice.chotard@st.com>
+---
+ arch/arm/boot/dts/stih410-b2260.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/stih410-b2260.dts b/arch/arm/boot/dts/stih410-b2260.dts
+index ef2ff2f518f6..7fb507fcba7e 100644
+--- a/arch/arm/boot/dts/stih410-b2260.dts
++++ b/arch/arm/boot/dts/stih410-b2260.dts
+@@ -74,7 +74,7 @@
+ 		/* Low speed expansion connector */
+ 		spi0: spi@9844000 {
+ 			label = "LS-SPI0";
+-			cs-gpio = <&pio30 3 0>;
++			cs-gpios = <&pio30 3 0>;
+ 			status = "okay";
+ 		};
+ 
+-- 
+2.15.0
+
