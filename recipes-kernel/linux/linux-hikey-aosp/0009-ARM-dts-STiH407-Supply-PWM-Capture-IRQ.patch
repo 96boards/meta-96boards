@@ -1,0 +1,25 @@
+From a6c7ed4740f30b518be0243355b31d6a164b9cf9 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Tue, 16 Aug 2016 11:34:00 +0200
+Subject: [PATCH 09/28] ARM: dts: STiH407: Supply PWM Capture IRQ
+
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+---
+ arch/arm/boot/dts/stih407-family.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/boot/dts/stih407-family.dtsi b/arch/arm/boot/dts/stih407-family.dtsi
+index 66415bfc0085..57a562f9c73e 100644
+--- a/arch/arm/boot/dts/stih407-family.dtsi
++++ b/arch/arm/boot/dts/stih407-family.dtsi
+@@ -617,6 +617,7 @@
+ 			compatible	= "st,sti-pwm";
+ 			#pwm-cells	= <2>;
+ 			reg		= <0x9810000 0x68>;
++			interrupts      = <GIC_SPI 128 IRQ_TYPE_NONE>;
+ 			pinctrl-names	= "default";
+ 			pinctrl-0	= <&pinctrl_pwm0_chan0_default>;
+ 			clock-names	= "pwm";
+-- 
+2.15.0
+

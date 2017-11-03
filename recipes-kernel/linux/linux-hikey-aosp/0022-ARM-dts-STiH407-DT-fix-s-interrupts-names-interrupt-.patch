@@ -1,0 +1,29 @@
+From d57cd9f5692677c36cb41a429a1b1d91bff04feb Mon Sep 17 00:00:00 2001
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+Date: Fri, 21 Oct 2016 10:51:00 +0200
+Subject: [PATCH 22/28] ARM: dts: STiH407: DT fix
+ s/interrupts-names/interrupt-names/
+
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Acked-by: Rob Herring <robh@kernel.org>
+Acked-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ arch/arm/boot/dts/stih407-pinctrl.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/stih407-pinctrl.dtsi b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+index c325cc059ae4..daab16b5ae64 100644
+--- a/arch/arm/boot/dts/stih407-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+@@ -1157,7 +1157,7 @@
+ 			reg = <0x0923f080 0x4>;
+ 			reg-names = "irqmux";
+ 			interrupts = <GIC_SPI 192 IRQ_TYPE_NONE>;
+-			interrupts-names = "irqmux";
++			interrupt-names = "irqmux";
+ 			ranges = <0 0x09230000 0x3000>;
+ 
+ 			pio40: gpio@09230000 {
+-- 
+2.15.0
+

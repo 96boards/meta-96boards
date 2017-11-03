@@ -1,0 +1,31 @@
+From 1c17cba11ffd69e601879908c9f3681f1cd70d64 Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Thu, 8 Sep 2016 09:36:19 +0200
+Subject: [PATCH 12/28] ARM: dts: STiH410-b2260: add clk_ignore_unused in
+ bootargs
+
+This allows to make the board boot even if clock handling
+by all drivers is not properly done.
+
+Reported-by: Peter Griffin <peter.griffin@linaro.org>
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+---
+ arch/arm/boot/dts/stih410-b2260.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/stih410-b2260.dts b/arch/arm/boot/dts/stih410-b2260.dts
+index d5d8d08a504c..ef2ff2f518f6 100644
+--- a/arch/arm/boot/dts/stih410-b2260.dts
++++ b/arch/arm/boot/dts/stih410-b2260.dts
+@@ -15,7 +15,7 @@
+ 	compatible = "st,stih410-b2260", "st,stih410";
+ 
+ 	chosen {
+-		bootargs = "console=ttyAS1,115200";
++		bootargs = "console=ttyAS1,115200 clk_ignore_unused";
+ 		linux,stdout-path = &uart1;
+ 	};
+ 
+-- 
+2.15.0
+

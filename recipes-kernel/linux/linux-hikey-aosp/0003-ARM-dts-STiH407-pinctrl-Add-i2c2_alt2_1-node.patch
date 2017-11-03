@@ -1,0 +1,38 @@
+From cd0bf3eb6465935d9baef77e6e822ea2dd711ecc Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Mon, 15 Aug 2016 14:17:00 +0200
+Subject: [PATCH 03/28] ARM: dts: STiH407-pinctrl: Add i2c2_alt2_1 node
+
+Add missing pin muxing for I2C2 alternate 2. This
+i2c2 pin muxing is dedicated for 96board high speed
+expansion connector.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+[Lee: Correct spacing between nodes]
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ arch/arm/boot/dts/stih407-pinctrl.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih407-pinctrl.dtsi b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+index bd53c74e6d59..e05be3ccd740 100644
+--- a/arch/arm/boot/dts/stih407-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+@@ -523,6 +523,13 @@
+ 						scl = <&pio15 5 ALT2 BIDIR>;
+ 					};
+ 				};
++
++				pinctrl_i2c2_alt2_1: i2c2-alt2-1 {
++					st,pins {
++						sda = <&pio12 6 ALT2 BIDIR>;
++						scl = <&pio12 5 ALT2 BIDIR>;
++					};
++				};
+ 			};
+ 
+ 			i2c3 {
+-- 
+2.15.0
+

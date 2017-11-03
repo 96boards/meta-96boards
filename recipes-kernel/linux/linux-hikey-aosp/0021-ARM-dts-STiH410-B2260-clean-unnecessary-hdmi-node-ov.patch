@@ -1,0 +1,35 @@
+From 48c2491b05c0edf5f9ec5566b764a58fdf5be8d4 Mon Sep 17 00:00:00 2001
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Date: Tue, 4 Oct 2016 18:11:00 +0200
+Subject: [PATCH 21/28] ARM: dts: STiH410-B2260: clean unnecessary hdmi node
+ overlay
+
+sti-hdmi is already enabled in stih410.dtsi.
+So no need to declare it here.
+
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Acked-by: Patrice Chotard <patrice.chotard@st.com>
+---
+ arch/arm/boot/dts/stih410-b2260.dts | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stih410-b2260.dts b/arch/arm/boot/dts/stih410-b2260.dts
+index 7fb507fcba7e..0bbf1159a9e7 100644
+--- a/arch/arm/boot/dts/stih410-b2260.dts
++++ b/arch/arm/boot/dts/stih410-b2260.dts
+@@ -174,12 +174,6 @@
+ 			status = "okay";
+ 		};
+ 
+-		sti-display-subsystem {
+-			sti_hdmi: sti-hdmi@8d04000 {
+-				status = "okay";
+-			};
+-		};
+-
+ 		miphy28lp_phy: miphy28lp@9b22000 {
+ 
+ 			phy_port1: port@9b2a000 {
+-- 
+2.15.0
+

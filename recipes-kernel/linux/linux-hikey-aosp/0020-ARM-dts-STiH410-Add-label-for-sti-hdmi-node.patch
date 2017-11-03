@@ -1,0 +1,29 @@
+From d1822fdebdc77b22a7ad0105af763d1c8d0a9596 Mon Sep 17 00:00:00 2001
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Date: Tue, 4 Oct 2016 18:11:00 +0200
+Subject: [PATCH 20/28] ARM: dts: STiH410: Add label for sti-hdmi node
+
+Needed to declare HDMI device in sound card
+
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Acked-by: Patrice Chotard <patrice.chotard@st.com>
+---
+ arch/arm/boot/dts/stih410.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/stih410.dtsi b/arch/arm/boot/dts/stih410.dtsi
+index 2d231300bf27..1703edf4b161 100644
+--- a/arch/arm/boot/dts/stih410.dtsi
++++ b/arch/arm/boot/dts/stih410.dtsi
+@@ -189,7 +189,7 @@
+ 							 <&clk_s_d2_quadfs 0>;
+ 			};
+ 
+-			sti-hdmi@8d04000 {
++			sti_hdmi: sti-hdmi@8d04000 {
+ 				compatible = "st,stih407-hdmi";
+ 				reg = <0x8d04000 0x1000>;
+ 				reg-names = "hdmi-reg";
+-- 
+2.15.0
+

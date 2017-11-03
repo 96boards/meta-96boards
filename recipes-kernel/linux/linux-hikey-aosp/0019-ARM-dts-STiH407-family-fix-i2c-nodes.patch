@@ -1,0 +1,93 @@
+From 3a73cd6f5d2efeedad24b3c9a3345fe91124a511 Mon Sep 17 00:00:00 2001
+From: Loic Pallardy <loic.pallardy@st.com>
+Date: Wed, 16 Nov 2016 13:57:00 +0100
+Subject: [PATCH 19/28] ARM: dts: STiH407-family: fix i2c nodes
+
+The I2C nodes are missing #address-cells and #size-cells. This is
+causing warning at device tree compilation when some I2C device
+sub-nodes are defined.
+
+Signed-off-by: Loic Pallardy <loic.pallardy@st.com>
+---
+ arch/arm/boot/dts/stih407-family.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih407-family.dtsi b/arch/arm/boot/dts/stih407-family.dtsi
+index 57a562f9c73e..d80f073239de 100644
+--- a/arch/arm/boot/dts/stih407-family.dtsi
++++ b/arch/arm/boot/dts/stih407-family.dtsi
+@@ -230,6 +230,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c0_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -243,6 +245,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c1_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -256,6 +260,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c2_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -269,6 +275,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c3_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -282,6 +290,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c4_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -295,6 +305,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c5_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -310,6 +322,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c10_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -323,6 +337,8 @@
+ 			clock-frequency = <400000>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pinctrl_i2c11_default>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			status = "disabled";
+ 		};
+-- 
+2.15.0
+

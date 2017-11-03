@@ -1,0 +1,34 @@
+From b6029bd2f60aeca1e8b461d0468991913f798fd6 Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Mon, 15 Aug 2016 14:17:00 +0200
+Subject: [PATCH 02/28] ARM: dts: STiH410: Add thermal node
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+[Lee: Changed node name and added the unit address]
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ arch/arm/boot/dts/stih410.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih410.dtsi b/arch/arm/boot/dts/stih410.dtsi
+index 18ed1ad10d32..7590721e9e97 100644
+--- a/arch/arm/boot/dts/stih410.dtsi
++++ b/arch/arm/boot/dts/stih410.dtsi
+@@ -227,5 +227,13 @@
+ 			clock-names = "bdisp";
+ 			clocks = <&clk_s_c0_flexgen CLK_IC_BDISP_0>;
+ 		};
++
++		thermal@91a0000 {
++			compatible = "st,stih407-thermal";
++			reg = <0x91a0000 0x28>;
++			clock-names = "thermal";
++			clocks = <&clk_sysin>;
++			interrupts = <GIC_SPI 205 IRQ_TYPE_EDGE_RISING>;
++		};
+ 	};
+ };
+-- 
+2.15.0
+
