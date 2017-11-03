@@ -1,0 +1,32 @@
+From bd5c27341423484da3954b03a994f96dfb493c62 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Fri, 3 Feb 2017 10:23:19 +0000
+Subject: [PATCH 28/28] ARM: dts: STiH410-b2260: Enable HW flow-control
+
+Hardware flow-control capability must be specified at a platform
+level in order to inform the ASC driver that the platform is capable
+(i.e. are the lines wired up, etc).  STiH4{07,10} devices are indeed
+capable, so let's provide the property.
+
+Acked-by: Peter Griffin <peter.griffin@linaro.org>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ arch/arm/boot/dts/stih410-b2260.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/boot/dts/stih410-b2260.dts b/arch/arm/boot/dts/stih410-b2260.dts
+index cbcbcb4c6e4f..93c14d183e29 100644
+--- a/arch/arm/boot/dts/stih410-b2260.dts
++++ b/arch/arm/boot/dts/stih410-b2260.dts
+@@ -66,6 +66,7 @@
+ 			pinctrl-0 = <&pinctrl_serial0_hw_flowctrl>;
+ 			pinctrl-1 = <&pinctrl_serial0>;
+ 			rts-gpios = <&pio17 3 GPIO_ACTIVE_LOW>;
++			uart-has-rtscts;
+ 			status = "okay";
+ 		};
+ 
+-- 
+2.15.0
+

@@ -1,0 +1,239 @@
+From 7626fb05e03ed067ab6989dcc456fdafba5b50ed Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Mon, 15 Aug 2016 14:17:00 +0200
+Subject: [PATCH 07/28] ARM: dts: STi: Introduce B2260 board
+
+B2260 board is the STMicroelectronics 96Board
+based on STiH410 soc :
+  - 1GB DDR
+  - On-Board USB combo WiFi/Bluetooth RTL8723BU
+    with PCB soldered antenna
+  - Ethernet 1000-BaseT
+  - Sata
+  - HDMI
+  - 2 x USB2 type A
+  - micro USB2 type AB
+  - SD card slot
+  - High speed connector (SD/I2C/USB interfaces)
+  - Slow speed connector (UART/I2C/GPIO/SPI/PCM interfaces)
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ arch/arm/boot/dts/Makefile          |   1 +
+ arch/arm/boot/dts/stih410-b2260.dts | 190 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 191 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stih410-b2260.dts
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 30bbc3746130..83785ed5681d 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -575,6 +575,7 @@ dtb-$(CONFIG_ARCH_SPEAR6XX) += \
+ dtb-$(CONFIG_ARCH_STI) += \
+ 	stih407-b2120.dtb \
+ 	stih410-b2120.dtb \
++	stih410-b2260.dtb \
+ 	stih415-b2000.dtb \
+ 	stih415-b2020.dtb \
+ 	stih416-b2000.dtb \
+diff --git a/arch/arm/boot/dts/stih410-b2260.dts b/arch/arm/boot/dts/stih410-b2260.dts
+new file mode 100644
+index 000000000000..94e064f193b2
+--- /dev/null
++++ b/arch/arm/boot/dts/stih410-b2260.dts
+@@ -0,0 +1,190 @@
++/*
++ * Copyright (C) 2016 STMicroelectronics (R&D) Limited.
++ * Author: Patrice Chotard <patrice.chotard@st.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++#include "stih410.dtsi"
++#include <dt-bindings/gpio/gpio.h>
++
++/ {
++	model = "STiH410 B2260";
++	compatible = "st,stih410-b2260", "st,stih410";
++
++	chosen {
++		bootargs = "console=ttyAS1,115200";
++		linux,stdout-path = &uart1;
++	};
++
++	memory {
++		device_type = "memory";
++		reg = <0x40000000 0x40000000>;
++	};
++
++	aliases {
++		ttyAS1 = &uart1;
++		ethernet0 = &ethernet0;
++	};
++
++	soc {
++
++		leds {
++			compatible = "gpio-leds";
++			user_green_1 {
++				label = "User_green_1";
++				gpios = <&pio1 3 GPIO_ACTIVE_LOW>;
++				linux,default-trigger = "heartbeat";
++				default-state = "off";
++			};
++
++			user_green_2 {
++				label = "User_green_2";
++				gpios = <&pio4 1 GPIO_ACTIVE_LOW>;
++				default-state = "off";
++			};
++
++			user_green_3 {
++				label = "User_green_3";
++				gpios = <&pio2 1 GPIO_ACTIVE_LOW>;
++				default-state = "off";
++			};
++
++			user_green_4 {
++				label = "User_green_4";
++				gpios = <&pio2 5 GPIO_ACTIVE_LOW>;
++				default-state = "off";
++			};
++		};
++
++		/* Low speed expansion connector */
++		uart0: serial@9830000 {
++			label = "LS-UART0";
++			status = "okay";
++		};
++
++		/* Low speed expansion connector */
++		uart1: serial@9831000 {
++			label = "LS-UART1";
++			status = "okay";
++		};
++
++		/* Low speed expansion connector */
++		spi0: spi@9844000 {
++			label = "LS-SPI0";
++			cs-gpio = <&pio30 3 0>;
++			status = "okay";
++		};
++
++		/* Low speed expansion connector */
++		i2c0: i2c@9840000 {
++			label = "LS-I2C0";
++			status = "okay";
++		};
++
++		/* Low speed expansion connector */
++		i2c1: i2c@9841000 {
++			label = "LS-I2C1";
++			status = "okay";
++		};
++
++		/* high speed expansion connector */
++		i2c2: i2c@9842000 {
++			label = "HS-I2C2";
++			pinctrl-0 = <&pinctrl_i2c2_alt2_1>;
++			status = "okay";
++		};
++
++		/* high speed expansion connector */
++		i2c3: i2c@9843000 {
++			label = "HS-I2C3";
++			pinctrl-0 = <&pinctrl_i2c3_alt3_0>;
++			status = "okay";
++		};
++
++		mmc0: sdhci@09060000 {
++			pinctrl-0 = <&pinctrl_sd0>;
++			bus-width = <4>;
++			status = "okay";
++		};
++
++		/* high speed expansion connector */
++		mmc1: sdhci@09080000 {
++			status = "okay";
++		};
++
++		pwm0: pwm@9810000 {
++			status = "okay";
++		};
++
++		pwm1: pwm@9510000 {
++			status = "okay";
++		};
++
++		usb2_picophy1: phy2 {
++			status = "okay";
++		};
++
++		usb2_picophy2: phy3 {
++			status = "okay";
++		};
++
++		ohci0: usb@9a03c00 {
++			status = "okay";
++		};
++
++		ehci0: usb@9a03e00 {
++			status = "okay";
++		};
++
++		ohci1: usb@9a83c00 {
++			status = "okay";
++		};
++
++		ehci1: usb@9a83e00 {
++			status = "okay";
++		};
++
++		ethernet0: dwmac@9630000 {
++			phy-mode = "rgmii";
++			pinctrl-0 = <&pinctrl_rgmii1 &pinctrl_rgmii1_mdio_1>;
++
++			snps,phy-bus-name = "stmmac";
++			snps,phy-bus-id = <0>;
++			snps,phy-addr = <0>;
++			snps,reset-gpio = <&pio0 7 0>;
++			snps,reset-active-low;
++			snps,reset-delays-us = <0 10000 1000000>;
++
++			status = "okay";
++		};
++
++		/* SSC11 to HDMI */
++		hdmiddc: i2c@9541000 {
++			/* HDMI V1.3a supports Standard mode only */
++			clock-frequency = <100000>;
++			st,i2c-min-scl-pulse-width-us = <0>;
++			st,i2c-min-sda-pulse-width-us = <5>;
++			status = "okay";
++		};
++
++		sti-display-subsystem {
++			sti_hdmi: sti-hdmi@8d04000 {
++				status = "okay";
++			};
++		};
++
++		miphy28lp_phy: miphy28lp@9b22000 {
++
++			phy_port1: port@9b2a000 {
++				st,osc-force-ext;
++			};
++		};
++
++		sata1: sata@9b28000 {
++			status = "okay";
++		};
++	};
++};
+-- 
+2.15.0
+

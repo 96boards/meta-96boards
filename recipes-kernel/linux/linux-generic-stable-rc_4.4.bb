@@ -19,6 +19,38 @@ SRC_URI = "\
     file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
 "
 
+# apply=yes indicates non-essential patches for STiH410-b2260 support
+SRC_URI_append_stih410-b2260 = "\
+    file://0001-ARM-dts-STiH407-Move-pio20-node-to-fix-kernel-warnin.patch;apply=yes \
+    file://0002-ARM-dts-STiH410-Add-thermal-node.patch;apply=yes \
+    file://0003-ARM-dts-STiH407-pinctrl-Add-i2c2_alt2_1-node.patch \
+    file://0004-ARM-dts-STiH407-Move-non-removable-property-to-board.patch;apply=yes \
+    file://0005-ARM-dts-STiH407-pinctrl-Add-pinctrl_rgmii1_mdio_1-no.patch \
+    file://0006-ARM-dts-STiH407-family-Add-ports-implemented-propert.patch;apply=yes \
+    file://0007-ARM-dts-STi-Introduce-B2260-board.patch \
+    file://0008-ARM-dts-STiH407-pinctrl-Update-gpio-cells-to-2.patch;apply=yes \
+    file://0009-ARM-dts-STiH407-Supply-PWM-Capture-IRQ.patch;apply=yes \
+    file://0010-ARM-dts-STiH407-Declare-PWM-Capture-data-lines-via-P.patch;apply=yes \
+    file://0011-ARM-dts-STiH410-b2260-add-USB3-node.patch \
+    file://0012-ARM-dts-STiH410-b2260-add-clk_ignore_unused-in-boota.patch \
+    file://0013-ARM-dts-STiH410-Add-hva-dt-nodes.patch;apply=yes \
+    file://0014-ARM-DT-STiH407-Add-i2s_out-pinctrl-configuration.patch;apply=yes \
+    file://0015-ARM-DT-STiH407-Add-i2s_in-pinctrl-configuration.patch;apply=yes \
+    file://0016-ARM-DT-STiH407-Add-spdif_out-pinctrl-config.patch;apply=yes \
+    file://0017-ARM-dts-STiH410-clock-configuration-to-address-720p-.patch;apply=yes \
+    file://0018-ARM-dts-STiH410-b2260-Fix-typo-in-spi0-chipselect-de.patch \
+    file://0019-ARM-dts-STiH407-family-fix-i2c-nodes.patch;apply=yes \
+    file://0020-ARM-dts-STiH410-Add-label-for-sti-hdmi-node.patch \
+    file://0021-ARM-dts-STiH410-B2260-clean-unnecessary-hdmi-node-ov.patch \
+    file://0022-ARM-dts-STiH407-DT-fix-s-interrupts-names-interrupt-.patch;apply=yes \
+    file://0023-ARM-dts-STiH410-B2260-enable-sound-card.patch \
+    file://0024-ARM-dts-STiH407-family-set-snps-dis_u3_susphy_quirk.patch;apply=yes \
+    file://0025-ARM-dts-STiH410-b2260-Identify-the-UART-RTS-line.patch \
+    file://0026-ARM-dts-STiH407-pinctrl-Add-Pinctrl-group-for-HW-flo.patch \
+    file://0027-ARM-dts-STiH407-family-Use-new-Pinctrl-groups.patch \
+    file://0028-ARM-dts-STiH410-b2260-Enable-HW-flow-control.patch \
+"
+
 S = "${WORKDIR}/git"
 
 COMPATIBLE_MACHINE = "am57xx-evm|intel-core2-32|juno|stih410-b2260"

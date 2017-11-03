@@ -1,0 +1,37 @@
+From 545964efa1335518b0a29e8727d6a5a859e0158a Mon Sep 17 00:00:00 2001
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Mon, 5 Sep 2016 15:16:00 +0200
+Subject: [PATCH 16/28] ARM: DT: STiH407: Add spdif_out pinctrl config
+
+This patch adds the pinctrl config for the spidf out
+pins used by the sasg codec IP.
+
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+Acked-by: Lee Jones <lee.jones@linaro.org>
+---
+ arch/arm/boot/dts/stih407-pinctrl.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stih407-pinctrl.dtsi b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+index d7ad21c5d2a6..c325cc059ae4 100644
+--- a/arch/arm/boot/dts/stih407-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+@@ -1131,6 +1131,14 @@
+ 				};
+ 			};
+ 
++			spdif_out {
++				pinctrl_spdif_out: spdif_out{
++					st,pins {
++						spdif_out = <&pio34 7 ALT1 OUT>;
++					};
++				};
++			};
++
+ 			serial3 {
+ 				pinctrl_serial3: serial3-0 {
+ 					st,pins {
+-- 
+2.15.0
+

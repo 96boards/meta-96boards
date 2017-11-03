@@ -1,0 +1,76 @@
+From 766bd85e7094871378428eaeb1764de341e1660f Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Mon, 15 Aug 2016 14:17:00 +0200
+Subject: [PATCH 01/28] ARM: dts: STiH407: Move pio20 node to fix kernel
+ warning
+
+cat /sys/kernel/debug/pinctrl/921f080.pin-controller-front1/pingroups
+leads to the kernel warning:
+
+[   86.083560] st-pinctrl 921f080.pin-controller-front1: failed to get pin(-517) name
+[   86.091192] ------------[ cut here ]------------
+[   86.095897] WARNING: CPU: 0 PID: 1579 at drivers/pinctrl/core.c:1414 pinctrl_groups_show+0x144/0x16c
+[   86.105072] Modules linked in:
+[   86.108127] CPU: 0 PID: 1579 Comm: cat Tainted: G        W       4.6.0-00011-g9ba82e2-dirty #5
+[   86.116728] Hardware name: STiH415/416 SoC with Flattened Device Tree
+[   86.123194] [<c010fa90>] (unwind_backtrace) from [<c010bea8>] (show_stack+0x10/0x14)
+[   86.130943] [<c010bea8>] (show_stack) from [<c038c5b0>] (dump_stack+0x98/0xac)
+[   86.138167] [<c038c5b0>] (dump_stack) from [<c0129b58>] (__warn+0xe8/0x100)
+[   86.145121] [<c0129b58>] (__warn) from [<c0129c20>] (warn_slowpath_null+0x20/0x28)
+[   86.152681] [<c0129c20>] (warn_slowpath_null) from [<c03bf810>] (pinctrl_groups_show+0x144/0x16c)
+[   86.161550] [<c03bf810>] (pinctrl_groups_show) from [<c0218a5c>] (seq_read+0x1ec/0x4c0)
+[   86.169553] [<c0218a5c>] (seq_read) from [<c01f66f0>] (__vfs_read+0x20/0xd0)
+[   86.176592] [<c01f66f0>] (__vfs_read) from [<c01f7414>] (vfs_read+0x7c/0x104)
+[   86.183716] [<c01f7414>] (vfs_read) from [<c01f81a0>] (SyS_read+0x44/0x9c)
+[   86.190585] [<c01f81a0>] (SyS_read) from [<c0108400>] (ret_fast_syscall+0x0/0x3c)
+[   86.198158] ---[ end trace 1aa2e3ae820eeb3e ]---
+
+Move the pincontroller pio20 node above the tsin4 node, which referred
+to it, fix this warning.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ arch/arm/boot/dts/stih407-pinctrl.dtsi | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stih407-pinctrl.dtsi b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+index a538ae52d32b..bd53c74e6d59 100644
+--- a/arch/arm/boot/dts/stih407-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stih407-pinctrl.dtsi
+@@ -916,6 +916,15 @@
+ 			interrupt-names = "irqmux";
+ 			ranges = <0 0x09210000 0x10000>;
+ 
++			pio20: pio@09210000 {
++				gpio-controller;
++				#gpio-cells = <1>;
++				interrupt-controller;
++				#interrupt-cells = <2>;
++				reg = <0x0 0x100>;
++				st,bank-name = "PIO20";
++			};
++
+ 			tsin4 {
+ 				pinctrl_tsin4_serial_alt1: tsin4_serial_alt1 {
+ 					st,pins {
+@@ -927,15 +936,6 @@
+ 					};
+ 				};
+ 			};
+-
+-			pio20: pio@09210000 {
+-				gpio-controller;
+-				#gpio-cells = <1>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x0 0x100>;
+-				st,bank-name = "PIO20";
+-			};
+ 		};
+ 
+ 		pin-controller-rear {
+-- 
+2.15.0
+
