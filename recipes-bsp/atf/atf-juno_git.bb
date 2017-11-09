@@ -60,17 +60,15 @@ do_deploy() {
     cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r1.dtb \
     ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r1.dtb
 
-    cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r1.dtb \
-    ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r2.dtb
-
-    # Overwrite Juno dtb with the real r2 dtb in the recovery image
     if [ -L ${DEPLOY_DIR_IMAGE}/Image-juno-r2.dtb ]; then
       cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r2.dtb \
       ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r2.dtb
-    else
-      # Deploy a dummy r2 dtb, copy of Juno r1 dtb
+    else # Deploy a dummy r2 dtb, copy of Juno r1 dtb
+      cp -aL ${DEPLOY_DIR_IMAGE}/Image-juno-r1.dtb \
+      ${WORKDIR}/juno-oe-uboot/SOFTWARE/juno-r2.dtb
+
       dt_src=$(readlink ${DEPLOY_DIR_IMAGE}/Image-juno-r1.dtb)
-      dt_dst=${dt_src/juno-r1/juno-r2}
+      dt_dst=$(echo ${dt_src} | sed -e 's/juno-r1/juno-r2/')
       cp -a ${DEPLOY_DIR_IMAGE}/${dt_src} ${DEPLOY_DIR_IMAGE}/${dt_dst}
     fi
 
