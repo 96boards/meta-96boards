@@ -40,6 +40,13 @@ do_configure() {
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
+        # FIXME https://bugs.linaro.org/show_bug.cgi?id=3459
+        # x86 fails to build:
+        # | kernel-source/Makefile:938:
+        # *** "Cannot generate ORC metadata for CONFIG_UNWINDER_ORC=y,
+        # please install libelf-dev, libelf-devel or elfutils-libelf-devel".  Stop.
+        echo 'CONFIG_UNWINDER_FRAME_POINTER=y' >> ${B}/.config
+        echo '# CONFIG_UNWINDER_ORC is not set' >> ${B}/.config
       ;;
     esac
 
