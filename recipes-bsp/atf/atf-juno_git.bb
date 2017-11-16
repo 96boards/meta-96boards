@@ -1,14 +1,16 @@
 DESCRIPTION = "ARM Trusted Firmware Juno"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://license.rst;md5=33065335ea03d977d0569f270b39603e"
-DEPENDS += "u-boot-juno zip-native"
-SRCREV = "b762fc7481c66b64eb98b6ff694d569e66253973"
+DEPENDS += "optee-os u-boot-juno zip-native"
+SRCREV = "e83769c07bb09b7727a36389c9dd92096860637e"
+
+PV = "1.4+git${SRCPV}"
 
 SRC_URI = "git://github.com/ARM-software/arm-trusted-firmware.git;protocol=https;name=atf;branch=master \
-    http://releases.linaro.org/members/arm/platforms/17.04/juno-latest-oe-uboot.zip;name=junofip;subdir=juno-oe-uboot \
+    http://releases.linaro.org/members/arm/platforms/17.10/juno-latest-oe-uboot.zip;name=junofip;subdir=juno-oe-uboot \
 "
-SRC_URI[junofip.md5sum] = "12fc772de457930fc60e42bdde97eb0a"
-SRC_URI[junofip.sha256sum] = "be1a3f8b72a0dd98ba1bf9f4fd5415d3adca052c60b090c5dccc178588ec43bc"
+SRC_URI[junofip.md5sum] = "6dd3337bd1c25982cfcdb5ab5aef6e81"
+SRC_URI[junofip.sha256sum] = "34939c6b12a5ff58e7107a1cf430ebcca5621996e60ac6bc07db680da7be2b50"
 
 S = "${WORKDIR}/git"
 
@@ -20,6 +22,8 @@ COMPATIBLE_MACHINE = "juno"
 
 # ATF requires u-boot.bin file. Ensure it's deployed before we compile.
 do_compile[depends] += "u-boot-juno:do_deploy"
+# Same for OP-TEE files.
+do_compile[depends] += "optee-os:do_deploy"
 
 # Building for Juno requires a special SCP firmware to be packed with FIP.
 # You can refer to the documentation here:
@@ -29,18 +33,26 @@ do_compile[depends] += "u-boot-juno:do_deploy"
 do_compile() {
     oe_runmake \
       CROSS_COMPILE=${TARGET_PREFIX} \
-      all \
-      fip \
-      PLAT=${COMPATIBLE_MACHINE} \
-      SPD=none \
       SCP_BL2=${WORKDIR}/juno-oe-uboot/SOFTWARE/scp_bl2.bin \
-      BL33=${DEPLOY_DIR_IMAGE}/u-boot.bin
+      BL32=${DEPLOY_DIR_IMAGE}/optee/tee-header_v2-juno-3ff350a1.bin \
+      BL32_EXTRA1=${DEPLOY_DIR_IMAGE}/optee/tee-pager_v2-juno-3ff350a1.bin \
+      BL32_EXTRA2=${DEPLOY_DIR_IMAGE}/optee/tee-pageable_v2-juno-3ff350a1.bin \
+      BL33=${DEPLOY_DIR_IMAGE}/u-boot.bin \
+      DEBUG=0 \
+      ARM_TSP_RAM_LOCATION=dram \
+      PLAT=${COMPATIBLE_MACHINE} \
+      SPD=opteed \
+      CSS_USE_SCMI_SDS_DRIVER=1 \
+      all \
+      fip
 
     # Generate new FIP using our U-boot
     ./tools/fiptool/fiptool update \
       --nt-fw ${DEPLOY_DIR_IMAGE}/u-boot.bin \
       build/${COMPATIBLE_MACHINE}/release/fip.bin
 }
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # Ensure we deploy kernel/dtb before we create the recovery image.
 do_deploy[depends] += "virtual/kernel:do_deploy"
