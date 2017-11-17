@@ -1,1 +1,0 @@
-linux-generic-stable-rc_4.9.bb
