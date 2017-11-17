@@ -1,1 +1,0 @@
-linux-generic-mainline_git.bb

@@ -1,1 +1,0 @@
-linux-generic-stable_4.9.bb
