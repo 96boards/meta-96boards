@@ -21,6 +21,19 @@ SRC_URI = "\
 
 # apply=yes indicates non-essential patches for STiH410-b2260 support
 SRC_URI_append_stih410-b2260 = "\
+    file://0001-clk-add-flag-for-clocks-that-need-to-be-enabled-on-r.patch \
+    file://0002-clk-Use-static-inline-functions-instead-of-macros-fo.patch \
+    file://0003-clk-Allow-clocks-to-be-marked-as-CRITICAL.patch \
+    file://0004-clk-WARN_ON-about-to-disable-a-critical-clock.patch \
+    file://0005-clk-Provide-OF-helper-to-mark-clocks-as-CRITICAL.patch \
+    file://0006-clk-st-clk-flexgen-Detect-critical-clocks.patch \
+    file://0007-clk-st-clkgen-fsyn-Detect-critical-clocks.patch \
+    file://0008-clk-st-clkgen-pll-Detect-critical-clocks.patch \
+    file://0009-ARM-sti-stih407-family-Supply-defines-for-CLOCKGEN-A.patch \
+    file://0010-ARM-sti-stih410-clocks-Identify-critical-clocks.patch \
+    file://0011-spi-st-ssc4-Fix-missing-spi_master_put-in-spi_st_pro.patch \
+    file://0012-spi-st-ssc4-Remove-no-clocking-hack.patch \
+    \
     file://0001-ARM-dts-STiH407-Move-pio20-node-to-fix-kernel-warnin.patch;apply=yes \
     file://0002-ARM-dts-STiH410-Add-thermal-node.patch;apply=yes \
     file://0003-ARM-dts-STiH407-pinctrl-Add-i2c2_alt2_1-node.patch \

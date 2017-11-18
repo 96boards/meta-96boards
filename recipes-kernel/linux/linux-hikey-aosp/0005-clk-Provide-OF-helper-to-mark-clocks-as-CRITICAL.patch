@@ -1,0 +1,98 @@
+From fae4d2deb73aa3745bdb09be613611c1f21e7138 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Thu, 11 Feb 2016 13:19:11 -0800
+Subject: [PATCH 05/12] clk: Provide OF helper to mark clocks as CRITICAL
+
+This call matches clocks which have been marked as critical in DT
+and sets the appropriate flag.  These flags can then be used to
+mark the clock core flags appropriately prior to registration.
+
+Legacy bindings requiring this feature must add the clock-critical
+property to their binding descriptions, as it is not a part of
+common-clock binding.
+
+Cc: devicetree@vger.kernel.org
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reviewed-by: Stephen Boyd <sboyd@codeaurora.org>
+Signed-off-by: Michael Turquette <mturquette@baylibre.com>
+Link: lkml.kernel.org/r/1455225554-13267-4-git-send-email-mturquette@baylibre.com
+---
+ drivers/clk/clk.c            | 35 +++++++++++++++++++++++++++++++++++
+ include/linux/clk-provider.h |  8 +++++++-
+ 2 files changed, 42 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index 191a0dccda3b..4e938e0b3b4d 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -3202,6 +3202,41 @@ static int parent_ready(struct device_node *np)
+ 	}
+ }
+ 
++/**
++ * of_clk_detect_critical() - set CLK_IS_CRITICAL flag from Device Tree
++ * @np: Device node pointer associated with clock provider
++ * @index: clock index
++ * @flags: pointer to clk_core->flags
++ *
++ * Detects if the clock-critical property exists and, if so, sets the
++ * corresponding CLK_IS_CRITICAL flag.
++ *
++ * Do not use this function. It exists only for legacy Device Tree
++ * bindings, such as the one-clock-per-node style that are outdated.
++ * Those bindings typically put all clock data into .dts and the Linux
++ * driver has no clock data, thus making it impossible to set this flag
++ * correctly from the driver. Only those drivers may call
++ * of_clk_detect_critical from their setup functions.
++ *
++ * Return: error code or zero on success
++ */
++int of_clk_detect_critical(struct device_node *np,
++					  int index, unsigned long *flags)
++{
++	struct property *prop;
++	const __be32 *cur;
++	uint32_t idx;
++
++	if (!np || !flags)
++		return -EINVAL;
++
++	of_property_for_each_u32(np, "clock-critical", prop, cur, idx)
++		if (index == idx)
++			*flags |= CLK_IS_CRITICAL;
++
++	return 0;
++}
++
+ /**
+  * of_clk_init() - Scan and init clock providers from the DT
+  * @matches: array of compatible values and init functions for providers.
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index a8c4cd957522..35ec57607229 100644
+--- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -705,7 +705,8 @@ int of_clk_get_parent_count(struct device_node *np);
+ int of_clk_parent_fill(struct device_node *np, const char **parents,
+ 		       unsigned int size);
+ const char *of_clk_get_parent_name(struct device_node *np, int index);
+-
++int of_clk_detect_critical(struct device_node *np, int index,
++			    unsigned long *flags);
+ void of_clk_init(const struct of_device_id *matches);
+ 
+ #else /* !CONFIG_OF */
+@@ -742,6 +743,11 @@ static inline const char *of_clk_get_parent_name(struct device_node *np,
+ {
+ 	return NULL;
+ }
++static inline int of_clk_detect_critical(struct device_node *np, int index,
++					  unsigned long *flags)
++{
++	return 0;
++}
+ static inline void of_clk_init(const struct of_device_id *matches) {}
+ #endif /* CONFIG_OF */
+ 
+-- 
+2.15.0
+
