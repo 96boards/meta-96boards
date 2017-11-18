@@ -1,0 +1,45 @@
+From 759689e7e5ab9a2cefca050d8fdcc43155aea452 Mon Sep 17 00:00:00 2001
+From: Axel Lin <axel.lin@ingics.com>
+Date: Fri, 29 Apr 2016 13:39:38 +0800
+Subject: [PATCH 11/12] spi: st-ssc4: Fix missing spi_master_put in
+ spi_st_probe error paths
+
+Signed-off-by: Axel Lin <axel.lin@ingics.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/spi/spi-st-ssc4.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/spi/spi-st-ssc4.c b/drivers/spi/spi-st-ssc4.c
+index f17c0abe299f..d5adf9f31602 100644
+--- a/drivers/spi/spi-st-ssc4.c
++++ b/drivers/spi/spi-st-ssc4.c
+@@ -345,12 +345,13 @@ static int spi_st_probe(struct platform_device *pdev)
+ 	spi_st->clk = devm_clk_get(&pdev->dev, "ssc");
+ 	if (IS_ERR(spi_st->clk)) {
+ 		dev_err(&pdev->dev, "Unable to request clock\n");
+-		return PTR_ERR(spi_st->clk);
++		ret = PTR_ERR(spi_st->clk);
++		goto put_master;
+ 	}
+ 
+ 	ret = spi_st_clk_enable(spi_st);
+ 	if (ret)
+-		return ret;
++		goto put_master;
+ 
+ 	init_completion(&spi_st->done);
+ 
+@@ -408,7 +409,8 @@ static int spi_st_probe(struct platform_device *pdev)
+ 
+ clk_disable:
+ 	spi_st_clk_disable(spi_st);
+-
++put_master:
++	spi_master_put(master);
+ 	return ret;
+ }
+ 
+-- 
+2.15.0
+

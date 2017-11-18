@@ -1,0 +1,49 @@
+From fda747d1b08e42e75f12b9ddcb5c24885712d82b Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Thu, 11 Feb 2016 13:19:09 -0800
+Subject: [PATCH 03/12] clk: Allow clocks to be marked as CRITICAL
+
+Critical clocks are those which must not be gated, else undefined
+or catastrophic failure would occur.  Here we have chosen to
+ensure the prepare/enable counts are correctly incremented, so as
+not to confuse users with enabled clocks with no visible users.
+
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Signed-off-by: Michael Turquette <mturquette@baylibre.com>
+Link: lkml.kernel.org/r/1455225554-13267-2-git-send-email-mturquette@baylibre.com
+---
+ drivers/clk/clk.c            | 5 +++++
+ include/linux/clk-provider.h | 1 +
+ 2 files changed, 6 insertions(+)
+
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index bd64a9414de2..e1f47d5fb1a4 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -2484,6 +2484,11 @@ static int __clk_init(struct device *dev, struct clk *clk_user)
+ 	if (core->ops->init)
+ 		core->ops->init(core->hw);
+ 
++	if (core->flags & CLK_IS_CRITICAL) {
++		clk_core_prepare(core);
++		clk_core_enable(core);
++	}
++
+ 	kref_init(&core->ref);
+ out:
+ 	clk_prepare_unlock();
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index bff76a41812f..a8c4cd957522 100644
+--- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -32,6 +32,7 @@
+ #define CLK_GET_ACCURACY_NOCACHE BIT(8) /* do not use the cached clk accuracy */
+ #define CLK_RECALC_NEW_RATES	BIT(9) /* recalc rates after notifications */
+ #define CLK_SET_RATE_UNGATE	BIT(10) /* clock needs to run to set rate */
++#define CLK_IS_CRITICAL		BIT(11) /* do not gate, ever */
+ 
+ struct clk;
+ struct clk_hw;
+-- 
+2.15.0
+

@@ -1,0 +1,53 @@
+From 5e48b568b1455b9a10d23136651b4135c4dcfffe Mon Sep 17 00:00:00 2001
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+Date: Thu, 29 Oct 2015 22:12:56 +0100
+Subject: [PATCH 02/12] clk: Use static inline functions instead of macros for
+ dummies
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+if CONFIG_OF=n:
+
+    drivers/clk/clk-cs2000-cp.c: In function ‘cs2000_remove’:
+    drivers/clk/clk-cs2000-cp.c:453:22: warning: unused variable ‘np’ [-Wunused-variable]
+      struct device_node *np = dev->of_node;
+			  ^
+
+Convert dummies of_clk_del_provider() and of_clk_init() from macros to
+static inline functions to kill such compiler warnings.
+
+Reported-by: kbuild test robot <fengguang.wu@intel.com>
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Stephen Boyd <sboyd@codeaurora.org>
+---
+ include/linux/clk-provider.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index a971ce462565..bff76a41812f 100644
+--- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -716,8 +716,7 @@ static inline int of_clk_add_provider(struct device_node *np,
+ {
+ 	return 0;
+ }
+-#define of_clk_del_provider(np) \
+-	{ while (0); }
++static inline void of_clk_del_provider(struct device_node *np) {}
+ static inline struct clk *of_clk_src_simple_get(
+ 	struct of_phandle_args *clkspec, void *data)
+ {
+@@ -742,8 +741,7 @@ static inline const char *of_clk_get_parent_name(struct device_node *np,
+ {
+ 	return NULL;
+ }
+-#define of_clk_init(matches) \
+-	{ while (0); }
++static inline void of_clk_init(const struct of_device_id *matches) {}
+ #endif /* CONFIG_OF */
+ 
+ /*
+-- 
+2.15.0
+
