@@ -40,6 +40,7 @@ do_configure() {
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
+        echo 'CONFIG_IGB=y' >> ${B}/.config
         # FIXME https://bugs.linaro.org/show_bug.cgi?id=3459
         # x86 fails to build:
         # | kernel-source/Makefile:938:
