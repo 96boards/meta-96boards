@@ -21,7 +21,7 @@ index 1a6cc06..e016de6 100755
 +#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
 +static unsigned long dma_attrs_wc;
 +#else
-+#error("Only Kernel version >=4.9  supported)
++#error("Only Kernel version >=4.9  supported")
  #endif
  
  #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 0, 0)

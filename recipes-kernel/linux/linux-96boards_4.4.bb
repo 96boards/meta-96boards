@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/96boards/linux.git;protocol=https;branch=96b/release
           "
 
 SRC_URI_append_hikey = " \
-    http://malideveloper.arm.com/downloads/drivers/DX910/r6p0-01rel0/DX910-SW-99002-r6p0-01rel0.tgz;name=mali \
+    https://developer.arm.com/-/media/Files/downloads/mali-drivers/kernel/mali-utgard-gpu/DX910-SW-99002-r7p0-00rel1.tgz;name=mali \
     file://mali-450.conf;subdir=git/kernel/configs \
     file://END_USER_LICENCE_AGREEMENT.txt;subdir=git \
     file://0001-drivers-gpu-Add-ARM-Mali-Utgard-r6p0-driver.patch \
@@ -20,12 +20,12 @@ SRC_URI_append_hikey = " \
     file://0005-drivers-gpu-arm-utgard-Fix-build-issue.patch \
     file://0006-drivers-gpu-arm-utgard-Disable-fbdev-physical-addres.patch \
     file://0007-mali_hikey-Modify-irq-initialization-in-mali-hikey-p.patch \
-    file://0008-gpu-mali-fix-get_unused_fd-build-issue.patch \
     file://0009-gpu-arm-fix-dma_ops-build-error.patch \
+    file://0001-gpu-arm-mali-Disable-PM_RUNTIME-support-in-r7p0.patch \
         "
 
-SRC_URI[mali.md5sum] = "49a03a4e765cfe5e87cccfdef97f9208"
-SRC_URI[mali.sha256sum] = "15813d964cb9308c236a7c71f8e2d8f346b13fa8ff6c8b3bd7e521ef123c1254"
+SRC_URI[mali.md5sum] = "ca8b284c7b98bcfb376424e19d2ab8e4"
+SRC_URI[mali.sha256sum] = "56080f2b8c7698a06e9357e11e3a00f92949f30e2551c3de49889d4e51fdb5c3"
 
 # Mali 400/450 GPU kernel device drivers license is GPLv2
 LIC_FILES_CHKSUM_hikey = "file://END_USER_LICENCE_AGREEMENT.txt;md5=450d710cd9d21c5ea5c4ac4217362b7e"
@@ -46,7 +46,7 @@ do_unpack_append_hikey() {
 
 do_unpack_mali_drv() {
     mkdir -p ${S}/drivers/gpu/arm
-    mv ${WORKDIR}/DX910-SW-99002-r6p0-01rel0/driver/src/devicedrv/mali \
+    mv ${WORKDIR}/DX910-SW-99002-r7p0-00rel1/driver/src/devicedrv/mali \
        ${S}/drivers/gpu/arm/utgard
 }
 

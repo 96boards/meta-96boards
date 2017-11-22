@@ -1,0 +1,30 @@
+From 203c504afe37598922a0586fc1488bf697f5a4f0 Mon Sep 17 00:00:00 2001
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Wed, 1 Nov 2017 12:44:38 +0100
+Subject: [PATCH] gpu: arm: mali: Disable PM_RUNTIME support in r7p0.
+
+With r7p0 kernel and userspace drivers PM_RUNTIME causes
+a system hang after the first few EGL calls.
+
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ drivers/gpu/arm/utgard/linux/mali_kernel_linux.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/arm/utgard/linux/mali_kernel_linux.h b/drivers/gpu/arm/utgard/linux/mali_kernel_linux.h
+index be754cb..243f49f 100755
+--- a/drivers/gpu/arm/utgard/linux/mali_kernel_linux.h
++++ b/drivers/gpu/arm/utgard/linux/mali_kernel_linux.h
+@@ -26,7 +26,8 @@ extern struct platform_device *mali_platform_device;
+ 
+ /* After 3.19.0 kenrel droped CONFIG_PM_RUNTIME define,define by ourself */
+ #if defined(CONFIG_PM) && LINUX_VERSION_CODE >= KERNEL_VERSION(3, 19, 0)
+-#define CONFIG_PM_RUNTIME 1
++/* Disable PM_RUNTIME as it causes system hang on R7P0 release */
++/*#define CONFIG_PM_RUNTIME 1*/
+ #endif
+ 
+ #ifdef __cplusplus
+-- 
+2.7.4
+
