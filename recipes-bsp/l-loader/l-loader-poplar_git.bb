@@ -8,7 +8,7 @@ DEPENDS += " atf-poplar coreutils-native util-linux-native"
 
 inherit deploy pythonnative
 
-SRCREV = "c9bccc57ddef1baa8f7adb8618c7f8a5b71ad4cc"
+SRCREV = "d7b3ac7748d6607c2dd82cf37326b80a2ede6e5b"
 
 ### DISCLAIMER ###
 # l-loader should be built with an aarch32 toolchain but we target an
@@ -36,7 +36,7 @@ do_compile() {
     rm -f arf/fip.bin
     ln -sf ${STAGING_LIBDIR}/atf/bl1.bin ${S}/atf/bl1.bin
     ln -sf ${STAGING_LIBDIR}/atf/fip.bin ${S}/atf/fip.bin
-
+    export ARM_TF_INCLUDE=${STAGING_INCDIR}
     make
 }
 
