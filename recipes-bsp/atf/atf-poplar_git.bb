@@ -24,3 +24,7 @@ do_compile() {
       SPD=none \
       BL33=${DEPLOY_DIR_IMAGE}/u-boot.bin
 }
+
+do_install_append() {
+           install -Dm644 ${WORKDIR}/git/plat/hisilicon/poplar/include/poplar_layout.h ${D}${includedir}/poplar_layout.h
+}
