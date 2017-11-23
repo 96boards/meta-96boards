@@ -5,8 +5,8 @@ DESCRIPTION = "96boards-poplar kernel"
 DEPENDS_append = " dosfstools-native mtools-native u-boot-poplar"
 
 PV = "4.9+git${SRCPV}"
-SRCREV = "035bdfc09e5c57d85e5b72ac04a588426e44f728"
-SRC_URI = "git://github.com/Linaro/poplar-linux.git;protocol=https;branch=latest;name=kernel \
+SRCREV = "e153b53cbd7047d7e6863c1850dda751f4a7f333"
+SRC_URI = "git://github.com/Linaro/poplar-linux.git;protocol=https;branch=poplar-4.9;name=kernel \
 "
 
 S = "${WORKDIR}/git"
@@ -22,7 +22,7 @@ do_configure() {
     # Make sure to disable debug info and enable ext4fs built-in
     sed -e '/CONFIG_EXT4_FS=/d' \
         -e '/CONFIG_DEBUG_INFO=/d' \
-        < ${S}/arch/arm64/configs/defconfig \
+        < ${S}/arch/arm64/configs/poplar_defconfig \
         > ${B}/.config
 
     echo 'CONFIG_EXT4_FS=y' >> ${B}/.config
@@ -71,8 +71,9 @@ do_deploy_append() {
     mkfs.vfat -F32 -n "boot" -C ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${BOOT_IMAGE_SIZE}
 
     mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ::extlinux
+    mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ::hisilicon
     mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOYDIR}/${KERNEL_IMAGETYPE} ::${KERNEL_IMAGETYPE}
-    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOYDIR}/Image-hi3798cv200-poplar.dtb ::hi3798cv200-poplar.dtb
+    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOYDIR}/Image-hi3798cv200-poplar.dtb ::hisilicon/hi3798cv200-poplar.dtb
     mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOY_DIR_IMAGE}/extlinux.conf ::extlinux/extlinux.conf
 
     (cd ${DEPLOYDIR} && ln -sf ${BOOT_IMAGE_BASE_NAME}.img boot-${MACHINE}.img)
