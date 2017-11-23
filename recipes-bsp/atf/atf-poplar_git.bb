@@ -2,7 +2,7 @@ DESCRIPTION = "ARM Trusted Firmware Poplar"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://license.md;md5=829bdeb34c1d9044f393d5a16c068371"
 DEPENDS += "u-boot-poplar"
-SRCREV = "dc20ebf4faf350567f537e204453497666bd6f6d"
+SRCREV = "812fae9e5ee80ddad6bae6bf1c403c9ffaaae984"
 
 SRC_URI = "git://github.com/linaro/poplar-arm-trusted-firmware.git;name=atf;branch=latest"
 
@@ -23,4 +23,8 @@ do_compile() {
       PLAT=${COMPATIBLE_MACHINE} \
       SPD=none \
       BL33=${DEPLOY_DIR_IMAGE}/u-boot.bin
+}
+
+do_install_append() {
+           install -Dm644 ${WORKDIR}/git/plat/hisilicon/poplar/include/poplar_layout.h ${D}${includedir}/poplar_layout.h
 }
