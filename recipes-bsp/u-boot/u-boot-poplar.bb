@@ -5,7 +5,7 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 # u-boot needs devtree compiler to parse dts files
 DEPENDS += "dtc-native bc-native"
-SRCREV = "64631e7e9ef879f99ff294d78bdc96f47663a296"
+SRCREV = "98469ebb7afaacc742d6f651f8e676e755672a63"
 PV = "v2017.09+git${SRCPV}"
 
 SRC_URI = "git://github.com/linaro/poplar-u-boot;protocol=git;branch=latest"
