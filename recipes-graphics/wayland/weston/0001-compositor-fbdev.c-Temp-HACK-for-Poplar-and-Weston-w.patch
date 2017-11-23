@@ -1,0 +1,32 @@
+From a9ae47c74b3aa53e2a6c32a8ccc26c4bab2e3e4d Mon Sep 17 00:00:00 2001
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Thu, 23 Nov 2017 15:37:51 +0000
+Subject: [PATCH] compositor-fbdev.c: Temp HACK for Poplar and Weston with
+ fbdev backend.
+
+To get Weston running on fbdev backend, we can't report
+a zero refresh rate, like Poplar fbdev currently does.
+
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ src/compositor-fbdev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/compositor-fbdev.c b/src/compositor-fbdev.c
+index ee762e3..b73ee19 100644
+--- a/src/compositor-fbdev.c
++++ b/src/compositor-fbdev.c
+@@ -489,7 +489,9 @@ fbdev_output_create(struct fbdev_backend *backend,
+ 		WL_OUTPUT_MODE_CURRENT | WL_OUTPUT_MODE_PREFERRED;
+ 	output->mode.width = output->fb_info.x_resolution;
+ 	output->mode.height = output->fb_info.y_resolution;
+-	output->mode.refresh = output->fb_info.refresh_rate;
++	/*output->mode.refresh = output->fb_info.refresh_rate;*/
++	/* HACK for Poplar board running on fbdev */
++	output->mode.refresh = 60000;
+ 	wl_list_init(&output->base.mode_list);
+ 	wl_list_insert(&output->base.mode_list, &output->mode.link);
+ 
+-- 
+2.7.4
+
