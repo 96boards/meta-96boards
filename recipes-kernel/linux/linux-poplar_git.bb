@@ -5,7 +5,7 @@ DESCRIPTION = "96boards-poplar kernel"
 DEPENDS_append = " dosfstools-native mtools-native u-boot-poplar"
 
 PV = "4.9+git${SRCPV}"
-SRCREV = "935fa08838bae790c7670bb0cd3aca9c9b88b096"
+SRCREV = "e153b53cbd7047d7e6863c1850dda751f4a7f333"
 SRC_URI = "git://github.com/Linaro/poplar-linux.git;protocol=https;branch=poplar-4.9;name=kernel \
 "
 
@@ -71,8 +71,9 @@ do_deploy_append() {
     mkfs.vfat -F32 -n "boot" -C ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${BOOT_IMAGE_SIZE}
 
     mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ::extlinux
+    mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ::hisilicon
     mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOYDIR}/${KERNEL_IMAGETYPE} ::${KERNEL_IMAGETYPE}
-    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOYDIR}/Image-hi3798cv200-poplar.dtb ::hi3798cv200-poplar.dtb
+    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOYDIR}/Image-hi3798cv200-poplar.dtb ::hisilicon/hi3798cv200-poplar.dtb
     mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.img ${DEPLOY_DIR_IMAGE}/extlinux.conf ::extlinux/extlinux.conf
 
     (cd ${DEPLOYDIR} && ln -sf ${BOOT_IMAGE_BASE_NAME}.img boot-${MACHINE}.img)
