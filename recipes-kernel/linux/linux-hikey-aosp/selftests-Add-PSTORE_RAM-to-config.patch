@@ -1,0 +1,28 @@
+From a706e1d83c6bac44daf1885b1fd9fa51de5648bd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Daniel=20D=C3=ADaz?= <daniel.diaz@linaro.org>
+Date: Tue, 19 Dec 2017 23:38:38 -0600
+Subject: [PATCH] selftests: Add PSTORE_RAM to config
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Needed for pstore_tests:
+  https://bugs.linaro.org/show_bug.cgi?id=3222
+
+Signed-off-by: Daniel Díaz <daniel.diaz@linaro.org>
+---
+ tools/testing/selftests/pstore/config | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tools/testing/selftests/pstore/config b/tools/testing/selftests/pstore/config
+index 6a8e5a9..d148f9f 100644
+--- a/tools/testing/selftests/pstore/config
++++ b/tools/testing/selftests/pstore/config
+@@ -2,3 +2,4 @@ CONFIG_MISC_FILESYSTEMS=y
+ CONFIG_PSTORE=y
+ CONFIG_PSTORE_PMSG=y
+ CONFIG_PSTORE_CONSOLE=y
++CONFIG_PSTORE_RAM=m
+-- 
+2.7.4
+
