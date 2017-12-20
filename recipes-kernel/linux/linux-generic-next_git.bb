@@ -11,6 +11,7 @@ SRC_URI = "\
     git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git;protocol=https;branch=master;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
+    file://selftests-Add-PSTORE_RAM-to-config.patch \
 "
 
 S = "${WORKDIR}/git"
