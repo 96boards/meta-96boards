@@ -79,6 +79,8 @@ DEPENDS += "openssl-native"
 HOST_EXTRACFLAGS += "-I${STAGING_INCDIR_NATIVE}"
 
 do_configure() {
+    touch ${B}/.scmversion ${S}/.scmversion
+
     # While kernel.bbclass has an architecture mapping, we can't use it because
     # the kernel config file has a different name.
     case "${HOST_ARCH}" in
