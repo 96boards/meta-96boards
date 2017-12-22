@@ -19,7 +19,7 @@ SRC_URI[sha256sum] = "34d3b15f0f81487a6b4e3680a79b22afaa2ea221eabe9e559523b48a07
 SRC_URI[arm64.md5sum] = "118b0307e087345fe7efdf3fe7a69e86"
 SRC_URI[arm64.sha256sum] = "34d3b15f0f81487a6b4e3680a79b22afaa2ea221eabe9e559523b48a073afee5"
 
-PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2"
+PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2 virtual/libgl"
 
 DEPENDS = "libdrm wayland mesa"
 
