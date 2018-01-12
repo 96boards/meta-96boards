@@ -35,6 +35,7 @@ do_configure() {
       ;;
       arm)
         cp ${S}/arch/arm/configs/multi_v7_defconfig ${B}/.config
+        echo 'CONFIG_ARM_TI_CPUFREQ=y' >> ${B}/.config
         echo 'CONFIG_SERIAL_8250_OMAP=y' >> ${B}/.config
         echo 'CONFIG_POSIX_MQUEUE=y' >> ${B}/.config
       ;;
