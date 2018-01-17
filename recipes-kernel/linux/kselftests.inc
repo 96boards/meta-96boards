@@ -28,7 +28,7 @@ PACKAGES =+ "kernel-selftests"
 FILES_kernel-selftests = "${KST_INSTALL_PATH}"
 
 PACKAGES =+ "kernel-selftests-dbg"
-FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug"
+FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug /usr/src/debug/*"
 
 RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 glibc-utils ncurses sudo"
 
