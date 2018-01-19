@@ -26,6 +26,9 @@ do_install_append() {
 
 PACKAGES =+ "kernel-selftests"
 FILES_kernel-selftests = "${KST_INSTALL_PATH}"
+# The bpf tests depend on that the object files are installed as well.
+# OE wont throw an error if files do not exist.
+FILES_kernel-selftests += "${KST_INSTALL_PATH}/bpf/*.o"
 
 PACKAGES =+ "kernel-selftests-dbg"
 FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug"
@@ -33,3 +36,7 @@ FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug"
 RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 glibc-utils ncurses sudo"
 
 INSANE_SKIP_kernel-selftests = "already-stripped"
+# Ignore the QA error because kselftests/bpf/ requires object files
+# ERROR message:
+# ERROR: kselftests-mainline-4.14-r0 do_package_qa: QA Issue: Architecture did not match (Unknown (0), expected AArch64) on /work/hikey-linaro-linux/kselftests-mainline/4.14-r0/packages-split/kselftests-mainline/opt/kselftests/mainline/bpf/test_tcp_estats.o
+ERROR_QA_remove = "arch"
