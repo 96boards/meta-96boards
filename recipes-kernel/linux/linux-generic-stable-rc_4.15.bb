@@ -1,14 +1,14 @@
 require linux.inc
 require kselftests.inc
 
-DESCRIPTION = "Generic Linux mainline kernel"
+DESCRIPTION = "Generic Linux Stable RC 4.15 kernel"
 
 PV = "4.15+git${SRCPV}"
-SRCREV_kernel = "bebc6082da0a9f5d47a1ea2edc099bf671058bd4"
+SRCREV_kernel = "d8a5b80568a9cb66810e75b182018e9edb68e8ff"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;protocol=https;branch=master;name=kernel \
+    git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git;protocol=https;branch=linux-4.15.y;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
 "
