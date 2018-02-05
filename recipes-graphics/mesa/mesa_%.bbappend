@@ -29,5 +29,5 @@ do_install_append_hikey-32() {
     rm -f ${D}/${libdir}/libgbm.*
     rm -f ${D}/${libdir}/libwayland-egl.*
 }
-PROVIDES_remove_hikey = "virtual/libgles1 virtual/libgles2 virtual/egl"
-PROVIDES_remove_hikey-32 = "virtual/libgles1 virtual/libgles2 virtual/egl"
+PROVIDES_remove_hikey = "virtual/libgles1 virtual/libgles2 virtual/egl virtual/libgl"
+PROVIDES_remove_hikey-32 = "virtual/libgles1 virtual/libgles2 virtual/egl virtual/libgl"

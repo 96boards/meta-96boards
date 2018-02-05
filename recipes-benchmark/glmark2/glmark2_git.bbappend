@@ -1,0 +1,6 @@
+PACKAGECONFIG[x11-gl] = ",,virtual/libgl virtual/libx11,libegl"
+PACKAGECONFIG[x11-gles2] = ",,virtual/libgles2 virtual/libx11,libgles2"
+PACKAGECONFIG[drm-gl] = ",,virtual/libgl libdrm,libegl"
+PACKAGECONFIG[drm-gles2] = ",,virtual/libgles2 libdrm,libgles2"
+PACKAGECONFIG[wayland-gl] = ",,virtual/libgl wayland,libegl"
+PACKAGECONFIG[wayland-gles2] = ",,virtual/libgles2 wayland,libgles2"
