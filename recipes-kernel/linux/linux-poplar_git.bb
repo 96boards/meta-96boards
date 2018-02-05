@@ -6,7 +6,7 @@ DEPENDS_append = " dosfstools-native mtools-native u-boot-poplar"
 
 PV = "4.9+git${SRCPV}"
 SRCREV = "e153b53cbd7047d7e6863c1850dda751f4a7f333"
-SRC_URI = "git://github.com/Linaro/poplar-linux.git;protocol=https;branch=poplar-4.9;name=kernel \
+SRC_URI = "git://github.com/96boards-poplar/linux.git;protocol=https;branch=poplar-4.9;name=kernel \
 "
 
 S = "${WORKDIR}/git"
