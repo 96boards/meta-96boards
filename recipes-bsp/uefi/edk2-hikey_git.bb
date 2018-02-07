@@ -57,7 +57,7 @@ do_compile_prepend() {
     # but we have already built tee-pager.bin from optee-os recipe
     # Copy tee-pager.bin and create dummy files to make uefi-build.sh script happy
     install -D -p -m0644 \
-      ${STAGING_DIR_HOST}/lib/firmware/tee-pager.bin \
+      ${STAGING_DIR_HOST}${nonarch_base_libdir}/firmware/tee-pager.bin \
       ${EDK2_DIR}/optee_os/out/arm-plat-hikey/core/tee-pager.bin
 
     # opteed-build.sh script has a few assumptions...
