@@ -8,7 +8,7 @@ DEPENDS += "dtc-native bc-native"
 SRCREV = "98469ebb7afaacc742d6f651f8e676e755672a63"
 PV = "v2017.09+git${SRCPV}"
 
-SRC_URI = "git://github.com/linaro/poplar-u-boot;protocol=git;branch=latest"
+SRC_URI = "git://github.com/96boards-poplar/u-boot;protocol=https;branch=alex/latest"
 
 S = "${WORKDIR}/git"
 
