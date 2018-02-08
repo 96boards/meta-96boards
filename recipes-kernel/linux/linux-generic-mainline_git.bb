@@ -51,6 +51,7 @@ do_configure() {
         # please install libelf-dev, libelf-devel or elfutils-libelf-devel".  Stop.
         echo 'CONFIG_UNWINDER_FRAME_POINTER=y' >> ${B}/.config
         echo '# CONFIG_UNWINDER_ORC is not set' >> ${B}/.config
+        echo 'CONFIG_FUSE_FS=m' >> ${B}/.config
       ;;
     esac
 
