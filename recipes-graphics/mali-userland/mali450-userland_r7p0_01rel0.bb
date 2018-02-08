@@ -21,7 +21,7 @@ SRC_URI[arm64.sha256sum] = "34d3b15f0f81487a6b4e3680a79b22afaa2ea221eabe9e559523
 
 PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2"
 
-DEPENDS = "libdrm wayland mesa"
+DEPENDS = "libdrm wayland mesa patchelf-native"
 
 VER ?= "${@bb.utils.contains('TUNE_FEATURES', 'aarch64', '64', 'hf', d)}"
 
@@ -39,6 +39,7 @@ do_compile[noexec] = "1"
 do_install() {
     install -m 755 -d ${D}/${libdir}
     install ${S}/libMali.so ${D}/${libdir}
+    patchelf --set-soname libMali.so ${D}${libdir}/libMali.so
     (cd ${D}/${libdir} && ln -sf libMali.so libEGL.so.1.4 \
     && ln -sf libEGL.so.1.4 libEGL.so.1 \
     && ln -sf libEGL.so.1 libEGL.so)
