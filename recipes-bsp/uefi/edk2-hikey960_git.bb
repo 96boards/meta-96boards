@@ -86,8 +86,4 @@ do_deploy_append() {
     chmod 644 ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img
 
     (cd ${DEPLOYDIR} && ln -sf ${BOOT_IMAGE_BASE_NAME}.uefi.img boot-${MACHINE}.uefi.img)
-
-    # Fix up - move bootloader related files into a subdir
-    mv ${DEPLOYDIR}/fip.bin ${DEPLOYDIR}/bootloader/
-    rm -f ${DEPLOY_DIR_IMAGE}/grubaa64.efi
 }
