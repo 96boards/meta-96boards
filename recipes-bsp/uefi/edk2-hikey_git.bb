@@ -60,7 +60,7 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 do_deploy[depends] += "grub:do_deploy"
 do_deploy_append() {
     # Ship nvme.img with UEFI binaries for convenience
-    dd if=/dev/zero of=${DEPLOYDIR}/nvme.img bs=128 count=1024
+    dd if=/dev/zero of=${DEPLOYDIR}/bootloader/nvme.img bs=128 count=1024
 
     # Create boot image
     mkfs.vfat -F32 -n "boot" -C ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${BOOT_IMAGE_SIZE}
@@ -71,4 +71,8 @@ do_deploy_append() {
     chmod 644 ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img
 
     (cd ${DEPLOYDIR} && ln -sf ${BOOT_IMAGE_BASE_NAME}.uefi.img boot-${MACHINE}.uefi.img)
+
+    # Fix up - move bootloader related files into a subdir
+    mv ${DEPLOYDIR}/fip.bin ${DEPLOYDIR}/bootloader/
+    rm -f ${DEPLOY_DIR_IMAGE}/grubaa64.efi
 }
