@@ -113,6 +113,7 @@ do_deploy_append() {
     cp -a ptable*.img ${DEPLOYDIR}/bootloader/
 
     # Ship nvme.img with UEFI binaries for convenience
+    mkdir -p ${DEPLOYDIR}/bootloader/
     dd if=/dev/zero of=${DEPLOYDIR}/bootloader/nvme.img bs=128 count=1024
 
     # Create boot image
