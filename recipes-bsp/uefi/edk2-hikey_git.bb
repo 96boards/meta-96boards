@@ -60,6 +60,7 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 do_deploy[depends] += "grub:do_deploy"
 do_deploy_append() {
     # Ship nvme.img with UEFI binaries for convenience
+    mkdir -p ${DEPLOYDIR}/bootloader/
     dd if=/dev/zero of=${DEPLOYDIR}/bootloader/nvme.img bs=128 count=1024
 
     # Create boot image
