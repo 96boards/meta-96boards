@@ -2,11 +2,12 @@ require linux.inc
 
 DESCRIPTION = "ARM LT kernel"
 
-PV = "4.10.0+git"
-SRCREV_kernel = "51fefc39fb8dc3f794cd7d41c97b78ee565f3264"
+PV = "4.12.0+git"
+SRCREV_kernel = "bc9dfc35c45566354696ac7a4c0469f9c570a945"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://git.linaro.org/landing-teams/working/arm/kernel-release.git;protocol=https;nobranch=1;name=kernel;rebaseable=1 \
+           file://0001-juno-base.dtsi-add-optee-firmware-entries.patch \
           "
 S = "${WORKDIR}/git"
 
@@ -55,6 +56,10 @@ do_configure() {
     # Make sure to disable debug info and enable ext4fs built-in
     echo 'CONFIG_EXT4_FS=y' >> ${B}/.config
     echo '# CONFIG_DEBUG_INFO is not set' >> ${B}/.config
+
+    # Ensure OPTEE is enabled
+    echo 'CONFIG_TEE=y' >> ${B}/.config
+    echo 'CONFIG_OPTEE=y' >> ${B}/.config
 
     yes '' | oe_runmake -C ${S} O=${B} oldconfig
 }
