@@ -17,6 +17,7 @@ SRC_URI = "\
     file://0001-selftests-vm-add-CONFIG_SYSVIPC-y-to-the-config-frag.patch \
     file://0001-selftests-create-cpufreq-kconfig-fragments.patch \
     file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
+    file://0001-selftests-ftrace-add-more-config-fragments.patch \
 "
 
 # apply=yes indicates non-essential patches for STiH410-b2260 support

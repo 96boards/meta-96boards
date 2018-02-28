@@ -17,6 +17,7 @@ SRC_URI = "\
     file://0001-selftests-gpio-add-config-fragment-for-gpio-mockup.patch \
     file://0001-selftests-create-cpufreq-kconfig-fragments.patch \
     file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
+    file://0001-selftests-ftrace-add-more-config-fragments.patch \
 "
 
 S = "${WORKDIR}/git"
