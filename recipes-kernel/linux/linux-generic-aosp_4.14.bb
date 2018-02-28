@@ -11,6 +11,7 @@ SRC_URI = "\
     git://android.googlesource.com/kernel/hikey-linaro;protocol=https;branch=android-hikey-linaro-4.14;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
+    file://0001-selftests-ftrace-add-more-config-fragments.patch \
 "
 
 S = "${WORKDIR}/git"

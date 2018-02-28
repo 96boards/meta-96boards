@@ -11,6 +11,7 @@ SRC_URI = "\
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=https;branch=linux-4.14.y;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
+    file://0001-selftests-ftrace-add-more-config-fragments.patch \
 "
 
 S = "${WORKDIR}/git"
