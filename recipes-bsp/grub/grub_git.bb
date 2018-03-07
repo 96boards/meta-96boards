@@ -1,5 +1,8 @@
 require recipes-bsp/grub/grub2.inc
 
+PROVIDES += "grub-efi"
+RPROVIDES_${PN} += "grub-efi"
+
 DEPENDS_class-target = "grub-native"
 
 DEFAULT_PREFERENCE = "-1"
