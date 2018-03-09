@@ -6,15 +6,15 @@ DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/faker
 
 inherit deploy pythonnative
 
-SRCREV_edk2 = "65da72b795c3052be21d9369897292bd4f0f0d12"
-SRCREV_atf = "cebec7421b1f8bf168239d2ecc75a398aa4072fe"
-SRCREV_openplatformpkg = "8c2f9655ec46036ed7e412defe851b99fa205b75"
+SRCREV_edk2 = "e36b8fce23cd4a1ed0151093b86ef092283f9d47"
+SRCREV_atf = "16b05e94a2d1757cbb98de068c662d58a6919613"
+SRCREV_openplatformpkg = "f686ca6485c73efd8a257e919f64b84772d331d5"
 SRCREV_uefitools = "42eac07beb4da42a182d2a87d6b2e928fc9a31cf"
-SRCREV_lloader = "79530f6d9b2668e2d3a76adadcc0053015937e82"
-SRCREV_toolsimageshikey960 = "ccb401f726346355e948ec776a411ad037bab4cc"
+SRCREV_lloader = "c1cbbf8ab824820b5c1769a1c80dd234c5b57ffc"
+SRCREV_toolsimageshikey960 = "9fd47e23d0afbfdcb4da507dc24f693a381eeec9"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
-           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=integration;destsuffix=git/atf \
+           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=master;destsuffix=git/atf \
            git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=testing/hikey960_v1.3.4;destsuffix=git/OpenPlatformPkg \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
            git://github.com/96boards-hikey/l-loader.git;name=lloader;branch=testing/hikey960_v1.2;destsuffix=git/l-loader \
@@ -41,16 +41,18 @@ do_compile_prepend() {
 
 do_compile_append() {
     cd ${EDK2_DIR}/l-loader
-    ln -s ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin
-    ln -s ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/fip.bin
+    ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl1.bin
+    ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl2.bin
+    ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/fip.bin
     ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/BL33_AP_UEFI.fd
+    make -f ${UEFIMACHINE}.mk recovery.bin
     make -f ${UEFIMACHINE}.mk l-loader.bin
     PTABLE=aosp-32g SECTOR_SIZE=4096 SGDISK=./sgdisk bash -x generate_ptable.sh
 }
 
 do_install() {
     install -D -p -m0644 ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/AARCH64/AndroidFastbootApp.efi ${D}/boot/EFI/BOOT/fastboot.efi
-    install -D -p -m0644 ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin ${D}${libdir}/edk2/bl1.bin
+    install -D -p -m0644 ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl1.bin ${D}${libdir}/edk2/bl1.bin
 
     # Install grub configuration
     sed -e "s|@DISTRO_NAME|${DISTRO_NAME}|" \
@@ -72,6 +74,7 @@ do_deploy[depends] += "grub:do_deploy"
 do_deploy_append() {
     cd ${EDK2_DIR}/l-loader
     install -D -p -m0644 l-loader.bin ${DEPLOYDIR}/bootloader/l-loader.bin
+    install -D -p -m0644 recovery.bin ${DEPLOYDIR}/bootloader/recovery.bin
     cp -a prm_ptable.img ${DEPLOYDIR}/bootloader/
     cd ${EDK2_DIR}/tools-images-hikey960
     cp -a hikey_idt sec_uce_boot.img sec_usb_xloader.img sec_xloader.img ${DEPLOYDIR}/bootloader/
