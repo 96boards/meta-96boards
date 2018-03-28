@@ -6,10 +6,10 @@ DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/faker
 
 inherit deploy pythonnative
 
-SRCREV_edk2 = "e36b8fce23cd4a1ed0151093b86ef092283f9d47"
-SRCREV_atf = "16b05e94a2d1757cbb98de068c662d58a6919613"
-SRCREV_openplatformpkg = "f686ca6485c73efd8a257e919f64b84772d331d5"
-SRCREV_uefitools = "42eac07beb4da42a182d2a87d6b2e928fc9a31cf"
+SRCREV_edk2 = "2d8c108bf04112c386a87d0d8c12b941929394fe"
+SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
+SRCREV_openplatformpkg = "bb096332ac650f229be1a811da061b24df423576"
+SRCREV_uefitools = "632d0c3c12125bbb803664e7b8c76f4adb9e6471"
 SRCREV_lloader = "c1cbbf8ab824820b5c1769a1c80dd234c5b57ffc"
 SRCREV_atffastboot = "af5ddb16266e54745d3b2e354d32b54fefbbbd78"
 
@@ -28,6 +28,7 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hik
            git://github.com/96boards-hikey/atf-fastboot.git;name=atffastboot;destsuffix=git/atf-fastboot \
            http://releases.linaro.org/components/toolchain/binaries/6.4-2017.08/arm-linux-gnueabihf/gcc-linaro-6.4.1-2017.08-x86_64_arm-linux-gnueabihf.tar.xz;name=tc \
            file://grub.cfg.in \
+           file://atf-build32.patch;patchdir=uefi-tools \
           "
 
 SRC_URI[tc.md5sum] = "8c6084924df023d1e5c0bac2a4ccfa2f"
@@ -49,9 +50,6 @@ do_compile_prepend() {
     # Fix hardcoded value introduced in
     # https://git.linaro.org/uefi/uefi-tools.git/commit/common-functions?id=65e8e8df04f34fc2a87ae9d34f5ef5b6fee5a396
     sed -i -e 's/aarch64-linux-gnu-/${TARGET_PREFIX}/' ${S}/uefi-tools/common-functions
-
-    # When using upstream ATF, we should set TOS_BIN to tee-pager.bin
-    sed -i -e 's/^TOS_BIN=tee.bin/TOS_BIN=tee-pager.bin/' ${S}/uefi-tools/platforms.config
 
     # We need the secure payload (Trusted OS) built from OP-TEE Trusted OS (tee-pager.bin)
     # but we have already built tee-pager.bin from optee-os recipe
@@ -77,8 +75,8 @@ do_compile_append() {
     CROSS_COMPILE=${TARGET_PREFIX} make PLAT=${UEFIMACHINE} DEBUG=0
 
     cd ${EDK2_DIR}/l-loader
-    ln -s ${EDK2_DIR}/Build/HiKey/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl1.bin
-    ln -s ${EDK2_DIR}/Build/HiKey/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl2.bin
+    ln -s ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl1.bin
+    ln -s ${EDK2_DIR}/atf/build/${UEFIMACHINE}/release/bl2.bin
     ln -s ${EDK2_DIR}/atf-fastboot/build/${UEFIMACHINE}/release/bl1.bin fastboot.bin
     make -f ${UEFIMACHINE}.mk recovery.bin
     make -f ${UEFIMACHINE}.mk l-loader.bin

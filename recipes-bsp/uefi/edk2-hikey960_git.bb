@@ -6,12 +6,12 @@ DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/faker
 
 inherit deploy pythonnative
 
-SRCREV_edk2 = "e36b8fce23cd4a1ed0151093b86ef092283f9d47"
-SRCREV_atf = "16b05e94a2d1757cbb98de068c662d58a6919613"
-SRCREV_openplatformpkg = "f686ca6485c73efd8a257e919f64b84772d331d5"
-SRCREV_uefitools = "42eac07beb4da42a182d2a87d6b2e928fc9a31cf"
+SRCREV_edk2 = "2d8c108bf04112c386a87d0d8c12b941929394fe"
+SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
+SRCREV_openplatformpkg = "bb096332ac650f229be1a811da061b24df423576"
+SRCREV_uefitools = "632d0c3c12125bbb803664e7b8c76f4adb9e6471"
 SRCREV_lloader = "c1cbbf8ab824820b5c1769a1c80dd234c5b57ffc"
-SRCREV_toolsimageshikey960 = "9fd47e23d0afbfdcb4da507dc24f693a381eeec9"
+SRCREV_toolsimageshikey960 = "b5ae2c13438eaab429aa584dec7080c181aeee87"
 
 SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
            git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=master;destsuffix=git/atf \
@@ -21,6 +21,7 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hik
            git://github.com/96boards-hikey/tools-images-hikey960.git;name=toolsimageshikey960;destsuffix=git/tools-images-hikey960 \
            file://grub.cfg.in \
            file://config \
+           file://atf-build-sh_fix_path_to_BL32_images.patch;patchdir=uefi-tools \
           "
 
 # /usr/lib/edk2/bl1.bin not shipped files. [installed-vs-shipped]
@@ -77,7 +78,7 @@ do_deploy_append() {
     install -D -p -m0644 recovery.bin ${DEPLOYDIR}/bootloader/recovery.bin
     cp -a prm_ptable.img ${DEPLOYDIR}/bootloader/
     cd ${EDK2_DIR}/tools-images-hikey960
-    cp -a hikey_idt sec_uce_boot.img sec_usb_xloader.img sec_xloader.img ${DEPLOYDIR}/bootloader/
+    cp -a hikey_idt hisi-sec_uce_boot.img hisi-sec_usb_xloader.img hisi-sec_xloader.img ${DEPLOYDIR}/bootloader/
     cp -a ${WORKDIR}/config ${DEPLOYDIR}/bootloader/
 
     # Create boot image
