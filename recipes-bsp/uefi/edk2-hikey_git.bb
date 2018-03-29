@@ -28,7 +28,7 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hik
            git://github.com/96boards-hikey/atf-fastboot.git;name=atffastboot;destsuffix=git/atf-fastboot \
            http://releases.linaro.org/components/toolchain/binaries/6.4-2017.08/arm-linux-gnueabihf/gcc-linaro-6.4.1-2017.08-x86_64_arm-linux-gnueabihf.tar.xz;name=tc \
            file://grub.cfg.in \
-           file://atf-build32.patch;patchdir=uefi-tools \
+           file://atf-build-sh_fix_path_to_BL32_images.patch;patchdir=uefi-tools \
           "
 
 SRC_URI[tc.md5sum] = "8c6084924df023d1e5c0bac2a4ccfa2f"
