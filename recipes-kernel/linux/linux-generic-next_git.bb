@@ -4,8 +4,8 @@ require kselftests.inc
 DESCRIPTION = "Generic Linux next kernel"
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
-PV = "4.15+git${SRCPV}"
-SRCREV_kernel = "3d6ac126000cd9378aab4fc70defe1540b5cdc8c"
+PV = "4.16+git${SRCPV}"
+SRCREV_kernel = "c6e7ba314d05f9c33e41e315285321a9a1120d65"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
