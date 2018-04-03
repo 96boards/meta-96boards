@@ -9,7 +9,7 @@ inherit deploy pythonnative
 SRCREV_edk2 = "2d8c108bf04112c386a87d0d8c12b941929394fe"
 SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
 SRCREV_openplatformpkg = "bb096332ac650f229be1a811da061b24df423576"
-SRCREV_uefitools = "632d0c3c12125bbb803664e7b8c76f4adb9e6471"
+SRCREV_uefitools = "b37391801290b4adbbc821832470216e98d4e900"
 SRCREV_lloader = "c1cbbf8ab824820b5c1769a1c80dd234c5b57ffc"
 SRCREV_toolsimageshikey960 = "b5ae2c13438eaab429aa584dec7080c181aeee87"
 
@@ -21,7 +21,6 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hik
            git://github.com/96boards-hikey/tools-images-hikey960.git;name=toolsimageshikey960;destsuffix=git/tools-images-hikey960 \
            file://grub.cfg.in \
            file://config \
-           file://atf-build-sh_fix_path_to_BL32_images.patch;patchdir=uefi-tools \
           "
 
 # /usr/lib/edk2/bl1.bin not shipped files. [installed-vs-shipped]

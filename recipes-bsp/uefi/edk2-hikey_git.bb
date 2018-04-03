@@ -9,7 +9,7 @@ inherit deploy pythonnative
 SRCREV_edk2 = "2d8c108bf04112c386a87d0d8c12b941929394fe"
 SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
 SRCREV_openplatformpkg = "bb096332ac650f229be1a811da061b24df423576"
-SRCREV_uefitools = "632d0c3c12125bbb803664e7b8c76f4adb9e6471"
+SRCREV_uefitools = "b37391801290b4adbbc821832470216e98d4e900"
 SRCREV_lloader = "c1cbbf8ab824820b5c1769a1c80dd234c5b57ffc"
 SRCREV_atffastboot = "af5ddb16266e54745d3b2e354d32b54fefbbbd78"
 
@@ -28,7 +28,6 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hik
            git://github.com/96boards-hikey/atf-fastboot.git;name=atffastboot;destsuffix=git/atf-fastboot \
            http://releases.linaro.org/components/toolchain/binaries/6.4-2017.08/arm-linux-gnueabihf/gcc-linaro-6.4.1-2017.08-x86_64_arm-linux-gnueabihf.tar.xz;name=tc \
            file://grub.cfg.in \
-           file://atf-build-sh_fix_path_to_BL32_images.patch;patchdir=uefi-tools \
           "
 
 SRC_URI[tc.md5sum] = "8c6084924df023d1e5c0bac2a4ccfa2f"
