@@ -2,6 +2,7 @@ require linux.inc
 require kselftests.inc
 
 DESCRIPTION = "Generic Linux mainline kernel"
+LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
 PV = "4.16+git${SRCPV}"
 SRCREV_kernel = "0adb32858b0bddf4ada5f364a84ed60b196dbcda"
