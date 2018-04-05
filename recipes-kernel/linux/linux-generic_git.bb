@@ -3,7 +3,6 @@ require kselftests.inc
 require custom-kernel-info.inc
 
 DESCRIPTION = "Generic Linux kernel"
-LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
 PV = "${BASEPV}+git${SRCPV}"
 SRCREV_kernel = "${KERNEL_COMMIT}"
