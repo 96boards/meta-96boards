@@ -91,6 +91,13 @@ do_configure() {
     oe_runmake -C ${B} savedefconfig
 }
 
+# FIXME arm fails to build with ti-emif-sram driver
+# fatal error: can’t open ‘drivers/memory/emif-asm-offsets.s’ for writing: No such file or directory
+kernel_do_compile_prepend() {
+    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE
+    oe_runmake
+}
+
 do_deploy_append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
     cp -a ${B}/.config ${DEPLOYDIR}/config
