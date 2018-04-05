@@ -2,7 +2,7 @@ require linux.inc
 require kselftests.inc
 
 DESCRIPTION = "Generic Linux next kernel"
-LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
 PV = "4.16+git${SRCPV}"
 SRCREV_kernel = "c6e7ba314d05f9c33e41e315285321a9a1120d65"
