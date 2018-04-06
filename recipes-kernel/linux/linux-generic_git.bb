@@ -4,7 +4,7 @@ require custom-kernel-info.inc
 
 DESCRIPTION = "Generic Linux kernel"
 
-PV = "${BASEPV}+git${SRCPV}"
+PV = "4.0+git${SRCPV}"
 SRCREV_kernel = "${KERNEL_COMMIT}"
 SRCREV_FORMAT = "kernel"
 
@@ -102,6 +102,26 @@ do_deploy_append() {
     # |     self.msm_id[0] = soc_ids[matches['soc']] | (foundry << 16)
     # | KeyError: u'ipq8074'
     rm -f ${B}/arch/arm64/boot/dts/qcom/*ipq8074* || true
+}
+
+python do_package_prepend() {
+    with open(d.expand('${S}/Makefile'), 'r') as f:
+        for line in f:
+            if line.startswith("VERSION"):
+                version = line.replace(" ", "").split("=")[1]
+                break
+        for line in f:
+            if line.startswith("PATCHLEVEL"):
+                patchlevel = line.replace(" ", "").split("=")[1]
+                break
+        for line in f:
+            if line.startswith("SUBLEVEL"):
+                sublevel = line.replace(" ", "").split("=")[1]
+                break
+
+    pkgv = '%s.%s.%s+git%s' % \
+        (version, patchlevel, sublevel, d.getVar('SRCREV_kernel', True)[:10])
+    d.setVar('PKGV', pkgv.replace("\n", ""))
 }
 
 require machine-specific-hooks.inc
