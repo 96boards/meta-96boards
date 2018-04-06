@@ -1,4 +1,3 @@
-BASEPV = "4.16"
 KERNEL_COMMIT = "0adb32858b0bddf4ada5f364a84ed60b196dbcda"
 KERNEL_REPO = "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
 KERNEL_BRANCH = "master"
