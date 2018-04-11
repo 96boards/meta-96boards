@@ -21,3 +21,6 @@ SRC_URI_append_am57xx-evm = " file://multi_v7_hugepage.config;subdir=git/kernel/
 KERNEL_CONFIG_FRAGMENTS_append_am57xx-evm = " ${S}/kernel/configs/multi_v7_hugepage.config"
 
 KERNEL_EXTRA_ARGS_stih410-b2260 += "LOADADDR=${ST_KERNEL_LOADADDR}"
+
+SRC_URI_append = " file://virtio.config;subdir=git/kernel/configs"
+KERNEL_CONFIG_FRAGMENTS_append = " ${S}/kernel/configs/virtio.config"
