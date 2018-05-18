@@ -14,6 +14,9 @@ do_compile_append() {
     # Make sure to install the user space API used by some tests
     # but not properly declared as a build dependency
     ${MAKE} -C ${S} ARCH=${ARCH} headers_install
+
+    # Specifying sysroot may help Clang find appropriate headers
+    export CLANG="clang --sysroot ${STAGING_DIR_TARGET}"
     ${MAKE} ${KSELFTESTS_ARGS}
 }
 
