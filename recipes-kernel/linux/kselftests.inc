@@ -33,7 +33,7 @@ FILES_kernel-selftests += "${KST_INSTALL_PATH}/bpf/*.o"
 PACKAGES =+ "kernel-selftests-dbg"
 FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug /usr/src/debug/*"
 
-RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 glibc-utils ncurses sudo"
+RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 iproute2-tc glibc-utils ncurses sudo"
 RDEPENDS_kernel-selftests =+ "python3-argparse python3-datetime python3-json python3-pprint python3-subprocess"
 
 INSANE_SKIP_kernel-selftests = "already-stripped"
