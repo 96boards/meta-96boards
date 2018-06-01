@@ -2,7 +2,7 @@ require edk2_git.bb
 
 COMPATIBLE_MACHINE = "hikey"
 
-DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub optee-os"
+DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub-efi optee-os"
 
 inherit deploy pythonnative
 
@@ -104,8 +104,8 @@ BOOT_IMAGE_BASE_NAME = "boot-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
 # HiKey boot image requires fastboot and grub EFI
-# ensure we deploy grubaa64.efi before we try to create the boot image.
-do_deploy[depends] += "grub:do_deploy"
+# ensure we deploy grub-efi-bootaa64.efi before we try to create the boot image.
+do_deploy[depends] += "grub-efi:do_deploy"
 do_deploy_append() {
     cd ${EDK2_DIR}/l-loader
     install -D -p -m0644 l-loader.bin ${DEPLOYDIR}/bootloader/l-loader.bin
@@ -121,12 +121,12 @@ do_deploy_append() {
     mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI
     mmd -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ::EFI/BOOT
     mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${EDK2_DIR}/Build/HiKey/RELEASE_${AARCH64_TOOLCHAIN}/AARCH64/AndroidFastbootApp.efi ::EFI/BOOT/fastboot.efi
-    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${DEPLOY_DIR_IMAGE}/grubaa64.efi ::EFI/BOOT/grubaa64.efi
+    mcopy -i ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img ${DEPLOY_DIR_IMAGE}/grub-efi-bootaa64.efi ::EFI/BOOT/grubaa64.efi
     chmod 644 ${DEPLOYDIR}/${BOOT_IMAGE_BASE_NAME}.uefi.img
 
     (cd ${DEPLOYDIR} && ln -sf ${BOOT_IMAGE_BASE_NAME}.uefi.img boot-${MACHINE}.uefi.img)
 
     # Fix up - move bootloader related files into a subdir
     mv ${DEPLOYDIR}/fip.bin ${DEPLOYDIR}/bootloader/
-    rm -f ${DEPLOY_DIR_IMAGE}/grubaa64.efi
+    rm -f ${DEPLOY_DIR_IMAGE}/grub-efi-bootaa64.efi
 }
