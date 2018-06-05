@@ -22,7 +22,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "am57xx-evm|intel-core2-32|juno"
+COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|juno"
 KERNEL_DEVICETREE_remove_juno = "arm/juno-r2.dtb"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\

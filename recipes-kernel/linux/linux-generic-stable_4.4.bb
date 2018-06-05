@@ -67,7 +67,7 @@ SRC_URI_append_stih410-b2260 = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "am57xx-evm|intel-core2-32|juno|stih410-b2260"
+COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|juno|stih410-b2260"
 KERNEL_DEVICETREE_remove_juno = "arm/juno-r2.dtb"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
