@@ -34,12 +34,15 @@ do_configure() {
     cp ${S}/arch/${ARCH}/configs/${KERNEL_CONFIG} ${B}/.config
     case "${HOST_ARCH}" in
       aarch64) # Default is defconfig
-        # no fixup on Aarch64
+        # https://bugs.linaro.org/show_bug.cgi?id=3769
+        echo 'CONFIG_ARM64_MODULE_PLTS=y' >> ${B}/.config
       ;;
       arm) # Default is multi_v7_defconfig
         echo 'CONFIG_ARM_TI_CPUFREQ=y' >> ${B}/.config
         echo 'CONFIG_SERIAL_8250_OMAP=y' >> ${B}/.config
         echo 'CONFIG_POSIX_MQUEUE=y' >> ${B}/.config
+        # https://bugs.linaro.org/show_bug.cgi?id=3769
+        echo 'CONFIG_ARM_MODULE_PLTS=y' >> ${B}/.config
       ;;
       x86_64) # Default is x86_64_defconfig
         echo 'CONFIG_IGB=y' >> ${B}/.config
