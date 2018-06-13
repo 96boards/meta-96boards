@@ -105,6 +105,10 @@ do_configure() {
       ;;
     esac
 
+    # Enable KSM
+    # https://bugs.linaro.org/show_bug.cgi?id=3857#c3
+    echo 'CONFIG_KSM=y' >> ${B}/.config
+
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
     #   * ${WORKDIR}/config1.cfg
