@@ -1,7 +1,7 @@
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # kernel selftests dependencies
-DEPENDS += "fuse libcap libcap-ng pkgconfig-native popt rsync-native util-linux \
+DEPENDS += "fuse libcap libcap-ng pkgconfig-native popt rsync-native util-linux clang-native \
     ${@bb.utils.contains("TARGET_ARCH", "arm", "", "numactl", d)} \
 "
 
@@ -14,6 +14,9 @@ do_compile_append() {
     # Make sure to install the user space API used by some tests
     # but not properly declared as a build dependency
     ${MAKE} -C ${S} ARCH=${ARCH} headers_install
+
+    # Specifying sysroot may help Clang find appropriate headers
+    export CLANG="clang --sysroot ${STAGING_DIR_TARGET}"
     ${MAKE} ${KSELFTESTS_ARGS}
 }
 
@@ -35,6 +38,9 @@ FILES_kernel-selftests-dbg = "${KST_INSTALL_PATH}/*/.debug /usr/src/debug/*"
 
 RDEPENDS_kernel-selftests = "bash bc ethtool fuse-utils iproute2 iproute2-tc glibc-utils ncurses sudo"
 RDEPENDS_kernel-selftests =+ "python3-argparse python3-datetime python3-json python3-pprint python3-subprocess"
+RDEPENDS_kernel-selftests =+ "util-linux-uuidgen"
+RDEPENDS_kernel-selftests_append_x86 = " cpupower"
+RDEPENDS_kernel-selftests_append_x86-64 = " cpupower"
 
 INSANE_SKIP_kernel-selftests = "already-stripped"
 # Ignore the QA error because kselftests/bpf/ requires object files

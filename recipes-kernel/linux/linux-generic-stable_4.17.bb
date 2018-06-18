@@ -1,14 +1,14 @@
 require linux.inc
 require kselftests.inc
 
-DESCRIPTION = "Generic Linux mainline kernel"
+DESCRIPTION = "Generic 4.17 LTS kernel"
 
 PV = "4.17+git${SRCPV}"
 SRCREV_kernel = "29dcea88779c856c7dc92040a0c01233263101d4"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;protocol=https;branch=master;name=kernel \
+    git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=https;branch=linux-4.17.y;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
 "
@@ -60,10 +60,6 @@ do_configure() {
 
     # Make sure to enable NUMA
     echo 'CONFIG_NUMA=y' >> ${B}/.config
-
-    # Enable KSM
-    # https://bugs.linaro.org/show_bug.cgi?id=3857#c3
-    echo 'CONFIG_KSM=y' >> ${B}/.config
 
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
