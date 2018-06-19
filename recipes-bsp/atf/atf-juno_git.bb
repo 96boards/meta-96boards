@@ -1,10 +1,8 @@
 DESCRIPTION = "ARM Trusted Firmware Juno"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://license.rst;md5=33065335ea03d977d0569f270b39603e"
-DEPENDS += "optee-os u-boot-juno zip-native"
-SRCREV = "e83769c07bb09b7727a36389c9dd92096860637e"
-
-PV = "1.4+git${SRCPV}"
+DEPENDS += "u-boot-juno zip-native"
+SRCREV = "b762fc7481c66b64eb98b6ff694d569e66253973"
 
 SRC_URI = "git://github.com/ARM-software/arm-trusted-firmware.git;protocol=https;name=atf;branch=master \
     http://releases.linaro.org/members/arm/platforms/17.04/juno-latest-oe-uboot.zip;name=junofip;subdir=juno-oe-uboot \
@@ -22,8 +20,6 @@ COMPATIBLE_MACHINE = "juno"
 
 # ATF requires u-boot.bin file. Ensure it's deployed before we compile.
 do_compile[depends] += "u-boot-juno:do_deploy"
-# Same for OP-TEE files.
-do_compile[depends] += "optee-os:do_deploy"
 
 # Building for Juno requires a special SCP firmware to be packed with FIP.
 # You can refer to the documentation here:
@@ -36,23 +32,15 @@ do_compile() {
       all \
       fip \
       PLAT=${COMPATIBLE_MACHINE} \
-      SPD=opteed \
+      SPD=none \
       SCP_BL2=${WORKDIR}/juno-oe-uboot/SOFTWARE/scp_bl2.bin \
-      BL32=${DEPLOY_DIR_IMAGE}/optee/tee-header_v2.bin \
-      BL32_EXTRA1=${DEPLOY_DIR_IMAGE}/optee/tee-pager_v2.bin \
-      BL32_EXTRA2=${DEPLOY_DIR_IMAGE}/optee/tee-pageable_v2.bin \
-      BL33=${DEPLOY_DIR_IMAGE}/u-boot.bin \
-      DEBUG=0 \
-      ARM_TSP_RAM_LOCATION=dram \
-      CSS_USE_SCMI_SDS_DRIVER=1
+      BL33=${DEPLOY_DIR_IMAGE}/u-boot.bin
 
     # Generate new FIP using our U-boot
     ./tools/fiptool/fiptool update \
       --nt-fw ${DEPLOY_DIR_IMAGE}/u-boot.bin \
       build/${COMPATIBLE_MACHINE}/release/fip.bin
 }
-
-PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # Ensure we deploy kernel/dtb before we create the recovery image.
 do_deploy[depends] += "virtual/kernel:do_deploy"
