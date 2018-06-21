@@ -7,10 +7,10 @@ SRCREV = "e83769c07bb09b7727a36389c9dd92096860637e"
 PV = "1.4+git${SRCPV}"
 
 SRC_URI = "git://github.com/ARM-software/arm-trusted-firmware.git;protocol=https;name=atf;branch=master \
-    http://releases.linaro.org/members/arm/platforms/17.04/juno-latest-oe-uboot.zip;name=junofip;subdir=juno-oe-uboot \
+    http://releases.linaro.org/members/arm/platforms/18.04/juno-latest-oe-uboot.zip;name=junofip;subdir=juno-oe-uboot \
 "
-SRC_URI[junofip.md5sum] = "12fc772de457930fc60e42bdde97eb0a"
-SRC_URI[junofip.sha256sum] = "be1a3f8b72a0dd98ba1bf9f4fd5415d3adca052c60b090c5dccc178588ec43bc"
+SRC_URI[junofip.md5sum] = "1cf91f8719dbf966b0d7c2b5d6135792"
+SRC_URI[junofip.sha256sum] = "ff01941725f1f67910817a8ec88be9a2db9d132c50b2bb4d13291c471f30b91f"
 
 S = "${WORKDIR}/git"
 
