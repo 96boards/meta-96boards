@@ -1,7 +1,7 @@
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # kernel selftests dependencies
-DEPENDS += "fuse libcap libcap-ng pkgconfig-native popt rsync-native util-linux clang-native \
+DEPENDS += "elfutils fuse libcap libcap-ng pkgconfig-native popt rsync-native util-linux clang-native \
     ${@bb.utils.contains("TARGET_ARCH", "arm", "", "numactl", d)} \
 "
 
