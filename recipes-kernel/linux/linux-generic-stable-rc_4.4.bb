@@ -9,6 +9,7 @@ SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git;protocol=https;branch=linux-4.4.y;name=kernel \
+    file://lkft-4.4.config;subdir=git/kernel/configs \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-create-test-specific-kconfig-fragments.patch \
@@ -71,6 +72,7 @@ COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64|juno|
 KERNEL_DEVICETREE_remove_juno = "arm/juno-r2.dtb"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
+    ${S}/kernel/configs/lkft-4.4.config \
     ${S}/kernel/configs/distro-overrides.config \
     ${S}/kernel/configs/systemd.config \
 "
@@ -108,10 +110,6 @@ do_configure() {
         echo 'CONFIG_IGB=y' >> ${B}/.config
       ;;
     esac
-
-    # Enable KSM
-    # https://bugs.linaro.org/show_bug.cgi?id=3857#c3
-    echo 'CONFIG_KSM=y' >> ${B}/.config
 
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
