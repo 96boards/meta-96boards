@@ -56,6 +56,10 @@ do_configure() {
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
         echo 'CONFIG_IGB=y' >> ${B}/.config
       ;;
+      i686)
+        cp ${S}/arch/x86/configs/i386_defconfig ${B}/.config
+        echo 'CONFIG_IGB=y' >> ${B}/.config
+      ;;
     esac
 
     # Make sure to enable NUMA
