@@ -20,6 +20,10 @@ KERNEL_DEVICETREE_am57xx-evm = "am57xx-beagle-x15.dtb"
 SRC_URI_append_am57xx-evm = " file://multi_v7_hugepage.config;subdir=git/kernel/configs"
 KERNEL_CONFIG_FRAGMENTS_append_am57xx-evm = " ${S}/kernel/configs/multi_v7_hugepage.config"
 
+KERNEL_DEVICETREE_beaglebone = "am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
+SRC_URI_append_beaglebone = " file://multi_v7_hugepage.config;subdir=git/kernel/configs"
+KERNEL_CONFIG_FRAGMENTS_append_beaglebone = " ${S}/kernel/configs/multi_v7_hugepage.config"
+
 KERNEL_EXTRA_ARGS_stih410-b2260 += "LOADADDR=${ST_KERNEL_LOADADDR}"
 
 SRC_URI_append = " file://virtio.config;subdir=git/kernel/configs"

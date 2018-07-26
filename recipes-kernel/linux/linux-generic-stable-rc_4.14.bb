@@ -16,7 +16,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "am57xx-evm|dragonboard-410c|hikey|intel-core2-32|juno|stih410-b2260"
+COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|dragonboard-410c|hikey|intel-core2-32|juno|stih410-b2260"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/distro-overrides.config \
@@ -35,12 +35,16 @@ do_configure() {
     case "${HOST_ARCH}" in
       aarch64)
         cp ${S}/arch/arm64/configs/defconfig ${B}/.config
+        # https://bugs.linaro.org/show_bug.cgi?id=3769
+        echo 'CONFIG_ARM64_MODULE_PLTS=y' >> ${B}/.config
       ;;
       arm)
         cp ${S}/arch/arm/configs/multi_v7_defconfig ${B}/.config
         echo 'CONFIG_ARM_TI_CPUFREQ=y' >> ${B}/.config
         echo 'CONFIG_SERIAL_8250_OMAP=y' >> ${B}/.config
         echo 'CONFIG_POSIX_MQUEUE=y' >> ${B}/.config
+        # https://bugs.linaro.org/show_bug.cgi?id=3769
+        echo 'CONFIG_ARM_MODULE_PLTS=y' >> ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
@@ -50,6 +54,10 @@ do_configure() {
 
     # Make sure to enable NUMA
     echo 'CONFIG_NUMA=y' >> ${B}/.config
+
+    # Enable KSM
+    # https://bugs.linaro.org/show_bug.cgi?id=3857#c3
+    echo 'CONFIG_KSM=y' >> ${B}/.config
 
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
