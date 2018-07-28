@@ -16,7 +16,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|dragonboard-410c|hikey|intel-core2-32|juno|stih410-b2260"
+COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|dragonboard-410c|hikey|intel-core2-32|intel-corei7-64|juno|stih410-b2260"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/distro-overrides.config \
@@ -48,6 +48,10 @@ do_configure() {
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
+        echo 'CONFIG_IGB=y' >> ${B}/.config
+      ;;
+      i686)
+        cp ${S}/arch/x86/configs/i386_defconfig ${B}/.config
         echo 'CONFIG_IGB=y' >> ${B}/.config
       ;;
     esac
