@@ -6,7 +6,7 @@ DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/faker
 
 inherit deploy pythonnative
 
-SRCREV_edk2 = "2d8c108bf04112c386a87d0d8c12b941929394fe"
+SRCREV_edk2 = "77326b5a153513c826d5a50363eace6ef6b59413"
 SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
 SRCREV_openplatformpkg = "bb096332ac650f229be1a811da061b24df423576"
 SRCREV_uefitools = "b37391801290b4adbbc821832470216e98d4e900"
