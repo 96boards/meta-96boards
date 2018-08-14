@@ -1,14 +1,14 @@
 require linux.inc
 require kselftests.inc
 
-DESCRIPTION = "Generic Linux next kernel"
+DESCRIPTION = "Generic Linux Stable RC 4.18 LTS kernel"
 
 PV = "4.18+git${SRCPV}"
-SRCREV_kernel = "5ed5da74de9ee17c3b0d3fe993cb6a625f334cc1"
+SRCREV_kernel = "94710cac0ef4ee177a63b5227664b38c95bbf703"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git;protocol=https;branch=master;name=kernel \
+    git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git;protocol=https;branch=linux-4.18.y;name=kernel \
     file://lkft.config;subdir=git/kernel/configs \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
