@@ -44,8 +44,6 @@ do_configure() {
         echo 'CONFIG_ARM_TI_CPUFREQ=y' >> ${B}/.config
         echo 'CONFIG_SERIAL_8250_OMAP=y' >> ${B}/.config
         echo 'CONFIG_POSIX_MQUEUE=y' >> ${B}/.config
-        # https://bugs.linaro.org/show_bug.cgi?id=3769
-        echo 'CONFIG_ARM_MODULE_PLTS=y' >> ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
