@@ -9,6 +9,7 @@ SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=https;branch=linux-4.9.y;name=kernel \
+    file://lkft.config;subdir=git/kernel/configs \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-lib-add-config-fragment-for-bitmap-printf-.patch \
@@ -24,6 +25,7 @@ S = "${WORKDIR}/git"
 COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|dragonboard-410c|hikey|intel-core2-32|intel-corei7-64|juno|stih410-b2260"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
+    ${S}/kernel/configs/lkft.config \
     ${S}/kernel/configs/distro-overrides.config \
     ${S}/kernel/configs/systemd.config \
 "
@@ -60,9 +62,6 @@ do_configure() {
         echo 'CONFIG_IGB=y' >> ${B}/.config
       ;;
     esac
-
-    # Make sure to enable NUMA
-    echo 'CONFIG_NUMA=y' >> ${B}/.config
 
     # Check for kernel config fragments. The assumption is that the config
     # fragment will be specified with the absolute path. For example:
