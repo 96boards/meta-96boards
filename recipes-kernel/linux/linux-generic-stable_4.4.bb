@@ -9,6 +9,7 @@ SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=https;branch=linux-4.4.y;name=kernel \
+    file://lkft-4.4.config;subdir=git/kernel/configs \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-create-test-specific-kconfig-fragments.patch \
@@ -70,6 +71,7 @@ COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64|juno|
 KERNEL_DEVICETREE_remove_juno = "arm/juno-r2.dtb"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
+    ${S}/kernel/configs/lkft-4.4.config \
     ${S}/kernel/configs/distro-overrides.config \
     ${S}/kernel/configs/systemd.config \
 "
