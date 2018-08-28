@@ -1,23 +1,22 @@
 require linux.inc
 require kselftests.inc
 
-DESCRIPTION = "Generic 4.14 LTS kernel"
+DESCRIPTION = "Generic 4.18 LTS kernel"
 
-PV = "4.14+git${SRCPV}"
-SRCREV_kernel = "bebc6082da0a9f5d47a1ea2edc099bf671058bd4"
+PV = "4.18+git${SRCPV}"
+SRCREV_kernel = "94710cac0ef4ee177a63b5227664b38c95bbf703"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=https;branch=linux-4.14.y;name=kernel \
+    git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=https;branch=linux-4.18.y;name=kernel \
     file://lkft.config;subdir=git/kernel/configs \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
-    file://0001-selftests-ftrace-add-more-config-fragments.patch \
 "
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|dragonboard-410c|hikey|intel-core2-32|intel-corei7-64|juno|stih410-b2260"
+COMPATIBLE_MACHINE = "hikey|dragonboard-410c|am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64|juno|stih410-b2260"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/lkft.config \
@@ -45,16 +44,28 @@ do_configure() {
         echo 'CONFIG_ARM_TI_CPUFREQ=y' >> ${B}/.config
         echo 'CONFIG_SERIAL_8250_OMAP=y' >> ${B}/.config
         echo 'CONFIG_POSIX_MQUEUE=y' >> ${B}/.config
-        # https://bugs.linaro.org/show_bug.cgi?id=3769
-        echo 'CONFIG_ARM_MODULE_PLTS=y' >> ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
         echo 'CONFIG_IGB=y' >> ${B}/.config
+        # FIXME https://bugs.linaro.org/show_bug.cgi?id=3459
+        # x86 fails to build:
+        # | kernel-source/Makefile:938:
+        # *** "Cannot generate ORC metadata for CONFIG_UNWINDER_ORC=y,
+        # please install libelf-dev, libelf-devel or elfutils-libelf-devel".  Stop.
+        echo 'CONFIG_UNWINDER_FRAME_POINTER=y' >> ${B}/.config
+        echo '# CONFIG_UNWINDER_ORC is not set' >> ${B}/.config
       ;;
       i686)
         cp ${S}/arch/x86/configs/i386_defconfig ${B}/.config
         echo 'CONFIG_IGB=y' >> ${B}/.config
+        # FIXME https://bugs.linaro.org/show_bug.cgi?id=3459
+        # x86 fails to build:
+        # | kernel-source/Makefile:938:
+        # *** "Cannot generate ORC metadata for CONFIG_UNWINDER_ORC=y,
+        # please install libelf-dev, libelf-devel or elfutils-libelf-devel".  Stop.
+        echo 'CONFIG_UNWINDER_FRAME_POINTER=y' >> ${B}/.config
+        echo '# CONFIG_UNWINDER_ORC is not set' >> ${B}/.config
       ;;
     esac
 
