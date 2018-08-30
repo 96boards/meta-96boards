@@ -9,7 +9,7 @@ SRCREV_kernel = "${KERNEL_COMMIT}"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
-    ${KERNEL_REPO};protocol=https;branch=${KERNEL_BRANCH};name=kernel \
+    ${KERNEL_REPO};protocol=https;nobranch=1;name=kernel \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
 "
