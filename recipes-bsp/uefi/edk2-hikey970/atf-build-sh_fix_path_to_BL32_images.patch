@@ -1,0 +1,55 @@
+From: Victor Chong <victor.chong@linaro.org>
+To: leif.lindholm@linaro.org
+Cc: linaro-uefi@lists.linaro.org,
+	haojian.zhuang@linaro.org,
+	fathi.boudra@linaro.org,
+	Victor Chong <victor.chong@linaro.org>
+Subject: [PATCH] atf-build.sh: Fix path to BL32* images
+Date: Tue, 27 Mar 2018 17:46:22 +0100
+Message-Id: <20180327164623.32739-1-victor.chong@linaro.org>
+X-Mailer: git-send-email 2.16.2
+
+Since TOS_BIN* images are not copied to UEFI dir anymore, set path to
+the BL32 images where they are originally built.
+
+Fixes: 0c485dab ("opteed-build.sh: Remove copy of images to UEFI dir")
+Signed-off-by: Victor Chong <victor.chong@linaro.org>
+---
+ atf-build.sh | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/atf-build.sh b/atf-build.sh
+index fb80ad0..eabfb32 100755
+--- a/atf-build.sh
++++ b/atf-build.sh
+@@ -99,17 +99,24 @@ function build_platform
+ 	if [ X"$TOS_DIR" != X"" ]; then
+ 		SPD="`$TOOLS_DIR/parse-platforms.py $PLATFORM_CONFIG -p $1 get -o atf_spd`"
+
++		TOS_PLATFORM="`$TOOLS_DIR/parse-platforms.py $PLATFORM_CONFIG -p $1 get -o tos_platform`"
++		if [ X"$TOS_PLATFORM" = X"" ]; then
++			TOS_PLATFORM="`$TOOLS_DIR/parse-platforms.py $PLATFORM_CONFIG -p $1 get -o atf_platform`"
++			if [ X"$TOS_PLATFORM" = X"" ]; then
++				TOS_PLATFORM=$1
++			fi
++		fi
+ 		TOS_BIN="`$TOOLS_DIR/parse-platforms.py $PLATFORM_CONFIG -p $1 get -o tos_bin`"
+ 		TOS_BIN_EXTRA1="`$TOOLS_DIR/parse-platforms.py $PLATFORM_CONFIG -p $1 get -o tos_bin_extra1`"
+ 		TOS_BIN_EXTRA2="`$TOOLS_DIR/parse-platforms.py $PLATFORM_CONFIG -p $1 get -o tos_bin_extra2`"
+ 		if [ X"$TOS_BIN" != X"" ]; then
+-			BL32=$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/$TOS_BIN
++			BL32=$TOS_DIR/out/arm-plat-$TOS_PLATFORM/core/$TOS_BIN
+ 		fi
+ 		if [ X"$TOS_BIN_EXTRA1" != X"" ]; then
+-			BL32_EXTRA1=$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/$TOS_BIN_EXTRA1
++			BL32_EXTRA1=$TOS_DIR/out/arm-plat-$TOS_PLATFORM/core/$TOS_BIN_EXTRA1
+ 		fi
+ 		if [ X"$TOS_BIN_EXTRA2" != X"" ]; then
+-			BL32_EXTRA2=$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/$TOS_BIN_EXTRA2
++			BL32_EXTRA2=$TOS_DIR/out/arm-plat-$TOS_PLATFORM/core/$TOS_BIN_EXTRA2
+ 		fi
+
+ 		if [ X"$SPD" != X"" ] && [ X"$BL32" != X"" ]; then
+--
+2.16.2
+
