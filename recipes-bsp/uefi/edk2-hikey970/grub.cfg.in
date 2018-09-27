@@ -1,0 +1,12 @@
+set default="0"
+set timeout=1
+
+menuentry '@DISTRO_NAME (HiKey970)' {
+    linux /boot/@KERNEL_IMAGETYPE console=tty0 @CMDLINE
+    devicetree /boot/kirin970-hikey970.dtb
+}
+
+menuentry 'Fastboot' {
+    search.fs_label boot boot_part
+    chainloader ($boot_part)/EFI/BOOT/fastboot.efi
+}
