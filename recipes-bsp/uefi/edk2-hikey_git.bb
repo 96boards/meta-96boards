@@ -8,7 +8,7 @@ inherit deploy pythonnative
 
 SRCREV_edk2 = "77326b5a153513c826d5a50363eace6ef6b59413"
 SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
-SRCREV_openplatformpkg = "bb096332ac650f229be1a811da061b24df423576"
+SRCREV_openplatformpkg = "328df4c4aa0146c9b5ba7510bd342fc7afd9dd59"
 SRCREV_uefitools = "b37391801290b4adbbc821832470216e98d4e900"
 SRCREV_lloader = "c1cbbf8ab824820b5c1769a1c80dd234c5b57ffc"
 SRCREV_atffastboot = "af5ddb16266e54745d3b2e354d32b54fefbbbd78"
