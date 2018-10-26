@@ -7,6 +7,7 @@ SRCREV_kernel = "939a42450e4d44334f1fbd46428317db5bc813c1"
 SRCREV_FORMAT = "kernel"
 
 SRC_URI = "git://github.com/96boards-hikey/linux.git;protocol=https;name=kernel;nobranch=1 \
+	   file://ufs.patch \
 "
 
 S = "${WORKDIR}/git"
