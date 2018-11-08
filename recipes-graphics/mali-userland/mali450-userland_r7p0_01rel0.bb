@@ -55,7 +55,6 @@ do_install() {
     && ln -sf libGLESv2.so.2 libGLESv2.so)
     (cd ${D}/${libdir} && ln -sf libMali.so libgbm.so.1 \
     && ln -sf libgbm.so.1 libgbm.so)
-    (cd ${D}/${libdir} && ln -sf libMali.so libwayland-egl.so)
 
     install -D -m0644 ${WORKDIR}/50-mali.rules \
         ${D}/${base_prefix}/lib/udev/rules.d/50-mali.rules
