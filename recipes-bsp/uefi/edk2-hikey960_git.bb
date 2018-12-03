@@ -92,5 +92,4 @@ do_deploy_append() {
 
     # Fix up - move bootloader related files into a subdir
     mv ${DEPLOYDIR}/fip.bin ${DEPLOYDIR}/bootloader/
-    rm -f ${DEPLOY_DIR_IMAGE}/grub-efi-bootaa64.efi
 }
