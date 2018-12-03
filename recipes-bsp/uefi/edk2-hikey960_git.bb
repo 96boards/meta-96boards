@@ -37,9 +37,12 @@ do_compile_prepend() {
     # Fix hardcoded value introduced in
     # https://git.linaro.org/uefi/uefi-tools.git/commit/common-functions?id=65e8e8df04f34fc2a87ae9d34f5ef5b6fee5a396
     sed -i -e 's/aarch64-linux-gnu-/${TARGET_PREFIX}/' ${S}/uefi-tools/common-functions
+
+    # Disable fakeroot
+    sed -i -e 's:fakeroot ::g' ${S}/l-loader/generate_ptable.sh
 }
 
-do_compile_append() {
+fakeroot do_compile_append() {
     cd ${EDK2_DIR}/l-loader
     ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl1.bin
     ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl2.bin
