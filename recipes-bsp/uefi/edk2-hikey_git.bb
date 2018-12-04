@@ -63,9 +63,12 @@ do_compile_prepend() {
 
     printf "all:\n"  > ${EDK2_DIR}/optee_os/Makefile
     printf "\ttrue" >> ${EDK2_DIR}/optee_os/Makefile
+
+    # Disable fakeroot
+    sed -i -e 's:fakeroot ::g' ${S}/l-loader/generate_ptable.sh
 }
 
-do_compile_append() {
+fakeroot do_compile_append() {
     # Use pre-built aarch32 toolchain
     export PATH=${WORKDIR}/gcc-linaro-6.4.1-2017.08-x86_64_arm-linux-gnueabihf/bin:$PATH
 
