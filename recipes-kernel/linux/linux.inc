@@ -22,11 +22,11 @@ ALLOW_EMPTY_${KERNEL_PACKAGE_NAME}-devicetree = "1"
 python __anonymous () {
 
     import bb
-    
+
     devicetree = d.getVar('KERNEL_DEVICETREE', True) or ''
     if devicetree:
-    	depends = d.getVar("DEPENDS", True)
-    	d.setVar("DEPENDS", "%s dtc-native" % depends)
+        depends = d.getVar("DEPENDS", True)
+        d.setVar("DEPENDS", "%s dtc-native" % depends)
 }
 
 do_configure_prepend() {
