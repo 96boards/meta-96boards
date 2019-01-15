@@ -1,0 +1,25 @@
+From 99ad46fb5e1b2b8732f5eadd9ae71c14fff20349 Mon Sep 17 00:00:00 2001
+From: Andreas Baierl <ichgeh@imkreisrum.de>
+Date: Wed, 14 Nov 2018 16:36:40 +0100
+Subject: [PATCH 49/52] lima/gp: Fix fnot
+
+Signed-off-by: Andreas Baierl <ichgeh@imkreisrum.de>
+---
+ src/gallium/drivers/lima/ir/gp/lower.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/gallium/drivers/lima/ir/gp/lower.c b/src/gallium/drivers/lima/ir/gp/lower.c
+index 5863a7c..b52cb38 100644
+--- a/src/gallium/drivers/lima/ir/gp/lower.c
++++ b/src/gallium/drivers/lima/ir/gp/lower.c
+@@ -467,6 +467,7 @@ static bool gpir_lower_not(gpir_block *block, gpir_node *node)
+    alu->children_negate[1] = !alu->children_negate[0];
+    alu->children[1] = alu->children[0];
+    alu->children[0] = &c->node;
++   alu->num_child = 2;
+ 
+    return true;
+ }
+-- 
+2.0.1
+

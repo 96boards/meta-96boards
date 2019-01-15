@@ -1,0 +1,26 @@
+From 925558e55c08c013809a0e19cc97e3c934bf88e4 Mon Sep 17 00:00:00 2001
+From: Qiang Yu <yuq825@gmail.com>
+Date: Thu, 15 Nov 2018 15:09:13 +0800
+Subject: [PATCH 50/52] lima: fix src_x not initialized
+
+Signed-off-by: Qiang Yu <yuq825@gmail.com>
+---
+ src/gallium/drivers/lima/lima_tiling.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/gallium/drivers/lima/lima_tiling.c b/src/gallium/drivers/lima/lima_tiling.c
+index fd548a5..6332e47 100644
+--- a/src/gallium/drivers/lima/lima_tiling.c
++++ b/src/gallium/drivers/lima/lima_tiling.c
+@@ -83,7 +83,7 @@ lima_store_tiled_image_generic(void *dst, const void *src,
+       int block_start_s = block_y * dst_stride;
+       int source_start = src_y * src_stride;
+ 
+-      for (int x = box->x, src_x; src_x < box->width; ++x, ++src_x) {
++      for (int x = box->x, src_x = 0; src_x < box->width; ++x, ++src_x) {
+          int block_x_s = (x >> 4) * 256;
+          int rem_x = x & 0x0F;
+ 
+-- 
+2.0.1
+
