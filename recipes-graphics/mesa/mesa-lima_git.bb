@@ -61,6 +61,7 @@ SRC_URI = "git://gitlab.freedesktop.org/mesa/mesa.git;protocol=https;branch=18.2
            file://lima/0050-lima-fix-src_x-not-initialized.patch \
            file://lima/0051-meson-add-lima-related-build.patch \
            file://lima/0052-lima-support-INT-index-draw.patch \
+           file://lima/0001-gallium-add-hikey-driver.patch \
            "
 
 PV = "18.2.5+git${SRCPV}"
