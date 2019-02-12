@@ -9,6 +9,7 @@ SRCREV = "a624e22f083eb0af7ed868f8bdbcd198c17588ca"
 PV = "v2017.06+2017.07-rc3+git${SRCPV}"
 
 SRC_URI = "git://git.linaro.org/landing-teams/working/arm/u-boot.git;protocol=https;branch=17.10 \
+    file://makefile-honor-python-configuration-properly.patch \
 "
 
 S = "${WORKDIR}/git"
