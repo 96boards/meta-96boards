@@ -1,7 +1,0 @@
-KERNEL_COMMIT = "0adb32858b0bddf4ada5f364a84ed60b196dbcda"
-KERNEL_REPO = "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
-KERNEL_PROTOCOL = "https"
-KERNEL_BRANCH = "master"
-KERNEL_CONFIG_aarch64 = "defconfig"
-KERNEL_CONFIG_arm = "multi_v7_defconfig"
-KERNEL_CONFIG_x86-64 = "x86_64_defconfig"
