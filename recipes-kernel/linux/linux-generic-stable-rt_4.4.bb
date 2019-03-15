@@ -9,6 +9,7 @@ SRCREV_FORMAT = "kernel"
 
 SRC_URI = "\
     git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git;protocol=https;branch=v4.4-rt;name=kernel \
+    file://lkft-4.4.config;subdir=git/kernel/configs \
     file://distro-overrides.config;subdir=git/kernel/configs \
     file://systemd.config;subdir=git/kernel/configs \
     file://0001-selftests-create-test-specific-kconfig-fragments.patch \
@@ -16,7 +17,6 @@ SRC_URI = "\
     file://0001-selftests-ftrace-add-CONFIG_KPROBES-y-to-the-config-.patch \
     file://0001-selftests-vm-add-CONFIG_SYSVIPC-y-to-the-config-frag.patch \
     file://0001-selftests-create-cpufreq-kconfig-fragments.patch \
-    file://0001-selftests-sync-add-config-fragment-for-testing-sync-.patch \
     file://0001-selftests-ftrace-add-more-config-fragments.patch \
 "
 
@@ -26,6 +26,7 @@ COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64|juno"
 KERNEL_DEVICETREE_remove_juno = "arm/juno-r2.dtb"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
+    ${S}/kernel/configs/lkft-4.4.config \
     ${S}/kernel/configs/distro-overrides.config \
     ${S}/kernel/configs/systemd.config \
 "
@@ -44,11 +45,15 @@ do_configure() {
         cp ${S}/arch/arm64/configs/defconfig ${B}/.config
         echo 'CONFIG_RTC_DRV_PL031=y' >> ${B}/.config
         echo 'CONFIG_STUB_CLK_HI6220=y' >> ${B}/.config
+        # https://bugs.linaro.org/show_bug.cgi?id=3769
+        echo 'CONFIG_ARM64_MODULE_PLTS=y' >> ${B}/.config
       ;;
       arm)
         cp ${S}/arch/arm/configs/multi_v7_defconfig ${B}/.config
         echo 'CONFIG_SERIAL_8250_OMAP=y' >> ${B}/.config
         echo 'CONFIG_POSIX_MQUEUE=y' >> ${B}/.config
+        # https://bugs.linaro.org/show_bug.cgi?id=3769
+        echo 'CONFIG_ARM_MODULE_PLTS=y' >> ${B}/.config
       ;;
       x86_64)
         cp ${S}/arch/x86/configs/x86_64_defconfig ${B}/.config
