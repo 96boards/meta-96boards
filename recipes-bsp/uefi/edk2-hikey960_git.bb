@@ -34,6 +34,9 @@ set_max_path () {
 }
 
 do_compile_prepend() {
+    unset LDFLAGS
+    unset CFLAGS
+    unset CPPFLAGS
     # Fix hardcoded value introduced in
     # https://git.linaro.org/uefi/uefi-tools.git/commit/common-functions?id=65e8e8df04f34fc2a87ae9d34f5ef5b6fee5a396
     sed -i -e 's/aarch64-linux-gnu-/${TARGET_PREFIX}/' ${S}/uefi-tools/common-functions
