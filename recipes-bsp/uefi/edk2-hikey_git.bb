@@ -37,6 +37,8 @@ SRC_URI[tc.sha256sum] = "1c975a1936cc966099b3fcaff8f387d748caff27f43593214ae6d46
 INSANE_SKIP_${PN} += "installed-vs-shipped"
 
 OPTEE_OS_ARG = "-s ${EDK2_DIR}/optee_os"
+REMOVE_MACRO_PREFIX_MAP = "-fmacro-prefix-map=${WORKDIR}=/usr/src/debug/${PN}/${EXTENDPE}${PV}-${PR}"
+DEBUG_PREFIX_MAP_remove = "${@'${REMOVE_MACRO_PREFIX_MAP}'"
 
 # workaround EDK2 is confused by the long path used during the build
 # and truncate files name expected by VfrCompile
@@ -46,6 +48,9 @@ set_max_path () {
 }
 
 do_compile_prepend() {
+    unset LDFLAGS
+    unset CFLAGS
+    unset CPPFLAGS
     # Fix hardcoded value introduced in
     # https://git.linaro.org/uefi/uefi-tools.git/commit/common-functions?id=65e8e8df04f34fc2a87ae9d34f5ef5b6fee5a396
     sed -i -e 's/aarch64-linux-gnu-/${TARGET_PREFIX}/' ${S}/uefi-tools/common-functions
