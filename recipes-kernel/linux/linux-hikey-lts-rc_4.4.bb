@@ -1,1 +1,0 @@
-linux-generic-lts-rc_4.4.bb
