@@ -1,0 +1,569 @@
+From dbb8dd973cdf26229853eb946a0ce7323950cf27 Mon Sep 17 00:00:00 2001
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 11 Jan 2019 19:33:50 +0100
+Subject: [PATCH] gallium: add hikey driver
+
+A mesa driver for hikey is defined which will call into lima when 3D
+rendering is requested from it.
+This uses the renderonly library from mesa, which hides the buffer
+sharing details between the two drivers from the application.
+This allows applications that expect a single device node like
+/dev/dri/card0 (such as kmscube) to run unmodified on Rockchip devices
+that use the rockchip-drm driver for display and have a Mali400 gpu using
+lima.
+
+This follows the model of the lima+sun4i drivers existing in mesa.
+The code implemented here is mostly borrowed from that particular
+implementation.
+
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ .travis.yml                                        |  2 +-
+ Android.mk                                         |  5 +-
+ Makefile.am                                        |  2 +-
+ configure.ac                                       | 12 +++-
+ src/gallium/Android.mk                             |  1 +
+ src/gallium/Makefile.am                            |  4 ++
+ .../auxiliary/pipe-loader/pipe_loader_drm.c        |  5 ++
+ src/gallium/auxiliary/target-helpers/drm_helper.h  | 23 +++++++
+ .../auxiliary/target-helpers/drm_helper_public.h   |  3 +
+ src/gallium/drivers/hisilicon/Android.mk           | 39 +++++++++++
+ src/gallium/drivers/hisilicon/Automake.inc         |  9 +++
+ src/gallium/drivers/hisilicon/Makefile.am          |  8 +++
+ src/gallium/drivers/hisilicon/Makefile.sources     |  1 +
+ src/gallium/targets/dri/Makefile.am                |  1 +
+ src/gallium/targets/dri/target.c                   |  3 +
+ src/gallium/winsys/hisilicon/drm/Android.mk        | 33 +++++++++
+ src/gallium/winsys/hisilicon/drm/Makefile.am       | 38 +++++++++++
+ src/gallium/winsys/hisilicon/drm/Makefile.sources  |  3 +
+ .../winsys/hisilicon/drm/hisilicon_drm_public.h    | 31 +++++++++
+ .../winsys/hisilicon/drm/hisilicon_drm_winsys.c    | 79 ++++++++++++++++++++++
+ 20 files changed, 297 insertions(+), 5 deletions(-)
+ create mode 100644 src/gallium/drivers/hisilicon/Android.mk
+ create mode 100644 src/gallium/drivers/hisilicon/Automake.inc
+ create mode 100644 src/gallium/drivers/hisilicon/Makefile.am
+ create mode 100644 src/gallium/drivers/hisilicon/Makefile.sources
+ create mode 100644 src/gallium/winsys/hisilicon/drm/Android.mk
+ create mode 100644 src/gallium/winsys/hisilicon/drm/Makefile.am
+ create mode 100644 src/gallium/winsys/hisilicon/drm/Makefile.sources
+ create mode 100644 src/gallium/winsys/hisilicon/drm/hisilicon_drm_public.h
+ create mode 100644 src/gallium/winsys/hisilicon/drm/hisilicon_drm_winsys.c
+
+diff --git a/.travis.yml b/.travis.yml
+index 1baf727..a408d7d 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -167,7 +167,7 @@ matrix:
+         - DRI_LOADERS="--disable-glx --disable-gbm --disable-egl"
+         - DRI_DRIVERS=""
+         - GALLIUM_ST="--enable-dri --disable-opencl --disable-xa --disable-nine --disable-xvmc --disable-vdpau --disable-va --disable-omx-bellagio --disable-gallium-osmesa"
+-        - GALLIUM_DRIVERS="i915,nouveau,pl111,r300,r600,freedreno,svga,swrast,v3d,vc4,virgl,etnaviv,imx,lima,sun4i,exynos,meson,rockchip"
++        - GALLIUM_DRIVERS="i915,nouveau,pl111,r300,r600,freedreno,svga,swrast,v3d,vc4,virgl,etnaviv,imx,lima,sun4i,exynos,meson,rockchip,hisilicon"
+         - VULKAN_DRIVERS=""
+         - LIBUNWIND_FLAGS="--enable-libunwind"
+       addons:
+diff --git a/Android.mk b/Android.mk
+index 87e6405..ea472fe 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -24,7 +24,7 @@
+ # BOARD_GPU_DRIVERS should be defined.  The valid values are
+ #
+ #   classic drivers: i915 i965
+-#   gallium drivers: swrast freedreno i915g nouveau pl111 r300g r600g radeonsi vc4 virgl vmwgfx etnaviv imx lima sun4i exynos meson rockchip
++#   gallium drivers: swrast freedreno i915g nouveau pl111 r300g r600g radeonsi vc4 virgl vmwgfx etnaviv imx lima sun4i exynos meson rockchip hisilicon
+ #
+ # The main target is libGLES_mesa.  For each classic driver enabled, a DRI
+ # module will also be built.  DRI modules will be loaded by libGLES_mesa.
+@@ -65,7 +65,8 @@ gallium_drivers := \
+ 	sun4i.HAVE_GALLIUM_SUN4I \
+ 	exynos.HAVE_GALLIUM_EXYNOS \
+ 	meson.HAVE_GALLIUM_MESON \
+-	rockchip.HAVE_GALLIUM_ROCKCHIP
++	rockchip.HAVE_GALLIUM_ROCKCHIP \
++	hisilicon.HAVE_GALLIUM_HISILICON
+ 
+ ifeq ($(BOARD_GPU_DRIVERS),all)
+ MESA_BUILD_CLASSIC := $(filter HAVE_%, $(subst ., , $(classic_drivers)))
+diff --git a/Makefile.am b/Makefile.am
+index fb13fc9..5141b09 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -45,7 +45,7 @@ AM_DISTCHECK_CONFIGURE_FLAGS = \
+ 	--enable-libunwind \
+ 	--with-platforms=x11,wayland,drm,surfaceless \
+ 	--with-dri-drivers=i915,i965,nouveau,radeon,r200,swrast \
+-	--with-gallium-drivers=i915,nouveau,r300,pl111,r600,radeonsi,freedreno,svga,swrast,vc4,tegra,virgl,swr,etnaviv,imx,lima,sun4i,exynos,meson,rockchip \
++	--with-gallium-drivers=i915,nouveau,r300,pl111,r600,radeonsi,freedreno,svga,swrast,vc4,tegra,virgl,swr,etnaviv,imx,lima,sun4i,exynos,meson,rockchip,hisilicon \
+ 	--with-vulkan-drivers=intel,radeon
+ 
+ ACLOCAL_AMFLAGS = -I m4
+diff --git a/configure.ac b/configure.ac
+index d509f2f..3df1b3e 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1395,7 +1395,7 @@ GALLIUM_DRIVERS_DEFAULT="r300,r600,svga,swrast"
+ AC_ARG_WITH([gallium-drivers],
+     [AS_HELP_STRING([--with-gallium-drivers@<:@=DIRS...@:>@],
+         [comma delimited Gallium drivers list, e.g.
+-        "i915,nouveau,r300,r600,radeonsi,freedreno,pl111,svga,swrast,swr,tegra,v3d,vc4,virgl,etnaviv,imx,lima,sun4i,exynos,meson,rockchip"
++        "i915,nouveau,r300,r600,radeonsi,freedreno,pl111,svga,swrast,swr,tegra,v3d,vc4,virgl,etnaviv,imx,lima,sun4i,exynos,meson,rockchip,hisilicon"
+         @<:@default=r300,r600,svga,swrast@:>@])],
+     [with_gallium_drivers="$withval"],
+     [with_gallium_drivers="$GALLIUM_DRIVERS_DEFAULT"])
+@@ -2842,6 +2842,9 @@ if test -n "$with_gallium_drivers"; then
+         xrockchip)
+             HAVE_GALLIUM_ROCKCHIP=yes
+             ;;
++        xhisilicon)
++            HAVE_GALLIUM_HISILICON=yes
++            ;;
+         *)
+             AC_MSG_ERROR([Unknown Gallium driver: $driver])
+             ;;
+@@ -2894,6 +2897,10 @@ if test "x$HAVE_GALLIUM_LIMA" != xyes -a "x$HAVE_GALLIUM_ROCKCHIP" = xyes  ; the
+     AC_MSG_ERROR([Building with rockchip requires lima])
+ fi
+ 
++if test "x$HAVE_GALLIUM_LIMA" != xyes -a "x$HAVE_GALLIUM_HISILICON" = xyes  ; then
++    AC_MSG_ERROR([Building with hisilicon requires lima])
++fi
++
+ detect_old_buggy_llvm() {
+     dnl llvm-config may not give the right answer when llvm is a built as a
+     dnl single shared library, so we must work the library name out for
+@@ -3006,6 +3013,7 @@ AM_CONDITIONAL(HAVE_GALLIUM_SUN4I, test "x$HAVE_GALLIUM_SUN4I" = xyes)
+ AM_CONDITIONAL(HAVE_GALLIUM_EXYNOS, test "x$HAVE_GALLIUM_EXYNOS" = xyes)
+ AM_CONDITIONAL(HAVE_GALLIUM_MESON, test "x$HAVE_GALLIUM_MESON" = xyes)
+ AM_CONDITIONAL(HAVE_GALLIUM_ROCKCHIP, test "x$HAVE_GALLIUM_ROCKCHIP" = xyes)
++AM_CONDITIONAL(HAVE_GALLIUM_HISILICON, test "x$HAVE_GALLIUM_HISILICON" = xyes)
+ 
+ AM_CONDITIONAL(HAVE_GALLIUM_STATIC_TARGETS, test "x$enable_shared_pipe_drivers" = xno)
+ 
+@@ -3154,6 +3162,7 @@ AC_CONFIG_FILES([Makefile
+                  src/gallium/drivers/exynos/Makefile
+                  src/gallium/drivers/meson/Makefile
+                  src/gallium/drivers/rockchip/Makefile
++                 src/gallium/drivers/hisilicon/Makefile
+                  src/gallium/state_trackers/clover/Makefile
+                  src/gallium/state_trackers/dri/Makefile
+                  src/gallium/state_trackers/glx/xlib/Makefile
+@@ -3208,6 +3217,7 @@ AC_CONFIG_FILES([Makefile
+                  src/gallium/winsys/exynos/drm/Makefile
+                  src/gallium/winsys/meson/drm/Makefile
+                  src/gallium/winsys/rockchip/drm/Makefile
++                 src/gallium/winsys/hisilicon/drm/Makefile
+                  src/gbm/Makefile
+                  src/gbm/main/gbm.pc
+                  src/glx/Makefile
+diff --git a/src/gallium/Android.mk b/src/gallium/Android.mk
+index a7c426f..7d18cac 100644
+--- a/src/gallium/Android.mk
++++ b/src/gallium/Android.mk
+@@ -52,6 +52,7 @@ SUBDIRS += winsys/sun4i/drm drivers/sun4i
+ SUBDIRS += winsys/exynos/drm drivers/exynos
+ SUBDIRS += winsys/meson/drm drivers/meson
+ SUBDIRS += winsys/rockchip/drm drivers/rockchip
++SUBDIRS += winsys/hisilicon/drm drivers/hisilicon
+ SUBDIRS += state_trackers/dri
+ 
+ # sort to eliminate any duplicates
+diff --git a/src/gallium/Makefile.am b/src/gallium/Makefile.am
+index 8f5d0b4..a4422f6 100644
+--- a/src/gallium/Makefile.am
++++ b/src/gallium/Makefile.am
+@@ -119,6 +119,10 @@ if HAVE_GALLIUM_ROCKCHIP
+ SUBDIRS += drivers/rockchip winsys/rockchip/drm
+ endif
+ 
++if HAVE_GALLIUM_HISILICON
++SUBDIRS += drivers/hisilicon winsys/hisilicon/drm
++endif
++
+ ## the sw winsys'
+ SUBDIRS += winsys/sw/null
+ 
+diff --git a/src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c b/src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c
+index fc98d49..084d7c8 100644
+--- a/src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c
++++ b/src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c
+@@ -166,6 +166,11 @@ static const struct drm_driver_descriptor driver_descriptors[] = {
+         .create_screen = pipe_rockchip_create_screen,
+         .configuration = pipe_default_configuration_query,
+     },
++    {
++        .driver_name = "hisilicon",
++        .create_screen = pipe_hisilicon_create_screen,
++        .configuration = pipe_default_configuration_query,
++    },
+ };
+ #endif
+ 
+diff --git a/src/gallium/auxiliary/target-helpers/drm_helper.h b/src/gallium/auxiliary/target-helpers/drm_helper.h
+index 59ccf98..441844a 100644
+--- a/src/gallium/auxiliary/target-helpers/drm_helper.h
++++ b/src/gallium/auxiliary/target-helpers/drm_helper.h
+@@ -518,4 +518,27 @@ pipe_rockchip_create_screen(int fd, const struct pipe_screen_config *config)
+ 
+ #endif
+ 
++#ifdef GALLIUM_HISILICON
++#include "hisilicon/drm/hisilicon_drm_public.h"
++
++struct pipe_screen *
++pipe_hisilicon_create_screen(int fd, const struct pipe_screen_config *config)
++{
++   struct pipe_screen *screen;
++
++   screen = hisilicon_screen_create(fd);
++   return screen ? debug_screen_wrap(screen) : NULL;
++}
++
++#else
++
++struct pipe_screen *
++pipe_hisilicon_create_screen(int fd, const struct pipe_screen_config *config)
++{
++   fprintf(stderr, "hisilicon: driver missing\n");
++   return NULL;
++}
++
++#endif
++
+ #endif /* DRM_HELPER_H */
+diff --git a/src/gallium/auxiliary/target-helpers/drm_helper_public.h b/src/gallium/auxiliary/target-helpers/drm_helper_public.h
+index 5ce6ebc..2f06109 100644
+--- a/src/gallium/auxiliary/target-helpers/drm_helper_public.h
++++ b/src/gallium/auxiliary/target-helpers/drm_helper_public.h
+@@ -69,6 +69,9 @@ pipe_meson_create_screen(int fd, const struct pipe_screen_config *config);
+ struct pipe_screen *
+ pipe_rockchip_create_screen(int fd, const struct pipe_screen_config *config);
+ 
++struct pipe_screen *
++pipe_hisilicon_create_screen(int fd, const struct pipe_screen_config *config);
++
+ const struct drm_conf_ret *
+ pipe_default_configuration_query(enum drm_conf conf);
+ 
+diff --git a/src/gallium/drivers/hisilicon/Android.mk b/src/gallium/drivers/hisilicon/Android.mk
+new file mode 100644
+index 0000000..e9eaf2f
+--- /dev/null
++++ b/src/gallium/drivers/hisilicon/Android.mk
+@@ -0,0 +1,39 @@
++# Copyright (c) 2017 Lima Project
++#
++# Permission is hereby granted, free of charge, to any person obtaining a
++# copy of this software and associated documentation files (the "Software"),
++# to deal in the Software without restriction, including without limitation
++# the rights to use, copy, modify, merge, publish, distribute, sublicense,
++# and/or sell copies of the Software, and to permit persons to whom the
++# Software is furnished to do so, subject to the following conditions:
++#
++# The above copyright notice and this permission notice shall be included
++# in all copies or substantial portions of the Software.
++#
++# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++# DEALINGS IN THE SOFTWARE.
++
++LOCAL_PATH := $(call my-dir)
++
++# get C_SOURCES
++include $(LOCAL_PATH)/Makefile.sources
++
++include $(CLEAR_VARS)
++
++LOCAL_SRC_FILES := \
++	$(C_SOURCES)
++
++LOCAL_MODULE := libmesa_pipe_hisilicon
++
++include $(GALLIUM_COMMON_MK)
++include $(BUILD_STATIC_LIBRARY)
++
++ifneq ($(HAVE_GALLIUM_HISILICON),)
++GALLIUM_TARGET_DRIVERS += hisilicon
++$(eval GALLIUM_LIBS += $(LOCAL_MODULE) libmesa_winsys_hisilicon)
++endif
+diff --git a/src/gallium/drivers/hisilicon/Automake.inc b/src/gallium/drivers/hisilicon/Automake.inc
+new file mode 100644
+index 0000000..7f9addc
+--- /dev/null
++++ b/src/gallium/drivers/hisilicon/Automake.inc
+@@ -0,0 +1,9 @@
++if HAVE_GALLIUM_HISILICON
++
++TARGET_DRIVERS += hisilicon
++TARGET_CPPFLAGS += -DGALLIUM_HISILICON
++TARGET_LIB_DEPS += \
++    $(top_builddir)/src/gallium/winsys/hisilicon/drm/libhisilicondrm.la \
++    $(LIBDRM_LIBS)
++
++endif
+diff --git a/src/gallium/drivers/hisilicon/Makefile.am b/src/gallium/drivers/hisilicon/Makefile.am
+new file mode 100644
+index 0000000..21bb011
+--- /dev/null
++++ b/src/gallium/drivers/hisilicon/Makefile.am
+@@ -0,0 +1,8 @@
++include $(top_srcdir)/src/gallium/Automake.inc
++
++AM_CPPFLAGS = \
++	$(GALLIUM_CFLAGS)
++
++noinst_LTLIBRARIES = libhisilicon.la
++
++libhisilicon_la_SOURCES = $(C_SOURCES)
+diff --git a/src/gallium/drivers/hisilicon/Makefile.sources b/src/gallium/drivers/hisilicon/Makefile.sources
+new file mode 100644
+index 0000000..9103ca8
+--- /dev/null
++++ b/src/gallium/drivers/hisilicon/Makefile.sources
+@@ -0,0 +1 @@
++C_SOURCES :=
+diff --git a/src/gallium/targets/dri/Makefile.am b/src/gallium/targets/dri/Makefile.am
+index ec744c4..b1e051a 100644
+--- a/src/gallium/targets/dri/Makefile.am
++++ b/src/gallium/targets/dri/Makefile.am
+@@ -90,6 +90,7 @@ include $(top_srcdir)/src/gallium/drivers/sun4i/Automake.inc
+ include $(top_srcdir)/src/gallium/drivers/exynos/Automake.inc
+ include $(top_srcdir)/src/gallium/drivers/meson/Automake.inc
+ include $(top_srcdir)/src/gallium/drivers/rockchip/Automake.inc
++include $(top_srcdir)/src/gallium/drivers/hisilicon/Automake.inc
+ 
+ include $(top_srcdir)/src/gallium/drivers/softpipe/Automake.inc
+ include $(top_srcdir)/src/gallium/drivers/llvmpipe/Automake.inc
+diff --git a/src/gallium/targets/dri/target.c b/src/gallium/targets/dri/target.c
+index 30a4bc8..53aa18d 100644
+--- a/src/gallium/targets/dri/target.c
++++ b/src/gallium/targets/dri/target.c
+@@ -105,4 +105,7 @@ DEFINE_LOADER_DRM_ENTRYPOINT(meson)
+ #if defined(GALLIUM_ROCKCHIP)
+ DEFINE_LOADER_DRM_ENTRYPOINT(rockchip)
+ #endif
++#if defined(GALLIUM_HISILICON)
++DEFINE_LOADER_DRM_ENTRYPOINT(hisilicon)
++#endif
+ #endif
+diff --git a/src/gallium/winsys/hisilicon/drm/Android.mk b/src/gallium/winsys/hisilicon/drm/Android.mk
+new file mode 100644
+index 0000000..f7455ed
+--- /dev/null
++++ b/src/gallium/winsys/hisilicon/drm/Android.mk
+@@ -0,0 +1,33 @@
++# Copyright (c) 2017 Lima Project
++#
++# Permission is hereby granted, free of charge, to any person obtaining a
++# copy of this software and associated documentation files (the "Software"),
++# to deal in the Software without restriction, including without limitation
++# the rights to use, copy, modify, merge, publish, distribute, sublicense,
++# and/or sell copies of the Software, and to permit persons to whom the
++# Software is furnished to do so, subject to the following conditions:
++#
++# The above copyright notice and this permission notice shall be included
++# in all copies or substantial portions of the Software.
++#
++# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++# DEALINGS IN THE SOFTWARE.
++
++LOCAL_PATH := $(call my-dir)
++
++# get C_SOURCES
++include $(LOCAL_PATH)/Makefile.sources
++
++include $(CLEAR_VARS)
++
++LOCAL_SRC_FILES := $(C_SOURCES)
++
++LOCAL_MODULE := libmesa_winsys_hisilicon
++
++include $(GALLIUM_COMMON_MK)
++include $(BUILD_STATIC_LIBRARY)
+diff --git a/src/gallium/winsys/hisilicon/drm/Makefile.am b/src/gallium/winsys/hisilicon/drm/Makefile.am
+new file mode 100644
+index 0000000..4fff1fe
+--- /dev/null
++++ b/src/gallium/winsys/hisilicon/drm/Makefile.am
+@@ -0,0 +1,38 @@
++# Copyright (c) 2017 Lima Project
++#
++# Permission is hereby granted, free of charge, to any person obtaining a
++# copy of this software and associated documentation files (the "Software"),
++# to deal in the Software without restriction, including without limitation
++# the rights to use, copy, modify, merge, publish, distribute, sublicense,
++# and/or sell copies of the Software, and to permit persons to whom the
++# Software is furnished to do so, subject to the following conditions:
++#
++# The above copyright notice and this permission notice (including the next
++# paragraph) shall be included in all copies or substantial portions of the
++# Software.
++#
++# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++# NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
++# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
++# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++# DEALINGS IN THE SOFTWARE.
++
++include Makefile.sources
++include $(top_srcdir)/src/gallium/Automake.inc
++
++AM_CFLAGS = \
++	-I$(top_srcdir)/src/gallium/drivers \
++	-I$(top_srcdir)/src/gallium/winsys \
++	$(GALLIUM_WINSYS_CFLAGS) \
++	$(LIBDRM_CFLAGS)
++
++if HAVE_GALLIUM_LIMA
++AM_CFLAGS += -DGALLIUM_LIMA
++endif
++
++noinst_LTLIBRARIES = libhisilicondrm.la
++
++libhisilicondrm_la_SOURCES = $(C_SOURCES)
+diff --git a/src/gallium/winsys/hisilicon/drm/Makefile.sources b/src/gallium/winsys/hisilicon/drm/Makefile.sources
+new file mode 100644
+index 0000000..53223dd
+--- /dev/null
++++ b/src/gallium/winsys/hisilicon/drm/Makefile.sources
+@@ -0,0 +1,3 @@
++C_SOURCES := \
++   hisilicon_drm_public.h \
++   hisilicon_drm_winsys.c
+diff --git a/src/gallium/winsys/hisilicon/drm/hisilicon_drm_public.h b/src/gallium/winsys/hisilicon/drm/hisilicon_drm_public.h
+new file mode 100644
+index 0000000..2aee27f
+--- /dev/null
++++ b/src/gallium/winsys/hisilicon/drm/hisilicon_drm_public.h
+@@ -0,0 +1,31 @@
++/*
++ * Copyright (c) 2017 Lima Project
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice (including the next
++ * paragraph) shall be included in all copies or substantial portions of the
++ * Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++ * SOFTWARE.
++ */
++
++#ifndef __HISILICON_DRM_PUBLIC_H__
++#define __HISILICON_DRM_PUBLIC_H__
++
++struct pipe_screen;
++
++struct pipe_screen *hisilicon_screen_create(int fd);
++
++#endif /* __HISILICON_DRM_PUBLIC_H__ */
+diff --git a/src/gallium/winsys/hisilicon/drm/hisilicon_drm_winsys.c b/src/gallium/winsys/hisilicon/drm/hisilicon_drm_winsys.c
+new file mode 100644
+index 0000000..3d954c6
+--- /dev/null
++++ b/src/gallium/winsys/hisilicon/drm/hisilicon_drm_winsys.c
+@@ -0,0 +1,79 @@
++/*
++ * Copyright (c) 2017 Lima Project
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice (including the next
++ * paragraph) shall be included in all copies or substantial portions of the
++ * Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++ * SOFTWARE.
++ */
++
++#include <fcntl.h>
++#include <unistd.h>
++
++#include "hisilicon_drm_public.h"
++#include "lima/drm/lima_drm_public.h"
++#include "xf86drm.h"
++
++#include "pipe/p_screen.h"
++#include "renderonly/renderonly.h"
++
++#if defined(GALLIUM_LIMA)
++static struct pipe_screen *hisilicon_screen_create_lima(int fd)
++{
++   struct renderonly ro = {
++      /* Passes the lima-allocated BO through to the hisilicon DRM device using
++       * PRIME buffer sharing.  The lima BO must be linear, which the SCANOUT
++       * flag on allocation will have ensured.
++       */
++      .create_for_resource = renderonly_create_kms_dumb_buffer_for_resource,
++      .kms_fd = fd,
++      .gpu_fd = drmOpenWithType("lima", NULL, DRM_NODE_RENDER),
++   };
++
++   if (ro.gpu_fd < 0)
++      return NULL;
++
++   struct pipe_screen *screen = lima_drm_screen_create_renderonly(&ro);
++   if (!screen)
++      close(ro.gpu_fd);
++
++   return screen;
++}
++#else
++static struct pipe_screen *hisilicon_screen_create_lima(int fd)
++{
++   return NULL;
++}
++#endif
++
++/*
++ * Hisilicon SoCs use a plethora of 3D GPUs combined with the same
++ * KMS device. Malis from the Utgard and Midgard branches as well
++ * as PowerVR and Vivante cores.
++ * So to we try to find a suitable GPU by trying to talk to each
++ * of them one after the other.
++ */
++struct pipe_screen *hisilicon_screen_create(int fd)
++{
++   struct pipe_screen *screen;
++
++   screen = hisilicon_screen_create_lima(fd);
++   if (screen)
++      return screen;
++
++   return NULL;
++}
+-- 
+2.7.4
+
