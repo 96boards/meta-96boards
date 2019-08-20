@@ -13,7 +13,7 @@ do_install() {
     install -m 0755 ${S}/hisi-idt.py ${D}${bindir}
 }
 
-RDEPENDS_${PN} += "python-pyserial"
+RDEPENDS_${PN} += "python python-pyserial"
 
 inherit deploy
 
