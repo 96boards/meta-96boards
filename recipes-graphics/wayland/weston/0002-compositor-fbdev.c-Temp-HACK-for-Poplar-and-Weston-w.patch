@@ -1,7 +1,7 @@
-From 504b1551bdcee2a2f1685e9a040cc4ec1c3250f9 Mon Sep 17 00:00:00 2001
+From 3cc32d4eda74f033e0550fb8575b0dcd8a237a29 Mon Sep 17 00:00:00 2001
 From: Peter Griffin <peter.griffin@linaro.org>
 Date: Thu, 23 Nov 2017 15:37:51 +0000
-Subject: [PATCH] compositor-fbdev.c: Temp HACK for Poplar and Weston with
+Subject: [PATCH 2/2] compositor-fbdev.c: Temp HACK for Poplar and Weston with
  fbdev backend.
 
 To get Weston running on fbdev backend, we can't report
@@ -9,14 +9,14 @@ a zero refresh rate, like Poplar fbdev currently does.
 
 Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
 ---
- libweston/compositor-fbdev.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ libweston/backend-fbdev/fbdev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Index: weston-5.0.0/libweston/compositor-fbdev.c
-===================================================================
---- weston-5.0.0.orig/libweston/compositor-fbdev.c
-+++ weston-5.0.0/libweston/compositor-fbdev.c
-@@ -483,7 +483,8 @@ fbdev_output_attach_head(struct weston_o
+diff --git a/libweston/backend-fbdev/fbdev.c b/libweston/backend-fbdev/fbdev.c
+index ae289cc0..729f7d7d 100644
+--- a/libweston/backend-fbdev/fbdev.c
++++ b/libweston/backend-fbdev/fbdev.c
+@@ -510,7 +510,8 @@ fbdev_output_attach_head(struct weston_output *output_base,
  	output->mode.flags = WL_OUTPUT_MODE_CURRENT | WL_OUTPUT_MODE_PREFERRED;
  	output->mode.width = head->fb_info.x_resolution;
  	output->mode.height = head->fb_info.y_resolution;
@@ -26,3 +26,6 @@ Index: weston-5.0.0/libweston/compositor-fbdev.c
  	wl_list_init(&output->base.mode_list);
  	wl_list_insert(&output->base.mode_list, &output->mode.link);
  	output->base.current_mode = &output->mode;
+-- 
+2.23.0
+
