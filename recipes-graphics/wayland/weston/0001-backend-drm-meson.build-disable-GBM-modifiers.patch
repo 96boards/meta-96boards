@@ -1,0 +1,27 @@
+From 2caac597785c9403ea1f6343a8f25d83817534e9 Mon Sep 17 00:00:00 2001
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Wed, 7 Nov 2018 12:12:41 +0000
+Subject: [PATCH 1/2] backend-drm/meson.build: disable GBM modifiers
+
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ libweston/backend-drm/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libweston/backend-drm/meson.build b/libweston/backend-drm/meson.build
+index 01f2d50f..4e1eef95 100644
+--- a/libweston/backend-drm/meson.build
++++ b/libweston/backend-drm/meson.build
+@@ -41,7 +41,7 @@ deps_drm = [
+ ]
+ 
+ # XXX: Actually let DRM-backend build without GBM, it really should
+-if true # get_option('renderer-gl')
++if false # get_option('renderer-gl')
+ 	dep_gbm = dependency('gbm', required: false)
+ 	if not dep_gbm.found()
+ 		error('drm-backend requires gbm which was not found. Or, you can use \'-Dbackend-drm=false\'.')
+-- 
+2.23.0
+
