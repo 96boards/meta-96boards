@@ -26,7 +26,7 @@ PROVIDES = " \
     virtual/libgbm \
     "
 
-inherit autotools pkgconfig pythonnative gettext distro_features_check
+inherit autotools pkgconfig pythonnative gettext features_check
 
 ANY_OF_DISTRO_FEATURES = "opengl vulkan"
 
