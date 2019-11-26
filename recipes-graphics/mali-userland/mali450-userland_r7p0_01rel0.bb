@@ -1,3 +1,4 @@
+
 SUMMARY = "ARM Mali Utgard GPU User Space driver for HiKey (drm backend)"
 
 VER ?= "${@bb.utils.contains('TUNE_FEATURES', 'aarch64', '64', 'hf', d)}"
@@ -25,7 +26,7 @@ SRC_URI[arm64.sha256sum] = "34d3b15f0f81487a6b4e3680a79b22afaa2ea221eabe9e559523
 SRC_URI[armhf.md5sum] = "9fd39f6d4a9fa2734dbe1201c54fc421"
 SRC_URI[armhf.sha256sum] = "48c1b3c9225597626af5c0d32f5584a3e2e283e108eb4715b5479e93adf15c2f"
 
-PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2"
+PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2 virtual/libgbm"
 
 DEPENDS = "libdrm wayland mesa patchelf-native libffi"
 RDEPENDS_${PN} += "libffi"
@@ -45,9 +46,8 @@ do_install() {
     install -m 755 -d ${D}/${libdir}
     install ${S}/libMali.so ${D}/${libdir}
     patchelf --set-soname libMali.so ${D}${libdir}/libMali.so
-    (cd ${D}/${libdir} && ln -sf libMali.so libEGL.so.1.4 \
-    && ln -sf libEGL.so.1.4 libEGL.so.1 \
-    && ln -sf libEGL.so.1 libEGL.so)
+    (cd ${D}/${libdir} && ln -sf libMali.so libEGL.so \
+    && ln -sf libMali.so libEGL.so.1)
     (cd ${D}/${libdir} && ln -sf libMali.so libGLESv1_CM.so.1.1 \
     && ln -sf libGLESv1_CM.so.1.1 libGLESv1_CM.so.1 \
     && ln -sf libGLESv1_CM.so.1 libGLESv1_CM.so)
