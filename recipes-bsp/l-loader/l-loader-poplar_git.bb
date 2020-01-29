@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=e8c1458438ead3c34974bc0be3a03ed6"
 COMPATIBLE_MACHINE = "poplar"
 DEPENDS += " atf-poplar coreutils-native util-linux-native"
 
-inherit deploy pythonnative
+inherit deploy python3native
 
 SRCREV = "d7b3ac7748d6607c2dd82cf37326b80a2ede6e5b"
 
@@ -17,7 +17,7 @@ SRCREV = "d7b3ac7748d6607c2dd82cf37326b80a2ede6e5b"
 # l-loader.
 # knowledgeably, it is a hack...
 ###
-SRC_URI = "git://github.com/Linaro/poplar-l-loader.git;branch=latest \
+SRC_URI = "git://github.com/96boards-poplar/l-loader;branch=latest \
            http://releases.linaro.org/components/toolchain/binaries/5.3-2016.02/arm-linux-gnueabihf/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf.tar.xz;name=tc \
 "
 SRC_URI[tc.md5sum] = "01d8860d62807b676762c9c2576dfb22"
