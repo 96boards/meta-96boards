@@ -4,7 +4,7 @@ COMPATIBLE_MACHINE = "hikey960"
 
 DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub-efi"
 
-inherit deploy pythonnative
+inherit deploy python3native
 
 SRCREV_edk2 = "77326b5a153513c826d5a50363eace6ef6b59413"
 SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
