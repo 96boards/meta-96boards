@@ -1,0 +1,48 @@
+From b1bb2c0dcb77256db8ed1c4a50373b788fb83702 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 29 Jan 2020 17:53:17 -0800
+Subject: [PATCH] Ask for python3 interpreter
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ gen_elf.sh  | 2 +-
+ hisi-idt.py | 2 +-
+ miniterm.py | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/gen_elf.sh b/gen_elf.sh
+index d2a7280..8fdb286 100755
+--- a/gen_elf.sh
++++ b/gen_elf.sh
+@@ -33,7 +33,7 @@ echo "Done"
+ 
+ echo "begin to generate pyc file..."
+ 
+-python -m py_compile hisi-idt.py
++python3 -m py_compile hisi-idt.py
+ mv hisi-idt.pyc ./out
+ 
+ echo "Done"
+diff --git a/hisi-idt.py b/hisi-idt.py
+index e128a30..6c43846 100755
+--- a/hisi-idt.py
++++ b/hisi-idt.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python3
+ #-*- coding: utf-8 -*-
+ 
+ import os
+diff --git a/miniterm.py b/miniterm.py
+index cc1fb9e..d0f1860 100644
+--- a/miniterm.py
++++ b/miniterm.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # Very simple serial terminal
+ # (C)2002-2009 Chris Liechti <cliechti@gmx.net>
+-- 
+2.25.0
+
