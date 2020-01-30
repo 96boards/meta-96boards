@@ -49,5 +49,4 @@ The github issue tracker (https://github.com/96boards/meta-96boards/issues) is b
 Maintainers
 -------------------------
 
-* Koen Kooi <koen.kooi@linaro.org>
 * Fathi Boudra <mailto:fathi.boudra@linaro.org>

@@ -3,9 +3,8 @@ SUMMARY = "A small python tool for downloading bootloader to ddr through serial 
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=219f23a516954274fab23350ce921da3"
 
-SRCREV = "bee2ea1660f3a03df8d391fb75aa08dbc3441856"
+SRCREV = "6d8429dd5dfa4ec1cee4428cafe882c16624832a"
 SRC_URI = "git://github.com/96boards-hikey/burn-boot.git;protocol=https \
-           file://0001-Ask-for-python3-interpreter.patch \
 "
 
 S = "${WORKDIR}/git"
