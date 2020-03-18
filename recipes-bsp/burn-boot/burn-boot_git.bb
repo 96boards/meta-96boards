@@ -9,14 +9,12 @@ SRC_URI = "git://github.com/96boards-hikey/burn-boot.git;protocol=https \
 
 S = "${WORKDIR}/git"
 
+inherit deploy native
+
 do_install() {
     install -d ${D}${bindir}
     install -m 0755 ${S}/hisi-idt.py ${D}${bindir}
 }
-
-RDEPENDS_${PN} += "python3-core python3-pyserial"
-
-inherit deploy
 
 do_deploy() {
     install -D -p -m 0755 ${S}/hisi-idt.py ${DEPLOYDIR}/bootloader/hisi-idt.py
@@ -24,4 +22,4 @@ do_deploy() {
 
 addtask deploy before do_build after do_compile
 
-BBCLASSEXTEND = "native"
+RDEPENDS_${PN} += "python3-core python3-pyserial"
