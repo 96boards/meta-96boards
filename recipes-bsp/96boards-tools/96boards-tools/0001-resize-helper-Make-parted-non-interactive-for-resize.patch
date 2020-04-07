@@ -1,0 +1,31 @@
+From a999d655417bb19ce8a476ff8c811e957748b661 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 7 Apr 2020 10:50:16 -0700
+Subject: [PATCH] resize-helper: Make parted non-interactive for resizepart
+
+This has been an issue on recent versions of parted see [1] [2]
+
+[1] https://bugs.launchpad.net/ubuntu/+source/parted/+bug/1270203
+[2] https://lists.gnu.org/archive/html/bug-parted/2020-01/msg00005.html
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ resize-helper | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/resize-helper b/resize-helper
+index 76348eb..69ead34 100755
+--- a/resize-helper
++++ b/resize-helper
+@@ -54,7 +54,6 @@ if [ "$PART_TABLE_TYPE" = "gpt" ]; then
+ 	${SGDISK} -e ${DEVICE}
+ 	${PARTPROBE}
+ fi
+-
+-${PARTED} ${DEVICE} resizepart ${PART_ENTRY_NUMBER} 100%
++echo -e "yes\n100%" | ${PARTED} ${DEVICE} ---pretend-input-tty unit % resizepart ${PART_ENTRY_NUMBER}
+ ${PARTPROBE}
+ ${RESIZE2FS} "${ROOT_DEVICE}"
+-- 
+2.26.0
+
