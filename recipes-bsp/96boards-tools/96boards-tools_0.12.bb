@@ -15,7 +15,7 @@ inherit systemd allarch update-rc.d
 
 do_install () {
     install -d ${D}${sysconfdir}/udev/rules.d
-    install -m 0755 ${S}/*.rules ${D}${sysconfdir}/udev/rules.d/
+    install -m 0644 ${S}/*.rules ${D}${sysconfdir}/udev/rules.d/
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${S}/resize-disk ${D}${sysconfdir}/init.d/
 
