@@ -1,0 +1,74 @@
+From 2a9cea2ddec807fef58cfe46bccc9392a321eb87 Mon Sep 17 00:00:00 2001
+From: nishantpoorswani <nishantpoorswani@gmail.com>
+Date: Thu, 20 Sep 2018 19:15:30 +0200
+Subject: [PATCH] Fixed incompatible pointer errors in fbdev
+
+---
+ drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.c | 6 +++---
+ drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.h | 1 -
+ drivers/gpu/drm/hisilicon/kirin9xx/kirin_fbdev.c   | 6 +++---
+ 3 files changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.c b/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.c
+index 1fae1a1..28208b2 100755
+--- a/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.c
+@@ -146,9 +146,9 @@ static int kirin_drm_kms_init(struct drm_device *dev)
+ 	/* reset all the states of crtc/plane/encoder/connector */
+ 	drm_mode_config_reset(dev);
+ 
+-	if (fbdev)
+-		priv->fbdev = kirin_drm_fbdev_init(dev);
+-	else
++	
++	
++	
+ 		priv->fbdev = drm_fbdev_cma_init(dev, 32, 1, 1);
+ 
+ 	/* init kms poll for handling hpd */
+diff --git a/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.h b/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.h
+index aa4ed5a..bac11af 100644
+--- a/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.h
++++ b/drivers/gpu/drm/hisilicon/kirin9xx/kirin_drm_drv.h
+@@ -46,7 +46,6 @@ struct kirin_drm_private {
+ struct kirin_fbdev {
+ 	struct drm_fb_helper fb_helper;
+ 	struct drm_framebuffer *fb;
+-
+ 	struct ion_client *ion_client;
+ 	struct ion_handle *ion_handle;
+ 	struct iommu_map_format iommu_format;
+diff --git a/drivers/gpu/drm/hisilicon/kirin9xx/kirin_fbdev.c b/drivers/gpu/drm/hisilicon/kirin9xx/kirin_fbdev.c
+index 3d21a7f..2b03bda 100644
+--- a/drivers/gpu/drm/hisilicon/kirin9xx/kirin_fbdev.c
++++ b/drivers/gpu/drm/hisilicon/kirin9xx/kirin_fbdev.c
+@@ -453,7 +453,7 @@ struct drm_fb_helper *kirin_drm_fbdev_init(struct drm_device *dev)
+ 	if (ret)
+ 		goto fini;
+ 
+-	priv->fbdev = helper;
++
+ 
+ 	return helper;
+ 
+@@ -467,7 +467,7 @@ struct drm_fb_helper *kirin_drm_fbdev_init(struct drm_device *dev)
+ void kirin_drm_fbdev_fini(struct drm_device *dev)
+ {
+ 	struct kirin_drm_private *priv = dev->dev_private;
+-	struct drm_fb_helper *helper = priv->fbdev;
++	struct drm_fb_helper *helper = priv->fb_helper;
+ 	struct kirin_fbdev *fbdev;
+ 
+ 	drm_fb_helper_unregister_fbi(helper);
+@@ -475,7 +475,7 @@ void kirin_drm_fbdev_fini(struct drm_device *dev)
+ 
+ 	drm_fb_helper_fini(helper);
+ 
+-	fbdev = to_kirin_fbdev(priv->fbdev);
++
+ 
+ 	/* this will free the backing object */
+ 	if (fbdev->fb) {
+-- 
+2.7.4
+
