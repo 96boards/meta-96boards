@@ -2,7 +2,7 @@ require edk2_git.bb
 
 COMPATIBLE_MACHINE = "hikey"
 
-DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub-efi optee-os"
+DEPENDS:append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub-efi optee-os"
 
 inherit deploy python3native
 
@@ -34,11 +34,11 @@ SRC_URI[tc.md5sum] = "8c6084924df023d1e5c0bac2a4ccfa2f"
 SRC_URI[tc.sha256sum] = "1c975a1936cc966099b3fcaff8f387d748caff27f43593214ae6d4601241ae40"
 
 # /usr/lib/edk2/bl1.bin not shipped files. [installed-vs-shipped]
-INSANE_SKIP_${PN} += "installed-vs-shipped"
+INSANE_SKIP:${PN} += "installed-vs-shipped"
 
 OPTEE_OS_ARG = "-s ${EDK2_DIR}/optee_os"
 REMOVE_MACRO_PREFIX_MAP = "-fmacro-prefix-map=${WORKDIR}=/usr/src/debug/${PN}/${EXTENDPE}${PV}-${PR}"
-DEBUG_PREFIX_MAP_remove = "${@'${REMOVE_MACRO_PREFIX_MAP}'"
+DEBUG_PREFIX_MAP:remove = "${@'${REMOVE_MACRO_PREFIX_MAP}'"
 
 # workaround EDK2 is confused by the long path used during the build
 # and truncate files name expected by VfrCompile
@@ -47,7 +47,7 @@ set_max_path () {
     sed -i -e 's/^#define MAX_PATH.*/#define MAX_PATH 511/' ${S}/BaseTools/Source/C/VfrCompile/EfiVfr.h
 }
 
-do_compile_prepend() {
+do_compile:prepend() {
     unset LDFLAGS
     unset CFLAGS
     unset CPPFLAGS
@@ -73,7 +73,7 @@ do_compile_prepend() {
     sed -i -e 's:fakeroot ::g' ${S}/l-loader/generate_ptable.sh
 }
 
-fakeroot do_compile_append() {
+fakeroot do_compile:append() {
     # Use pre-built aarch32 toolchain
     export PATH=${WORKDIR}/gcc-linaro-6.4.1-2017.08-x86_64_arm-linux-gnueabihf/bin:$PATH
 
@@ -114,7 +114,7 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 # HiKey boot image requires fastboot and grub EFI
 # ensure we deploy grub-efi-bootaa64.efi before we try to create the boot image.
 do_deploy[depends] += "grub-efi:do_deploy"
-do_deploy_append() {
+do_deploy:append() {
     cd ${EDK2_DIR}/l-loader
     install -D -p -m0644 l-loader.bin ${DEPLOYDIR}/bootloader/l-loader.bin
     install -D -p -m0644 recovery.bin ${DEPLOYDIR}/bootloader/recovery.bin

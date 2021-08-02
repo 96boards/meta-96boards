@@ -9,7 +9,7 @@ SRCREV_FORMAT = "kernel"
 SRC_URI = "git://github.com/96boards/linux.git;protocol=https;branch=96b/releases/2016.06;name=kernel \
           "
 
-SRC_URI_append_hikey = " \
+SRC_URI:append:hikey = " \
     https://developer.arm.com/-/media/Files/downloads/mali-drivers/kernel/mali-utgard-gpu/DX910-SW-99002-r7p0-00rel1.tgz;name=mali \
     file://mali-450.conf;subdir=git/kernel/configs \
     file://END_USER_LICENCE_AGREEMENT.txt;subdir=git \
@@ -40,7 +40,7 @@ KERNEL_CONFIG_FRAGMENTS_hikey += "${S}/kernel/configs/mali-450.conf"
 DEPENDS += "openssl-native"
 HOST_EXTRACFLAGS += "-I${STAGING_INCDIR_NATIVE}"
 
-do_unpack_append_hikey() {
+do_unpack:append:hikey() {
     bb.build.exec_func('do_unpack_mali_drv', d)
 }
 

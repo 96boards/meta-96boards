@@ -60,6 +60,6 @@ do_configure() {
     oe_runmake -C ${B} savedefconfig
 }
 
-do_deploy_append() {
+do_deploy:append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
 }

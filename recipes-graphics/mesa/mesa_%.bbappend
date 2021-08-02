@@ -1,6 +1,6 @@
-PROVIDES_remove = "${@bb.utils.contains("MACHINE_FEATURES", "mali450", "virtual/libgles1 virtual/libgles2 virtual/egl virtual/libgbm", "", d)}"
+PROVIDES:remove = "${@bb.utils.contains("MACHINE_FEATURES", "mali450", "virtual/libgles1 virtual/libgles2 virtual/egl virtual/libgbm", "", d)}"
 
-do_install_append_hikey() {
+do_install:append:hikey() {
         rm -rf ${D}${libdir}/libEGL*
         rm -rf ${D}${libdir}/libGLESv2.*
         rm -rf ${D}${libdir}/libgbm*

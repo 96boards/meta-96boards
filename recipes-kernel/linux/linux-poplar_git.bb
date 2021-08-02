@@ -2,7 +2,7 @@ require linux.inc
 
 DESCRIPTION = "96boards-poplar kernel"
 
-DEPENDS_append = " dosfstools-native mtools-native u-boot-poplar"
+DEPENDS:append = " dosfstools-native mtools-native u-boot-poplar"
 
 PV = "4.9+git${SRCPV}"
 SRCREV = "81262627d114c33e361c0517b8c3aaee69f2174d"
@@ -64,7 +64,7 @@ BOOT_IMAGE_SIZE = "131072"
 BOOT_IMAGE_BASE_NAME = "boot-${PKGV}-${PKGR}-${MACHINE}-${DATETIME}"
 BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 
-do_deploy_append() {
+do_deploy:append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
 
     # Create boot image

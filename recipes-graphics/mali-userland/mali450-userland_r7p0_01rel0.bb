@@ -29,7 +29,7 @@ SRC_URI[armhf.sha256sum] = "48c1b3c9225597626af5c0d32f5584a3e2e283e108eb4715b547
 PROVIDES += "virtual/egl virtual/libgles1 virtual/libgles2 virtual/libgbm"
 
 DEPENDS = "libdrm wayland mesa patchelf-native libffi"
-RDEPENDS_${PN} += "libffi"
+RDEPENDS:${PN} += "libffi"
 
 SRC_URI = " https://developer.arm.com/-/media/Files/downloads/mali-drivers/user-space/hikey/${MALI_TARNAME};name=arm${VER};downloadfilename=${MALI_TARNAME} \
             file://50-mali.rules \
@@ -64,16 +64,16 @@ do_install() {
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # The driver tarball has only shared libraries
-FILES_${PN} += "${libdir}/*.so* "
+FILES:${PN} += "${libdir}/*.so* "
 # All the packages except ${PN} are empty, including the development package.
 # Set the development package files empty to avoid the QA issue error
 # ERROR: QA Issue: mali450-userland rdepends on mali450-userland-dev [dev-deps]
-FILES_${PN}-dev = ""
+FILES:${PN}-dev = ""
 
-INSANE_SKIP_${PN} = "ldflags dev-so file-rdeps"
+INSANE_SKIP:${PN} = "ldflags dev-so file-rdeps"
 
 # The driver is missing EGL/GLES headers and pkgconfig files. Handle
 # the conflicts as mesa and the driver are both providing the same shared libraries.
-RREPLACES_${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm libgles2-mesa libgles1-mesa libgles2-mesa"
-RPROVIDES_${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm libgles2-mesa libgles1-mesa libgles2-mesa"
-RCONFLICTS_${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm libgles2-mesa libgles1-mesa libgles2-mesa"
+RREPLACES:${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm libgles2-mesa libgles1-mesa libgles2-mesa"
+RPROVIDES:${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm libgles2-mesa libgles1-mesa libgles2-mesa"
+RCONFLICTS:${PN} = "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm libgles2-mesa libgles1-mesa libgles2-mesa"

@@ -29,5 +29,5 @@ do_install () {
 INITSCRIPT_NAME = "resize-disk"
 INITSCRIPT_PARAMS = "start 99 5 2 . stop 20 0 1 6 ."
 
-SYSTEMD_SERVICE_${PN} = "resize-helper.service"
-RDEPENDS_${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
+SYSTEMD_SERVICE:${PN} = "resize-helper.service"
+RDEPENDS:${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
