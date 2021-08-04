@@ -25,7 +25,7 @@ SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE_juno = "(.*)"
+COMPATIBLE_MACHINE:juno = "(.*)"
 COMPATIBLE_MACHINE = "(-)"
 
 export AARCH64_TOOLCHAIN = "GCC49"
