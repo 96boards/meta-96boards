@@ -22,4 +22,4 @@ do_deploy() {
 
 addtask deploy before do_build after do_compile
 
-RDEPENDS_${PN} += "python3-core python3-pyserial"
+RDEPENDS:${PN} += "python3-core python3-pyserial"

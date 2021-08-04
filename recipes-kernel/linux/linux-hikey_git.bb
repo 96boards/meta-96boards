@@ -9,7 +9,7 @@ SRCREV_FORMAT = "kernel"
 SRC_URI = "git://github.com/Linaro/rpk.git;protocol=https;branch=rpk-v4.9;name=kernel \
 "
 
-SRC_URI_append_hikey = " \
+SRC_URI:append:hikey = " \
     https://developer.arm.com/-/media/Files/downloads/mali-drivers/kernel/mali-utgard-gpu/DX910-SW-99002-r7p0-00rel1.tgz;name=mali \
     file://defconfig;subdir=git/kernel/configs \
     file://mali-450.conf;subdir=git/kernel/configs \
@@ -45,7 +45,7 @@ KERNEL_CONFIG_FRAGMENTS_hikey += "${S}/kernel/configs/mali-450.conf"
 DEPENDS += "openssl-native"
 HOST_EXTRACFLAGS += "-I${STAGING_INCDIR_NATIVE}"
 
-do_unpack_append_hikey() {
+do_unpack:append:hikey() {
     bb.build.exec_func('do_unpack_mali_drv', d)
 }
 
@@ -96,7 +96,7 @@ do_configure() {
     oe_runmake -C ${B} savedefconfig
 }
 
-do_deploy_append() {
+do_deploy:append() {
     cp -a ${B}/defconfig ${DEPLOYDIR}
     cp -a ${B}/.config ${DEPLOYDIR}/config
 }

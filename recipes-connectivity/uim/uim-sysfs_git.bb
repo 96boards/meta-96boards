@@ -27,8 +27,8 @@ do_install() {
 	install -m 0644 ${S}/modprobe.d/*.conf ${D}${sysconfdir}/modprobe.d/
 }
 
-SYSTEMD_SERVICE_${PN} = "ti-uim.service"
+SYSTEMD_SERVICE:${PN} = "ti-uim.service"
 
 # connman has a plugin to handle all this
-RCONFLICTS_${PN} += "connman-plugin-tist"
-RRECOMMENDS_${PN} = "linux-firmware-wl12xx"
+RCONFLICTS:${PN} += "connman-plugin-tist"
+RRECOMMENDS:${PN} = "linux-firmware-wl12xx"

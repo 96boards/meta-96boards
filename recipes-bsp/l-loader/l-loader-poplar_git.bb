@@ -48,6 +48,6 @@ do_deploy() {
     install -D -p -m0644 fastboot.bin ${DEPLOYDIR}/fastboot.bin
 }
 
-FILES_${PN} += "${libdir}/l-loader"
+FILES:${PN} += "${libdir}/l-loader"
 
 addtask deploy before do_build after do_compile

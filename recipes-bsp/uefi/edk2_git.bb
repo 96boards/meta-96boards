@@ -69,6 +69,6 @@ do_deploy() {
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-FILES_${PN} += "/boot"
+FILES:${PN} += "/boot"
 
 addtask deploy before do_build after do_compile

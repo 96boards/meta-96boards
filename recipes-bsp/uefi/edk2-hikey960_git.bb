@@ -2,7 +2,7 @@ require edk2_git.bb
 
 COMPATIBLE_MACHINE = "hikey960"
 
-DEPENDS_append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub-efi"
+DEPENDS:append = " dosfstools-native gptfdisk-native mtools-native virtual/fakeroot-native grub-efi"
 
 inherit deploy python3native
 
@@ -24,7 +24,7 @@ SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hik
           "
 
 # /usr/lib/edk2/bl1.bin not shipped files. [installed-vs-shipped]
-INSANE_SKIP_${PN} += "installed-vs-shipped"
+INSANE_SKIP:${PN} += "installed-vs-shipped"
 
 # workaround EDK2 is confused by the long path used during the build
 # and truncate files name expected by VfrCompile
@@ -33,7 +33,7 @@ set_max_path () {
     sed -i -e 's/^#define MAX_PATH.*/#define MAX_PATH 511/' ${S}/BaseTools/Source/C/VfrCompile/EfiVfr.h
 }
 
-do_compile_prepend() {
+do_compile:prepend() {
     unset LDFLAGS
     unset CFLAGS
     unset CPPFLAGS
@@ -45,7 +45,7 @@ do_compile_prepend() {
     sed -i -e 's:fakeroot ::g' ${S}/l-loader/generate_ptable.sh
 }
 
-fakeroot do_compile_append() {
+fakeroot do_compile:append() {
     cd ${EDK2_DIR}/l-loader
     ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl1.bin
     ln -s ${EDK2_DIR}/Build/HiKey960/RELEASE_${AARCH64_TOOLCHAIN}/FV/bl2.bin
@@ -77,7 +77,7 @@ BOOT_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
 # HiKey960 boot image requires fastboot and grub EFI
 # ensure we deploy grub-efi-bootaa64.efi before we try to create the boot image.
 do_deploy[depends] += "grub-efi:do_deploy"
-do_deploy_append() {
+do_deploy:append() {
     cd ${EDK2_DIR}/l-loader
     install -D -p -m0644 l-loader.bin ${DEPLOYDIR}/bootloader/l-loader.bin
     install -D -p -m0644 recovery.bin ${DEPLOYDIR}/bootloader/recovery.bin
