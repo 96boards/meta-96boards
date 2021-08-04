@@ -14,7 +14,7 @@ S = "${WORKDIR}/git"
 COMPATIBLE_MACHINE = "juno"
 KERNEL_IMAGETYPE ?= "Image"
 
-KERNEL_CONFIG_FRAGMENTS_juno += " \
+KERNEL_CONFIG_FRAGMENTS:juno += " \
        ${S}/linaro/configs/linaro-base.conf \
        ${S}/linaro/configs/linaro-base-arm64.conf \
        ${S}/linaro/configs/distribution.conf \

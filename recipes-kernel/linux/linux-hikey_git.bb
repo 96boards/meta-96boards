@@ -33,13 +33,13 @@ SRC_URI[mali.md5sum] = "ca8b284c7b98bcfb376424e19d2ab8e4"
 SRC_URI[mali.sha256sum] = "56080f2b8c7698a06e9357e11e3a00f92949f30e2551c3de49889d4e51fdb5c3"
 
 # Mali 400/450 GPU kernel device drivers license is GPLv2
-LIC_FILES_CHKSUM_hikey = "file://END_USER_LICENCE_AGREEMENT.txt;md5=450d710cd9d21c5ea5c4ac4217362b7e"
+LIC_FILES_CHKSUM:hikey = "file://END_USER_LICENCE_AGREEMENT.txt;md5=450d710cd9d21c5ea5c4ac4217362b7e"
 
 S = "${WORKDIR}/git"
 
 COMPATIBLE_MACHINE = "hikey"
 KERNEL_IMAGETYPE ?= "Image"
-KERNEL_CONFIG_FRAGMENTS_hikey += "${S}/kernel/configs/mali-450.conf"
+KERNEL_CONFIG_FRAGMENTS:hikey += "${S}/kernel/configs/mali-450.conf"
 
 # make[3]: *** [scripts/extract-cert] Error 1
 DEPENDS += "openssl-native"
