@@ -67,8 +67,7 @@ SRC_URI:append:stih410-b2260 = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64|juno|stih410-b2260"
-KERNEL_DEVICETREE:remove:juno = "arm/juno-r2.dtb"
+COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64|stih410-b2260"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/lkft-4.4.config \
