@@ -25,6 +25,9 @@ Please note that the support for Qualcomm based 96boards.org, such as the
 DragonBoard 410c, is done through the meta-qcom BSP layer:
 https://github.com/ndechesne/meta-qcom not meta-96boards.
 
+Support for the Arm Juno reference platform is done through the meta-arm BSP layer:
+https://git.yoctoproject.org/cgit/cgit.cgi/meta-arm/
+
 Hikey kernel enables CONFIG_MODULE_SIG options which enforces that openssl dev
 package is installed on build host.
 

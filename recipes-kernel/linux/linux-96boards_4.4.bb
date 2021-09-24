@@ -32,7 +32,7 @@ LIC_FILES_CHKSUM:hikey = "file://END_USER_LICENCE_AGREEMENT.txt;md5=450d710cd9d2
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "96boards-64|96boards-32|juno|hikey"
+COMPATIBLE_MACHINE = "96boards-64|96boards-32|hikey"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS:hikey += "${S}/kernel/configs/mali-450.conf"
 

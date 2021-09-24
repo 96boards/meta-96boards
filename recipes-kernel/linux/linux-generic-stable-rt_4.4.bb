@@ -22,8 +22,7 @@ SRC_URI = "\
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64|juno"
-KERNEL_DEVICETREE:remove:juno = "arm/juno-r2.dtb"
+COMPATIBLE_MACHINE = "am57xx-evm|beaglebone|intel-core2-32|intel-corei7-64"
 KERNEL_IMAGETYPE ?= "Image"
 KERNEL_CONFIG_FRAGMENTS += "\
     ${S}/kernel/configs/lkft-4.4.config \
