@@ -28,3 +28,5 @@ do_compile() {
 do_install:append() {
            install -Dm644 ${WORKDIR}/git/plat/hisilicon/poplar/include/poplar_layout.h ${D}${includedir}/poplar_layout.h
 }
+
+COMPATIBLE_MACHINE = "(poplar)"

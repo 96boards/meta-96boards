@@ -21,3 +21,5 @@ UBOOT_EXTLINUX_MENU_DESCRIPTION_default ??= "Linux Default"
 UBOOT_EXTLINUX_FDTDIR ??= "../hisilicon"
 UBOOT_EXTLINUX_KERNEL_ARGS ??= "append mem=1G earlycon console=ttyAMA0"
 UBOOT_EXTLINUX_ROOT ??= "root=/dev/mmcblk1p3 rootfstype=ext4 rootwait rw"
+
+COMPATIBLE_MACHINE = "(poplar)"
