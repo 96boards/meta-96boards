@@ -28,3 +28,5 @@ UBOOT_EXTLINUX_MENU_DESCRIPTION_default ??= "Linux Default"
 UBOOT_EXTLINUX_FDTDIR ??= "../"
 UBOOT_EXTLINUX_KERNEL_ARGS ??= "append console=ttyS0,921600"
 UBOOT_EXTLINUX_ROOT ??= "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait rw"
+
+COMPATIBLE_MACHINE = "(orangepi-i96)"
