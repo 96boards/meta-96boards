@@ -1,7 +1,7 @@
 require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
 
 SUMMARY = "U-Boot bootloader for OrangePi i96"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 # u-boot needs devtree compiler to parse dts files
 DEPENDS += "dtc-native bc-native"

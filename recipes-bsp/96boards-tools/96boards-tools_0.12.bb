@@ -2,7 +2,7 @@ SUMMARY = "Useful bits an pieces to make 96Boards more standard across the board
 HOMEPAGE = "https://github.com/96boards/96boards-tools"
 SECTION = "devel"
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-or-later;md5=fed54355545ffd980b814dab4a3b312c"
 
 SRCREV = "52ad42bb74ba4b3fcece2483f0d496494d60715f"
