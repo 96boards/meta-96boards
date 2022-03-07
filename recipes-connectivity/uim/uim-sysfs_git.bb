@@ -1,5 +1,5 @@
 DESCRIPTION = "User Mode Initialization Manager for TI wilink devices"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://uim.c;startline=4;endline=12;md5=16a9d6e829218481f8a61797fe2be2e2"
 
 inherit systemd

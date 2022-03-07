@@ -1,6 +1,6 @@
 SUMMARY = "Loader to switch from aarch32 to aarch64 and boot"
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=e8c1458438ead3c34974bc0be3a03ed6"
 
 COMPATIBLE_MACHINE = "poplar"

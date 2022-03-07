@@ -1,7 +1,7 @@
 require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
 
 SUMMARY = "U-Boot bootloader for HiSilicon Poplar"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 # u-boot needs devtree compiler to parse dts files
 DEPENDS += "dtc-native bc-native"
