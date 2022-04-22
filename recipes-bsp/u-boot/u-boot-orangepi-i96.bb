@@ -8,7 +8,7 @@ DEPENDS += "dtc-native bc-native"
 SRCREV = "976c9ecfc85a17ea4681c1eb2d1cf8f12251311b"
 PV = "v2012.04.01+git${SRCPV}"
 
-SRC_URI = "git://github.com/daniel-thompson/u-boot.git;nobranch=1"
+SRC_URI = "git://github.com/daniel-thompson/u-boot.git;protocol=https;nobranch=1"
 
 S = "${WORKDIR}/git"
 

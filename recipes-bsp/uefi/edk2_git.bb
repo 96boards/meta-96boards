@@ -17,8 +17,8 @@ SRCREV_atf = "ed8112606c54d85781fc8429160883d6310ece32"
 SRCREV_openplatformpkg = "b4375302ff2c26786a9d42126359c3a394a65ed4"
 SRCREV_uefitools = "b37391801290b4adbbc821832470216e98d4e900"
 
-SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2 \
-           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;destsuffix=git/atf \
+SRC_URI = "git://github.com/tianocore/edk2.git;name=edk2;protocol=https \
+           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;destsuffix=git/atf;protocol=https \
            git://git.linaro.org/uefi/OpenPlatformPkg.git;name=openplatformpkg;destsuffix=git/OpenPlatformPkg \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
           "

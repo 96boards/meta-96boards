@@ -13,12 +13,12 @@ SRCREV_uefitools = "b37391801290b4adbbc821832470216e98d4e900"
 SRCREV_lloader = "c1cbbf8ab824820b5c1769a1c80dd234c5b57ffc"
 SRCREV_toolsimageshikey960 = "b5ae2c13438eaab429aa584dec7080c181aeee87"
 
-SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
-           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=master;destsuffix=git/atf \
-           git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=testing/hikey960_v1.3.4;destsuffix=git/OpenPlatformPkg \
+SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5;protocol=https \
+           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=master;destsuffix=git/atf;protocol=https \
+           git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=testing/hikey960_v1.3.4;destsuffix=git/OpenPlatformPkg;protocol=https \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
-           git://github.com/96boards-hikey/l-loader.git;name=lloader;branch=testing/hikey960_v1.2;destsuffix=git/l-loader \
-           git://github.com/96boards-hikey/tools-images-hikey960.git;name=toolsimageshikey960;destsuffix=git/tools-images-hikey960 \
+           git://github.com/96boards-hikey/l-loader.git;name=lloader;branch=testing/hikey960_v1.2;destsuffix=git/l-loader;protocol=https \
+           git://github.com/96boards-hikey/tools-images-hikey960.git;name=toolsimageshikey960;destsuffix=git/tools-images-hikey960;protocol=https \
            file://grub.cfg.in \
            file://config \
           "
