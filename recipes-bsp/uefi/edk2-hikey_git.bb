@@ -20,12 +20,12 @@ SRCREV_atffastboot = "af5ddb16266e54745d3b2e354d32b54fefbbbd78"
 # l-loader.
 # knowledgeably, it is a hack...
 ###
-SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5 \
-           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=master;destsuffix=git/atf \
-           git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=testing/hikey960_v1.3.4;destsuffix=git/OpenPlatformPkg \
+SRC_URI = "git://github.com/96boards-hikey/edk2.git;name=edk2;branch=testing/hikey960_v2.5;protocol=https \
+           git://github.com/ARM-software/arm-trusted-firmware.git;name=atf;branch=master;destsuffix=git/atf;protocol=https \
+           git://github.com/96boards-hikey/OpenPlatformPkg.git;name=openplatformpkg;branch=testing/hikey960_v1.3.4;destsuffix=git/OpenPlatformPkg;protocol=https \
            git://git.linaro.org/uefi/uefi-tools.git;name=uefitools;destsuffix=git/uefi-tools \
-           git://github.com/96boards-hikey/l-loader.git;name=lloader;branch=testing/hikey960_v1.2;destsuffix=git/l-loader \
-           git://github.com/96boards-hikey/atf-fastboot.git;name=atffastboot;destsuffix=git/atf-fastboot \
+           git://github.com/96boards-hikey/l-loader.git;name=lloader;branch=testing/hikey960_v1.2;destsuffix=git/l-loader;protocol=https \
+           git://github.com/96boards-hikey/atf-fastboot.git;name=atffastboot;destsuffix=git/atf-fastboot;protocol=https \
            http://releases.linaro.org/components/toolchain/binaries/6.4-2017.08/arm-linux-gnueabihf/gcc-linaro-6.4.1-2017.08-x86_64_arm-linux-gnueabihf.tar.xz;name=tc \
            file://grub.cfg.in \
           "

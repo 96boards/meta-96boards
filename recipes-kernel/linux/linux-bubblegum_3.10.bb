@@ -6,7 +6,7 @@ PV = "3.10.52+git"
 SRCREV_kernel = "35be6ad831e4966dc5c6c3ff5a718b1aab6bb81b"
 SRCREV_FORMAT = "kernel"
 
-SRC_URI = "git://github.com/96boards-bubblegum/linux.git;protocol=https;branch=bubblegum96-3.10;name=kernel \
+SRC_URI = "git://github.com/96boards-bubblegum/linux.git;protocol=https;branch=bubblegum96-3.10;name=kernel;protocol=https \
            file://0001-compiler-gcc-integrate-the-various-compiler-gcc-345-.patch \
            file://0002-arm64-kill-off-the-libgcc-dependency.patch \
            file://0003-option-serial-remove-duplicate-define.patch \

@@ -8,7 +8,7 @@ inherit systemd
 PV = "0.0"
 
 SRCREV = "a0236bc252e6484835ce266ae4a50b361f6a902d"
-SRC_URI = "git://github.com/96boards/uim.git"
+SRC_URI = "git://github.com/96boards/uim.git;protocol=https"
 
 S= "${WORKDIR}/git"
 

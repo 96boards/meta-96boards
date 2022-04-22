@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://license.rst;md5=33065335ea03d977d0569f270b39603e"
 DEPENDS += "u-boot-poplar"
 SRCREV = "812fae9e5ee80ddad6bae6bf1c403c9ffaaae984"
 
-SRC_URI = "git://github.com/linaro/poplar-arm-trusted-firmware.git;name=atf;branch=latest"
+SRC_URI = "git://github.com/linaro/poplar-arm-trusted-firmware.git;name=atf;branch=latest;protocol=https"
 
 S = "${WORKDIR}/git"
 

@@ -17,7 +17,7 @@ SRCREV = "d7b3ac7748d6607c2dd82cf37326b80a2ede6e5b"
 # l-loader.
 # knowledgeably, it is a hack...
 ###
-SRC_URI = "git://github.com/96boards-poplar/l-loader;branch=latest \
+SRC_URI = "git://github.com/96boards-poplar/l-loader;branch=latest;protocol=https \
            http://releases.linaro.org/components/toolchain/binaries/5.3-2016.02/arm-linux-gnueabihf/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf.tar.xz;name=tc \
 "
 SRC_URI[tc.md5sum] = "01d8860d62807b676762c9c2576dfb22"
