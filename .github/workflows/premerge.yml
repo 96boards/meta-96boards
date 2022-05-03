@@ -1,0 +1,72 @@
+name: PR build test
+
+on:
+  pull_request_target:
+
+env:
+  MANIFEST_URL: https://github.com/96boards/oe-rpb-manifest.git
+  HOST: ubuntu-20.04
+
+jobs:
+  premerge-build-test:
+    name: ${{ matrix.distro }}/${{ matrix.machine }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        machine: [dragonboard-410c, dragonboard-845c]
+        distro: [rpb, rpb-wayland]
+        include:
+          - distro: rpb
+            images: rpb-console-image rpb-console-image-test rpb-desktop-image rpb-desktop-image-test
+          - distro: rpb-wayland
+            images: rpb-console-image rpb-console-image-test rpb-weston-image rpb-weston-image-test
+    steps:
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.x"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade tuxsuite
+    - name: Setup tux definition
+      env:
+        MACHINE: ${{ matrix.machine }}
+        DISTRO: ${{ matrix.distro }}
+        IMAGES: ${{ matrix.images }}
+        PR: ${{ github.event.pull_request.number }}
+      run: |
+        cat << EOF > tux.json
+        {
+          "sources": {
+            "repo": {
+              "branch": "qcom/$GITHUB_BASE_REF",
+              "manifest": "default.xml",
+              "url": "$MANIFEST_URL"
+              }
+          },
+          "container": "$HOST",
+          "envsetup": "setup-environment",
+          "distro": "$DISTRO",
+          "machine": "$MACHINE",
+          "target": "$IMAGES",
+          "artifacts": [
+            "\$DEPLOY_DIR"
+          ],
+          "local_conf": [
+            "INHERIT += 'buildstats buildstats-summary'"
+          ]
+        }
+        EOF
+
+        cat << EOF > local_manifest.xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <manifest>
+        <extend-project name="$GITHUB_REPOSITORY" revision="refs/pull/$PR/head" />
+        </manifest>
+        EOF
+    - name: Run build
+      run: |
+        tuxsuite bake submit tux.json -l local_manifest.xml
+      env:
+        TUXSUITE_TOKEN: ${{ secrets.TUXSUITE_TOKEN }}
