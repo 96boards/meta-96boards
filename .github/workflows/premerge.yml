@@ -9,5 +9,5 @@ jobs:
     with:
       local_repo: ${{github.repository}}
       local_ref: refs/pull/${{github.event.pull_request.number}}/head
-      branch: qcom/${{github.base_ref}}
+      branch: ${{github.base_ref}}
     secrets: inherit
